@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 
 
 # ----------- Views follow from design specification ----------- #
@@ -63,4 +63,9 @@ def sell_item(request):
 
 def handler404(request, exception):
     # temp 404 handler
-    return HttpResponse("404 page not found.")
+    return render(request, 'app/handler404.html', status=404)
+
+
+def handler500(request):
+    # temp 500 handler
+    return render(request, 'app/handler500.html', status=500)
