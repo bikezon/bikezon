@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseNotFound
 
 def home(request):
     # temp home view
-    return HttpResponse("Temp home page")
+    return render(request, 'app/home.html')
 
 
 def contact(request):

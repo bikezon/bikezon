@@ -17,7 +17,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Static files path
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
-print(STATIC_DIR)
 
 # Automatically find templates DIR to avoid hard-coding paths
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
