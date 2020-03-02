@@ -15,6 +15,4 @@ urlpatterns = [
     path('account', views.account, name='account'),
     path('account/wish-list', views.wish_list, name='wish-list'),
     path('account/sell-item', views.sell_item, name='sell-item'),
-    path('categories/components', views.components, name='components'),
-    path('categories/bikes', views.components, name='bikes'),
 ]
