@@ -11,52 +11,42 @@ def home(request):
 
 def contact(request):
     # temp contact view
-    return HttpResponse("Temp contact page")
+    return render(request, 'app/contact.html')
 
 
 def basket(request):
     # temp basket view
-    return HttpResponse("Temp basket page")
+    return render(request, 'app/basket.html')
 
 
 def login(request):
     # temp login view
-    return HttpResponse("Temp login page")
+    return render(request, 'app/login.html')
 
 
 def register(request):
     # temp register view
-    return HttpResponse("Temp register page")
+    return render(request, 'app/register.html')
 
 
 def categories(request):
     # temp categories view
-    return HttpResponse("Temp category page")
+    return render(request, 'app/categories.html')
 
 
 def account(request):
     # temp account view
-    return HttpResponse("Temp account view")
-
-
-def components(request):
-    # temp components view
-    return HttpResponse("Temp components page")
-
-
-def bikes(request):
-    # temp bikes view
-    return HttpResponse("Temp bikes page")
+    return render(request, 'app/account.html')
 
 
 def wish_list(request):
     # temp wish list view
-    return HttpResponse("Temp wish list page")
+    return render(request, 'app/wishlist.html')
 
 
 def sell_item(request):
     # temp sell item view
-    return HttpResponse("Temp sell item page")
+    return render(request, 'app/sell_item.html')
 
 
 # ----------- Error handler views ----------- #
