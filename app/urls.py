@@ -12,6 +12,8 @@ urlpatterns = [
     path('login', views.login, name='login'),
     path('register', views.register, name='register'),
     path('categories', views.categories, name='categories'),
+    # temp category url for debugging
+    path('category', views.category, name='category'),
     path('account', views.account, name='account'),
     path('account/wish-list', views.wish_list, name='wish-list'),
     path('account/sell-item', views.sell_item, name='sell-item'),

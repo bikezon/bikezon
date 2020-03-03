@@ -34,6 +34,12 @@ def categories(request):
     return render(request, 'app/categories.html')
 
 
+# temp category view for debugging
+def category(request):
+    # temp categories view
+    return render(request, 'app/category.html')
+
+
 def account(request):
     # temp account view
     return render(request, 'app/account.html')
