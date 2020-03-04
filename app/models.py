@@ -20,7 +20,9 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-class SubCategory(Category):
+class Subcategory(Category):
+    category = models.ForeignKey("Category", on_delete=models.CASCADE)
+    
     class Meta:
         verbose_name_plural = 'Sub-Categories'
 
@@ -28,7 +30,7 @@ class Product(models.Model):
     NAME_MAX_LENGTH = 128
     URL_MAX_LENGTH = 200
 
-    subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
+    subcategory = models.ManyToManyField("Subcategory", verbose_name=_(""))
     name = models.CharField(max_length=NAME_MAX_LENGTH)
     url = models.URLField()
 
