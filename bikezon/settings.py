@@ -11,10 +11,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-try:
-    import local_settings
-except ImportError:
-    pass  # No local_settings file
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -137,7 +133,7 @@ STATICFILES_DIRS = [STATIC_DIR, ]
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
 
-
-RECAPTCHA_PUBLIC_KEY = local_settings.RECAPTCHA_PUBLIC_KEY
-RECAPTCHA_PRIVATE_KEY = local_settings.RECAPTCHA_PRIVATE_KEY
-RECAPTCHA_DOMAIN = local_settings.RECAPTCHA_DOMAIN
+# CAPTCHA Settings
+RECAPTCHA_PUBLIC_KEY = '6LcWyN4UAAAAALfrAGuuoRR6V0m9Dck1u4YAWoE2'
+RECAPTCHA_PRIVATE_KEY = '6LcWyN4UAAAAAJd7i-5YETqS2OzOilH-IdB6vRrD'
+RECAPTCHA_DOMAIN = 'www.recaptcha.net'

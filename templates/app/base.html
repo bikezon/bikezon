@@ -17,14 +17,15 @@
     </head>
     <body>
         <header class="main-header">
+            <img src="{% static 'images/logo.png' %}" alt="Bikezon Logo">
             <p class="navbar-text">Bikezon</p>
-            <div class="gcse-search"></div>
             <a href="{% url 'app:login' %}">Sign in</a>
             <a href="{% url 'app:register' %}">Sign up</a>
             {% if user.is_authenticated %}
             <a href="{% url 'app:logout' %}">Logout</a>
             {% endif %}
         </header>
+        <div class="gcse-search"></div>
         <div>
             {% block body_block %}
             {% endblock %}
