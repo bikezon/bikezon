@@ -102,6 +102,12 @@ def user_logout(request):
 
 # temp category view for debugging
 
+def show_categories(request):
+    context_dict = {}
+    category_list = Category.objects.all()
+    context_dict['categories'] = category_list
+    return render(request, 'app/categories.html', context=context_dict)
+
 
 def show_category(request, category_name_slug):
     context_dict = {}

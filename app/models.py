@@ -60,13 +60,13 @@ class Product(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
-        models.Model.__init__(self).save(*args, **kwargs)
+        super(Product, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
 
 
-class Wishlist(models.Model):
+class ProductList(models.Model):
     NAME_MAX_LENGTH = 128
 
     name = models.CharField(max_length=NAME_MAX_LENGTH)

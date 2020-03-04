@@ -11,6 +11,7 @@ urlpatterns = [
     path('login/', views.user_login, name='login'),
     path('logout/', views.user_logout, name='logout'),
     path('register/', views.register, name='register'),
+    path('categories/', views.show_categories, name='categories'),
     # temp category url for debugging
     path('<slug:category_name_slug>/',
          views.show_category, name='show_category'),

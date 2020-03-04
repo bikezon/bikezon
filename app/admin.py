@@ -1,5 +1,5 @@
 from django.contrib import admin
-from app.models import Category, UserProfile, Rating, Wishlist, Product, \
+from app.models import Category, UserProfile, Rating, ProductList, Product, \
     SubCategory
 
 
@@ -10,7 +10,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 admin.site.register(Rating)
 admin.site.register(SubCategory)
-admin.site.register(Wishlist)
+admin.site.register(ProductList)
 admin.site.register(Product)
 admin.site.register(UserProfile)
 admin.site.register(Category, CategoryAdmin)
