@@ -103,14 +103,29 @@ def user_logout(request):
 # temp category view for debugging
 
 
-def category(request):
-    # temp categories view
-    return render(request, 'app/category.html')
+def show_category(request, category_name_slug):
+    context_dict = {}
+
+    try:
+        category = Category.objects.get(slug=category_name_slug)
+        context_dict['category'] = category
+
+    except Category.DoesNotExist:
+        context_dict['category'] = None
+
+    return render(request, 'app/category.html', context=context_dict)
 
 
-def subcategory(request):
-    # temp categories view
-    return render(request, 'app/subcategory.html')
+def show_sub_category(request, category_name_slug, subcategory_name_slug):
+    context_dict = {}
+    try:
+        category = SubCategory.objects.get(slug=subcategory_name_slug)
+        context_dict['category'] = category
+
+    except Category.DoesNotExist:
+        context_dict['category'] = None
+
+    return render(request, 'app/category.html', context=context_dict)
 
 
 def product(request):

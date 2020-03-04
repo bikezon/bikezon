@@ -12,9 +12,10 @@ urlpatterns = [
     path('logout/', views.user_logout, name='logout'),
     path('register/', views.register, name='register'),
     # temp category url for debugging
-    path('<slug:category_name_slug>/', views.category, name='category'),
+    path('<slug:category_name_slug>/',
+         views.show_category, name='show_category'),
     path('<slug:category_name_slug>/<slug:subcategory_name_slug>/',
-         views.subcategory, name='subcategory'),
+         views.show_sub_category, name='subcategory'),
     path('<slug:product_name_slug>/', views.product, name='product'),
     path('account/', views.account, name='account'),
     path('account/<slug:list_name_slug>/', views.wish_list, name='list'),

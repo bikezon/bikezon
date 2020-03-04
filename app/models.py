@@ -32,7 +32,7 @@ class SubCategory(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
-        models.Model.__init__(self).save(*args, **kwargs)
+        super(SubCategory, self).save(*args, **kwargs)
 
     category = models.ForeignKey("Category", on_delete=models.CASCADE)
 
