@@ -24,6 +24,5 @@ handler500 = 'app.views.handler500'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('app/', include('app.urls')),
-    path('', views.home, name='home'),
+    path('', include('app.urls')),
 ]

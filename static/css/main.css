@@ -4,39 +4,28 @@
 /* ################### Navigation Bar CSS ################### */
 
 /* Add a black background color to the top navigation bar */
-.topnav {
+.main-header {
     overflow: hidden;
     background-color: white;
   }
   
-  /* Style the links inside the navigation bar */
-  .topnav a {
-    float: right;
-    display: block;
-    color: white;
-    background-color: lightskyblue;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-    margin-right: 5px;
-  }
-  
-  /* Style the search box inside the navigation bar */
-  .topnav input[type=text] {
+/* Style the links inside the navigation bar */
+.main-header a {
+  float: right;
+  display: block;
+  color: white;
+  background-color: lightskyblue;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  margin-right: 5px;
+}
+
+/* Style the nav-bar text */
+.navbar-text {
     float: left;
-    padding: 6px;
-    border: none;
-    margin-top: 8px;
     margin-right: 16px;
-    font-size: 17px;
-    background-color: orange;
-    text-align: center;
-  }
-  
-   /* Style the nav-bar text */
-  .navbar-text {
-      float: left;
-      margin-right: 16px;
-      color: orange;
-  }
+    color: orange;
+}
+

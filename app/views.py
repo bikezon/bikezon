@@ -1,22 +1,22 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound
+from app.models import Category, SubCategory, Product
 
 
 # ----------- Views follow from design specification ----------- #
 
-def home(request):
-    # temp home view
-    return render(request, 'app/home.html')
+def index(request):
+    context_dict = {
+        "categories" : Category.objects.all(),
+        "subcategories" : SubCategory.objects.all(),
+        "puroducts" : Product.objects.all(),
+    }
+    return render(request, 'app/index.html', context=context_dict)
 
 
 def contact(request):
     # temp contact view
     return render(request, 'app/contact.html')
-
-
-def basket(request):
-    # temp basket view
-    return render(request, 'app/basket.html')
 
 
 def login(request):
@@ -29,25 +29,30 @@ def register(request):
     return render(request, 'app/register.html')
 
 
-def categories(request):
-    # temp categories view
-    return render(request, 'app/categories.html')
-
-
 # temp category view for debugging
 def category(request):
     # temp categories view
     return render(request, 'app/category.html')
 
 
+def subcategory(request):
+    # temp categories view
+    return render(request, 'app/subcategory.html')
+
+
+def product(request):
+    # temp categories view
+    return render(request, 'app/product.html')
+
+
+def list(request):
+    # temp categories view
+    return render(request, 'app/list.html')
+
+
 def account(request):
     # temp account view
     return render(request, 'app/account.html')
-
-
-def wish_list(request):
-    # temp wish list view
-    return render(request, 'app/wishlist.html')
 
 
 def sell_item(request):
