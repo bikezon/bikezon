@@ -2,17 +2,26 @@
 {% load static %}
 <html>
     <head>
+        <meta charset="UTF-8">
         <link rel="stylesheet" href="{% static 'css/main.css' %}" />
         <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+        <script async src="https://cse.google.com/cse.js?cx=003662769173238113687:uqaxpea1lms"></script>
         <title>
             {% block title_block %}
-            Bikezon
+                App
             {% endblock %}
+             - Bikezon
         </title>
     </head>
+    <body>
+        <header class="main-header">
+            <p class="navbar-text">Bikezon</p>
+            <div class="gcse-search"></div>
+            <a class="active" href="login">Sign in</a>
+            <a href="#">Sign up</a>
+        </header>
         <div>
             {% block body_block %}
-            Temp base body
             {% endblock %}
         </div>
     </body>
