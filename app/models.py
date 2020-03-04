@@ -105,10 +105,7 @@ class UserProfile(models.Model):
     stars = models.DecimalField(
         max_digits=3,
         decimal_places=2,
-        validators=[
-            MaxValueValidator(5.0),
-            MinValueValidator(1.0)
-        ]
+        blank=True
     )
 
     def __str__(self):
