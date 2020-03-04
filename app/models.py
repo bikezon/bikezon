@@ -14,7 +14,7 @@ class Category(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
-        models.Model.__init__(self).save(*args, **kwargs)
+        super(Category, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name_plural = 'Categories'
@@ -66,7 +66,7 @@ class Product(models.Model):
         return self.name
 
 
-class List(models.Model):
+class Wishlist(models.Model):
     NAME_MAX_LENGTH = 128
 
     name = models.CharField(max_length=NAME_MAX_LENGTH)
