@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app',
     'phone_field',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -131,3 +132,8 @@ STATICFILES_DIRS = [STATIC_DIR, ]
 
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
+
+# CAPTCHA Settings
+RECAPTCHA_PUBLIC_KEY = '6LcWyN4UAAAAALfrAGuuoRR6V0m9Dck1u4YAWoE2'
+RECAPTCHA_PRIVATE_KEY = '6LcWyN4UAAAAAJd7i-5YETqS2OzOilH-IdB6vRrD'
+RECAPTCHA_DOMAIN = 'www.recaptcha.net'
