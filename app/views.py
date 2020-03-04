@@ -1,15 +1,18 @@
-from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.urls import reverse
 from app.models import Category, SubCategory, Product
+from app.forms import UserForm, UserProfileForm
+from django.contrib.auth import authenticate, login, logout
 
 
 # ----------- Views follow from design specification ----------- #
 
 def index(request):
     context_dict = {
-        "categories" : Category.objects.all(),
-        "subcategories" : SubCategory.objects.all(),
-        "puroducts" : Product.objects.all(),
+        "categories": Category.objects.all(),
+        "subcategories": SubCategory.objects.all(),
+        "puroducts": Product.objects.all(),
     }
     return render(request, 'app/index.html', context=context_dict)
 
@@ -19,14 +22,70 @@ def contact(request):
     return render(request, 'app/contact.html')
 
 
-def login(request):
-    # temp login view
-    return render(request, 'app/login.html')
+def user_login(request):
+    """ Handles User login logic
+
+    Arguments:
+        request -- [standard Django request arg]
+
+    Returns:
+        Redirect - on correct login, redirect to homepage
+        HttpResponse 1 - if account not found/disabled
+        HttpResponse 2 - if wrong details, show message
+        Render - failsafe, reload login page
+    """
+    if (request.method == "POST"):
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        user = authenticate(username=username, password=password)
+
+        if user:
+            if user.is_active:
+                login(request, user)
+                return redirect(reverse("app:index"))
+            else:
+                return HttpResponse("Your Bikezon account is disabled.")
+        else:
+            print(f"Invalid login details: {username}, {password}")
+            return HttpResponse("Invalid login details supplied.")
+    else:
+        return render(request, "app/login.html")
 
 
 def register(request):
-    # temp register view
-    return render(request, 'app/register.html')
+    """ Handles user registration logic
+
+    Arguments:
+        request -- [standard Django request arg]
+
+    Returns:
+        Render - render registration page with appropriate info
+    """
+    registered = False
+    if (request.method == "POST"):
+        user_form = UserForm(request.POST)
+        profile_form = UserProfileForm(request.POST)
+        if (user_form.is_valid() and profile_form.is_valid()):
+            user = user_form.save()
+            user.set_password(user.password)
+            user.save()
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            if ("picture" in request.FILES):
+                profile.picture = request.FILES["picture"]
+            profile.save()
+            registered = True
+        else:
+            print(user_form.errors, profile_form.errors)
+    else:
+        user_form = UserForm()
+        profile_form = UserProfileForm()
+
+    return render(request, "app/register.html",
+                  context={"user_form": user_form,
+                           "profile_form": profile_form,
+                           "registered": registered})
 
 
 # temp category view for debugging
@@ -45,7 +104,7 @@ def product(request):
     return render(request, 'app/product.html')
 
 
-def list(request):
+def wish_list(request):
     # temp categories view
     return render(request, 'app/list.html')
 

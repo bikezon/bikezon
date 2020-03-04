@@ -8,13 +8,14 @@ app_name = 'app'
 urlpatterns = [
     path('', views.index, name='index'),
     path('contact/', views.contact, name='contact'),
-    path('login/', views.login, name='login'),
+    path('login/', views.user_login, name='login'),
     path('register/', views.register, name='register'),
     # temp category url for debugging
     path('<slug:category_name_slug>/', views.category, name='category'),
-    path('<slug:category_name_slug>/<slug:subcategory_name_slug>/', views.subcategory, name='subcategory'),
+    path('<slug:category_name_slug>/<slug:subcategory_name_slug>/',
+         views.subcategory, name='subcategory'),
     path('<slug:product_name_slug>/', views.product, name='product'),
     path('account/', views.account, name='account'),
-    path('account/<slug:list_name_slug>/', views.list, name='list'),
+    path('account/<slug:list_name_slug>/', views.wish_list, name='list'),
     path('account/sell-item/', views.sell_item, name='sell_item'),
 ]
