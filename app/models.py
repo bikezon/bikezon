@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from phone_field import PhoneField
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+
 class Category(models.Model):
     NAME_MAX_LENGTH = 128
 
@@ -21,6 +22,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
 class SubCategory(models.Model):
     NAME_MAX_LENGTH = 128
 
@@ -33,12 +35,13 @@ class SubCategory(models.Model):
         models.Model.__init__(self).save(*args, **kwargs)
 
     category = models.ForeignKey("Category", on_delete=models.CASCADE)
-    
+
     class Meta:
         verbose_name_plural = 'SubCategories'
 
     def __str__(self):
         return self.name
+
 
 class Product(models.Model):
     NAME_MAX_LENGTH = 128
@@ -52,18 +55,19 @@ class Product(models.Model):
     dateAdded = models.DateTimeField(auto_now=False, auto_now_add=False)
     views = models.IntegerField(default=0)
     available = models.PositiveSmallIntegerField()
-    
+
     seller = models.ForeignKey("UserProfile", on_delete=models.CASCADE)
-    
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         models.Model.__init__(self).save(*args, **kwargs)
-    
+
     def __str__(self):
         return self.name
 
+
 class List(models.Model):
-    NAME_MAX_LENGTH = 128    
+    NAME_MAX_LENGTH = 128
 
     name = models.CharField(max_length=NAME_MAX_LENGTH)
 
@@ -75,35 +79,37 @@ class List(models.Model):
     def __str__(self):
         return self.name
 
+
 class Rating(models.Model):
     user = models.ForeignKey("UserProfile", on_delete=models.CASCADE)
     product = models.ForeignKey("Product", on_delete=models.CASCADE)
     rating = models.DecimalField(
-        max_digits=3, 
-        decimal_places=2, 
+        max_digits=3,
+        decimal_places=2,
         validators=[
-            MaxValueValidator(5.0), 
+            MaxValueValidator(5.0),
             MinValueValidator(1.0)
-            ]
-        )
+        ]
+    )
 
     def __str__(self):
         return self.user + self.product
 
+
 class UserProfile(models.Model):
-    #User class implements email, username and password
+    # User class implements email, username and password
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     picture = models.ImageField(upload_to='profile_images', blank=True)
     phone = PhoneField()
     address = models.CharField(max_length=200)
     stars = models.DecimalField(
-        max_digits=3, 
-        decimal_places=2, 
+        max_digits=3,
+        decimal_places=2,
         validators=[
-            MaxValueValidator(5.0), 
+            MaxValueValidator(5.0),
             MinValueValidator(1.0)
-            ]
-        )
+        ]
+    )
 
     def __str__(self):
         return self.user.username
