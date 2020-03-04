@@ -3,7 +3,7 @@
 
 /* ################### Navigation Bar CSS ################### */
 
-/* Add a black background color to the top navigation bar */
+/* Add a white background color to the top navigation bar */
 .main-header {
     overflow: hidden;
     background-color: white;
@@ -29,3 +29,67 @@
     color: orange;
 }
 
+
+/* style the container */
+.container {
+  position: relative;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px 0 30px 0;
+}
+
+/* ################### Inputs ################### */
+
+
+/* style inputs and link buttons */
+* {box-sizing: border-box}
+
+input,
+.btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  margin: 5px 0;
+  opacity: 0.85;
+  display: inline-block;
+  font-size: 17px;
+  line-height: 20px;
+  text-decoration: none; /* remove underline from anchors */
+}
+
+input:hover,
+.btn:hover {
+  opacity: 1;
+}
+
+/* text inside the vertical line */
+.inner {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  padding: 8px 10px;
+}
+
+/* vertical line */
+.vl {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  border: 2px solid #ddd;
+  height: 175px;
+}
+
+/* style the submit button */
+input[type=submit] {
+  background-color: orange;
+  color: white;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: orange;
+}
