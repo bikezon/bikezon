@@ -1,0 +1,13 @@
+<div>
+    {% if categories %}
+    <ul>
+        {% for category in categories %}
+        <li>
+            <a href="/{{ category.slug }}/">{{ category.name }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <strong>There are no categories present.</strong>
+    {% endif %}
+</div>
