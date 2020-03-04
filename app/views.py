@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from app.models import Category, SubCategory, Product
 from app.forms import UserForm, UserProfileForm
-from django.contrib.auth import authenticate, login, logout
 
 
 # ----------- Views follow from design specification ----------- #
@@ -34,7 +35,7 @@ def user_login(request):
         HttpResponse 2 - if wrong details, show message
         Render - failsafe, reload login page
     """
-    if (request.method == "POST"):
+    if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
 
@@ -63,7 +64,7 @@ def register(request):
         Render - render registration page with appropriate info
     """
     registered = False
-    if (request.method == "POST"):
+    if request.method == "POST":
         user_form = UserForm(request.POST)
         profile_form = UserProfileForm(request.POST)
         if (user_form.is_valid() and profile_form.is_valid()):
@@ -72,7 +73,7 @@ def register(request):
             user.save()
             profile = profile_form.save(commit=False)
             profile.user = user
-            if ("picture" in request.FILES):
+            if "picture" in request.FILES:
                 profile.picture = request.FILES["picture"]
             profile.save()
             registered = True
@@ -88,7 +89,20 @@ def register(request):
                            "registered": registered})
 
 
+@login_required
+def user_logout(request):
+    """ Logout logic
+
+    Returns:
+        Redirection to homepage
+    """
+    logout(request)
+    return redirect(reverse('app:index'))
+
+
 # temp category view for debugging
+
+
 def category(request):
     # temp categories view
     return render(request, 'app/category.html')
