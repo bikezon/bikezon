@@ -1,13 +1,15 @@
-<div>
-    <strong id="like_count">{{ category.likes }}</strong> likes
-    <button id="like_btn"
-        data-categoryid="{{ category.id }}"
-        class="btn btn-primary btn-sm"
-        type="button">
-        <span data-feather="thumbs-up"></span>
-        Like Category
-    </button>
-</div>
+{% extends "app/base.html" %}
 
-<!-- TODO make this a category template and made categories.html list all category pages similar to rango
-can be done once model is created-->
+{% block title_block %}
+{% if category %}
+{{ category.name }}
+{% else %}
+Unknown Category
+{% endif %}
+{% endblock %}
+
+{% block body_block %}
+{% if category %}
+<h1>{{ category.name }}</h1>
+{% endif %}
+{% endblock %}
