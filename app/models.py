@@ -30,7 +30,7 @@ class Product(models.Model):
     NAME_MAX_LENGTH = 128
     URL_MAX_LENGTH = 200
 
-    subcategory = models.ManyToManyField("Subcategory", verbose_name=_(""))
+    subcategory = models.ManyToManyField("Subcategory")
     name = models.CharField(max_length=NAME_MAX_LENGTH)
     url = models.URLField()
 
