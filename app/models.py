@@ -32,7 +32,6 @@ class Product(models.Model):
 
     subcategory = models.ManyToManyField("Subcategory")
     name = models.CharField(max_length=NAME_MAX_LENGTH)
-    url = models.URLField()
 
     description = models.TextField()
     dateAdded = models.DateTimeField(auto_now=False, auto_now_add=False)
@@ -45,11 +44,9 @@ class Product(models.Model):
         return self.name
 
 class List(models.Model):
-    NAME_MAX_LENGTH = 128
-    URL_MAX_LENGTH = 200
-    
+    NAME_MAX_LENGTH = 128    
+
     name = models.CharField(max_length=NAME_MAX_LENGTH)
-    url = models.URLField()
 
     user = models.ForeignKey("UserProfile", on_delete=models.CASCADE)
 
@@ -70,7 +67,6 @@ class Rating(models.Model):
 class UserProfile(models.Model):
     #User class implements email, username and password
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    website = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
     phone = PhoneField()
     address = models.CharField(max_length=200)
