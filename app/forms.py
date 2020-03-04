@@ -4,7 +4,7 @@ from app.models import UserProfile
 
 
 class UserForm(forms.ModelForm):
-    """ User Form logic 
+    """ User Form logic
     """
     password = forms.CharField(widget=forms.PasswordInput())
 
