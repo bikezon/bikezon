@@ -28,18 +28,22 @@ class Subcategory(Category):
 
 class Product(models.Model):
     NAME_MAX_LENGTH = 128
-    URL_MAX_LENGTH = 200
 
     subcategory = models.ManyToManyField("Subcategory")
     name = models.CharField(max_length=NAME_MAX_LENGTH)
+    slug = models.SlugField(unique=True)
 
     description = models.TextField()
     dateAdded = models.DateTimeField(auto_now=False, auto_now_add=False)
     views = models.IntegerField(default=0)
     available = models.PositiveSmallIntegerField()
-
+    
     seller = models.ForeignKey("UserProfile", on_delete=models.CASCADE)
-
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        models.Model.__init__(self).save(*args, **kwargs)
+    
     def __str__(self):
         return self.name
 
