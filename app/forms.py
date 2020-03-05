@@ -8,11 +8,28 @@ from django.core.files.images import get_image_dimensions
 class UserForm(forms.ModelForm):
     """ User Form logic
     """
-    password = forms.CharField(widget=forms.PasswordInput())
+    username = forms.CharField(widget=forms.TextInput(
+        attrs={"class": "form-control input-lg"}))
+    email = forms.CharField(widget=forms.TextInput(
+        attrs={"class": "form-control input-lg"}))
+    password = forms.CharField(widget=forms.PasswordInput(
+        attrs={"class": "form-control input-lg"}))
+    verify_password = forms.CharField(widget=forms.PasswordInput(
+        attrs={"class": "form-control input-lg", "placeholder": "Re-enter password"}))
 
     class Meta:
         model = User
         fields = ('username', 'email', 'password',)
+
+    def clean_verify_password(self):
+        password1 = self.cleaned_data.get("password")
+        password2 = self.cleaned_data.get("verify_password")
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError(
+                ('Password mismatch.'),
+                code='password_mismatch',
+            )
+        return password2
 
 
 class ReCAPTCHAForm(forms.Form):
@@ -26,7 +43,7 @@ class UserProfileForm(forms.ModelForm):
     """
     class Meta:
         model = UserProfile
-        fields = ('stars', 'picture', 'phone')
+        fields = ('picture', 'phone')
 
 
 class ProductForm(forms.ModelForm):

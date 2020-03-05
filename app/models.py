@@ -103,7 +103,8 @@ class UserProfile(models.Model):
     stars = models.DecimalField(
         max_digits=3,
         decimal_places=2,
-        blank=True
+        blank=True,
+        null=True
     )
 
     def __str__(self):
