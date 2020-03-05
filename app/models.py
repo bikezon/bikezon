@@ -57,7 +57,7 @@ class Product(models.Model):
     views = models.IntegerField(default=0)
     available = models.PositiveSmallIntegerField(default=1)
     seller = models.ForeignKey(
-        "UserProfile", on_delete=models.CASCADE, to_field='profile_id')
+        "UserProfile", on_delete=models.CASCADE, blank=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -96,12 +96,7 @@ class Rating(models.Model):
 
 class UserProfile(models.Model):
     # User class implements email, username and password
-    user = models.OneToOneField(
-        User, on_delete=models.CASCADE)
-    profile_id = models.AutoField(auto_created=True,
-                                  primary_key=True,
-                                  serialize=False,
-                                  verbose_name='ID')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     picture = models.ImageField(upload_to='media/profile_images', blank=True)
     phone = PhoneField(unique=True, blank=False)
     address = models.CharField(max_length=200)
