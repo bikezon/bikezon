@@ -151,18 +151,15 @@ def account(request):
 
 
 def sell(request):
-    profile = User.objects.get(id=get_user(request))
-    initial = {'seller': profile}
     if request.method == "POST":
-        product_form = ProductForm(
-            request.POST, request.FILES, initial=initial)
+        product_form = ProductForm(request.POST, request.FILES)
         if product_form.is_valid():
             product_form.save()
             return redirect(reverse("app:index"))
         else:
             print(product_form.errors)
     else:
-        product_form = ProductForm(initial=initial)
+        product_form = ProductForm()
 
     return render(request, "app/sell.html",
                   context={"form": product_form, })
@@ -181,8 +178,11 @@ def handler500(request):
 
 
 # ----------- Helper Functions ----------- #
-def get_user(request):
+def get_username(request):
     current_user = request.user
-    user_id = current_user.id
-    username = current_user.username
-    return user_id
+    return current_user.username
+
+
+def get_id(request):
+    current_user = request.user
+    return current_user.id
