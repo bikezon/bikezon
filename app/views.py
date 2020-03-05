@@ -152,8 +152,10 @@ def account(request):
 
 def sell(request):
     if request.method == "POST":
+        profile = UserProfile.objects.get(user=request.user)
         product_form = ProductForm(request.POST, request.FILES)
         if product_form.is_valid():
+            product_form.cleaned_data['seller'] = profile
             product_form.save()
             return redirect(reverse("app:index"))
         else:
@@ -175,14 +177,3 @@ def handler404(request, exception):
 def handler500(request):
     # temp 500 handler
     return render(request, 'app/handler500.html', status=500)
-
-
-# ----------- Helper Functions ----------- #
-def get_username(request):
-    current_user = request.user
-    return current_user.username
-
-
-def get_id(request):
-    current_user = request.user
-    return current_user.id

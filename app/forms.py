@@ -34,11 +34,11 @@ class ProductForm(forms.ModelForm):
     subcats = [d['name'] for d in subcats]
     CHOICES = [(subcat[0], subcat) for subcat in subcats]
     subcategory = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect)
-    seller = forms.CharField(widget=forms.HiddenInput)
+    seller = forms.CharField(widget=forms.HiddenInput, required=False)
 
     class Meta:
         model = Product
-        fields = ('name', 'description', 'subcategory', 'picture')
+        fields = ('name', 'description', 'subcategory', 'picture', 'seller')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
