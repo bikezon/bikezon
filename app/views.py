@@ -149,9 +149,9 @@ def account(request):
     return render(request, 'app/account.html')
 
 
-def sell_item(request):
+def sell(request):
     # temp sell item view
-    return render(request, 'app/sell_item.html')
+    return render(request, 'app/sell.html')
 
 
 # ----------- Error handler views ----------- #

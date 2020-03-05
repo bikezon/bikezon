@@ -1,0 +1,17 @@
+{% extends "app/base.html" %}
+
+{% block title_block %}
+Bikezon Sell Item
+{% endblock %}
+
+{% block body_block %}
+<h1>Temp Sell Item page</h1>
+
+<form id="product_form" method="post" action="{% url 'app:sell' %}"
+    enctype="multipart/form-data">
+    <!--temp-->
+    {% csrf_token %}
+    {{ user_form.as_p }}
+
+</form>
+{% endblock %}
