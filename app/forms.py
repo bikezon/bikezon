@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from app.models import UserProfile, Product
+from app.models import UserProfile, Product, SubCategory
 from captcha.fields import ReCaptchaField
 from django.core.files.images import get_image_dimensions
 
@@ -30,9 +30,19 @@ class UserProfileForm(forms.ModelForm):
 
 
 class ProductForm(forms.ModelForm):
+    subcats = SubCategory.objects.values('name')
+    subcats = [d['name'] for d in subcats]
+    CHOICES = [(subcat[0], subcat) for subcat in subcats]
+    subcategory = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect)
+    seller = forms.CharField(widget=forms.HiddenInput)
+
     class Meta:
         model = Product
-        fields = ('subcategory', 'name', 'description', 'picture')
+        fields = ('name', 'description', 'subcategory', 'picture', 'seller')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['subcategory'].queryset = Product.objects.none()
 
     def clean_picture(self):
         avatar = self.cleaned_data['picture']
@@ -41,7 +51,7 @@ class ProductForm(forms.ModelForm):
             w, h = get_image_dimensions(avatar)
 
             # validate dimensions
-            max_width = max_height = 100
+            max_width = max_height = 250
             if w > max_width or h > max_height:
                 raise forms.ValidationError(
                     u'Please use an image that is '

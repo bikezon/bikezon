@@ -7,11 +7,9 @@ Bikezon Sell Item
 {% block body_block %}
 <h1>Temp Sell Item page</h1>
 
-<form id="product_form" method="post" action="{% url 'app:sell' %}"
-    enctype="multipart/form-data">
-    <!--temp-->
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ user_form.as_p }}
-
+    {{ form.as_p }}
+    <button type="submit">Upload</button>
 </form>
 {% endblock %}

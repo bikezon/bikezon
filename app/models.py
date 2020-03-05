@@ -3,6 +3,7 @@ from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from phone_field import PhoneField
 from django.core.validators import MaxValueValidator, MinValueValidator
+from datetime import datetime
 
 
 class Category(models.Model):
@@ -51,11 +52,10 @@ class Product(models.Model):
     slug = models.SlugField(unique=True)
 
     description = models.TextField()
-    picture = models.ImageField(upload_to='product_images', blank=False)
-    dateAdded = models.DateTimeField(auto_now=False, auto_now_add=False)
+    picture = models.ImageField(upload_to='media/product_images/')
+    dateAdded = models.DateTimeField(default=datetime.now, blank=True)
     views = models.IntegerField(default=0)
-    available = models.PositiveSmallIntegerField()
-
+    available = models.PositiveSmallIntegerField(default=1)
     seller = models.ForeignKey("UserProfile", on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
@@ -68,11 +68,8 @@ class Product(models.Model):
 
 class ProductList(models.Model):
     NAME_MAX_LENGTH = 128
-
     name = models.CharField(max_length=NAME_MAX_LENGTH)
-
     user = models.ForeignKey("UserProfile", on_delete=models.CASCADE)
-
     product = models.ManyToManyField("Product")
     item = models.PositiveSmallIntegerField()
 
@@ -98,8 +95,9 @@ class Rating(models.Model):
 
 class UserProfile(models.Model):
     # User class implements email, username and password
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    picture = models.ImageField(upload_to='profile_images', blank=True)
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, unique=True)
+    picture = models.ImageField(upload_to='media/profile_images', blank=True)
     phone = PhoneField()
     address = models.CharField(max_length=200)
     stars = models.DecimalField(
@@ -109,4 +107,4 @@ class UserProfile(models.Model):
     )
 
     def __str__(self):
-        return self.user.username
+        return self.user.name

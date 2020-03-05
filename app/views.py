@@ -3,8 +3,9 @@ from django.http import HttpResponse
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from app.models import Category, SubCategory, Product
-from app.forms import UserForm, UserProfileForm
+from app.models import Category, SubCategory, Product, UserProfile
+from app.forms import UserForm, UserProfileForm, ProductForm
+from django.contrib.auth.models import User
 
 
 # ----------- Views follow from design specification ----------- #
@@ -150,8 +151,21 @@ def account(request):
 
 
 def sell(request):
-    # temp sell item view
-    return render(request, 'app/sell.html')
+    profile = User.objects.get(id=get_user(request))
+    initial = {'seller': profile}
+    if request.method == "POST":
+        product_form = ProductForm(
+            request.POST, request.FILES, initial=initial)
+        if product_form.is_valid():
+            product_form.save()
+            return redirect(reverse("app:index"))
+        else:
+            print(product_form.errors)
+    else:
+        product_form = ProductForm(initial=initial)
+
+    return render(request, "app/sell.html",
+                  context={"form": product_form, })
 
 
 # ----------- Error handler views ----------- #
@@ -164,3 +178,11 @@ def handler404(request, exception):
 def handler500(request):
     # temp 500 handler
     return render(request, 'app/handler500.html', status=500)
+
+
+# ----------- Helper Functions ----------- #
+def get_user(request):
+    current_user = request.user
+    user_id = current_user.id
+    username = current_user.username
+    return user_id
