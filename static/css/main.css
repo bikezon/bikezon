@@ -8,9 +8,9 @@
     overflow: hidden;
     background-color: white;
   }
-  
+
 /* Style the links inside the navigation bar */
-.main-header a {
+.sign-button {
   float: right;
   display: inline-block;
   color: white;
@@ -22,17 +22,24 @@
   margin-right: 5px;
   margin-top: 25px;
 }
+/* Styling search bar */
+#___gcse_0 {
+  padding: 20px 0;
+  float: left;
+  width: 75%;
+}
 
 /* Style the nav-bar text */
 .main-header p {
-    margin-right: 16px;
-    color: orange;
-    display: inline-block;
-    font-weight: bold;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    align-items: center;
-    vertical-align: middle;
-    font-size: 30px;
+  float: left;
+  margin-right: 16px;
+  color: orange;
+  display: inline-block;
+  font-weight: bold;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  align-items: center;
+  vertical-align: middle;
+  font-size: 30px;
 }
 
 
@@ -45,6 +52,8 @@
 }
 
 .main-header img {
+  margin: 15px 10px;
+  float: left;
   width: 60px;
   height: 60px;
   display: inline-block;
