@@ -152,11 +152,14 @@ def account(request):
 
 def sell(request):
     if request.method == "POST":
+        post_data = request.POST.dict()
         profile = UserProfile.objects.get(user=request.user)
-        product_form = ProductForm(request.POST, request.FILES)
+        post_data['seller'] = profile
+        product_form = ProductForm(request.POST, request.FILES, post_data)
         if product_form.is_valid():
-            product_form.cleaned_data['seller'] = profile
-            product_form.save()
+            product = product_form.save(commit=False)
+            product.seller = profile
+            product.save()
             return redirect(reverse("app:index"))
         else:
             print(product_form.errors)
