@@ -8,6 +8,11 @@ Bikezon Login
 
 {% block body_block %}
 <script src="{% static 'js/app-js/login_button.js' %}"> </script>
+{% for message in messages %}
+<div class="alert alert-error">
+    {{ message }}
+</div>
+{% endfor %}
 <div class="container">
     <h2 style="text-align:center">Login</h2>
     <form id="login_form" method="post" action="{% url 'app:login' %}">

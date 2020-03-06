@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from app.models import Category, SubCategory, Product, UserProfile
 from app.forms import UserForm, UserProfileForm, ProductForm
 from django.contrib.auth.models import User
+from django.contrib import messages
 
 
 # ----------- Views follow from design specification ----------- #
@@ -57,8 +58,8 @@ def user_login(request):
             else:
                 return HttpResponse("Your Bikezon account is disabled.")
         else:
-            print(f"Invalid login details: {username}, {password}")
-            return HttpResponse("Invalid login details supplied.")
+            messages.error(request, 'username or password not correct')
+            return redirect('app:login')
     else:
         return render(request, "app/login.html")
 
