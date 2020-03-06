@@ -1,5 +1,6 @@
-from django.urls import path
+from django.urls import path, include
 from app import views
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 
 app_name = 'app'
 
@@ -14,7 +15,7 @@ urlpatterns = [
     path('logout/', views.user_logout, name='logout'),
     path('register/', views.register, name='register'),
     path('categories/', views.show_categories, name='categories'),
-    # temp category url for debugging
+    # slugs
     path('category/<slug:category_name_slug>/',
          views.show_category, name='show_category'),
     path('category/<slug:category_name_slug>/<slug:subcategory_name_slug>/',

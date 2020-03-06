@@ -25,4 +25,5 @@ handler500 = 'app.views.handler500'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app.urls')),
+    path('password/', include('django.contrib.auth.urls')),
 ]

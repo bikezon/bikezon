@@ -40,5 +40,6 @@ venv.bak/
 .vscode/extensions.json
 .history
 
-# API keys
-local_settings.py
+# Email
+email.json
+sent_emails

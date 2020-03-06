@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import json
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -22,6 +23,10 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
 MEDIA_DIR = os.path.join(BASE_DIR, 'media')
+
+# Email auth creds
+EMAIL_AUTH_PATH = os.path.join(BASE_DIR, 'email.json')
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 
 
 # Quick-start development settings - unsuitable for production
@@ -137,3 +142,14 @@ MEDIA_URL = '/media/'
 RECAPTCHA_PUBLIC_KEY = '6LcWyN4UAAAAALfrAGuuoRR6V0m9Dck1u4YAWoE2'
 RECAPTCHA_PRIVATE_KEY = '6LcWyN4UAAAAAJd7i-5YETqS2OzOilH-IdB6vRrD'
 RECAPTCHA_DOMAIN = 'www.recaptcha.net'
+
+# Email server settings
+with open(EMAIL_AUTH_PATH, 'r') as f:
+    email_data = json.load(f)
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = email_data["email"]
+EMAIL_HOST_PASSWORD = email_data["password"]
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
