@@ -1,4 +1,5 @@
 {% extends "app/base.html" %}
+{% load bootstrap4 %}
 
 {% block title_block %}
 Bikezon Sell Item
@@ -10,6 +11,10 @@ Bikezon Sell Item
 <form method="post" action="{% url 'app:sell' %}" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Upload</button>
+    {% buttons %}
+    <button type="submit" class="btn btn-primary">
+        Sell
+    </button>
+    {% endbuttons %}
 </form>
 {% endblock %}

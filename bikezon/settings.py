@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'app',
     'phone_field',
     'captcha',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
