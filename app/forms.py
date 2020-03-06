@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from app.models import UserProfile, Product, SubCategory
 from captcha.fields import ReCaptchaField
 from django.core.files.images import get_image_dimensions
+from django.db.utils import OperationalError
 
 
 class UserForm(forms.ModelForm):
@@ -47,10 +48,14 @@ class UserProfileForm(forms.ModelForm):
 
 
 class ProductForm(forms.ModelForm):
-    subcats = SubCategory.objects.values('name')
-    subcats = [d['name'] for d in subcats]
-    CHOICES = [(subcat[0], subcat) for subcat in subcats]
-    subcategory = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect)
+    try:
+        subcats = SubCategory.objects.values('name')
+        subcats = [d['name'] for d in subcats]
+        CHOICES = [(subcat[0], subcat) for subcat in subcats]
+        subcategory = forms.ChoiceField(
+            choices=CHOICES, widget=forms.RadioSelect)
+    except OperationalError:
+        pass
 
     class Meta:
         model = Product
