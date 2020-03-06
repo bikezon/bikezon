@@ -13,20 +13,32 @@ Bikezon Login
     {{ message }}
 </div>
 {% endfor %}
-<div class="container">
-    <h2 style="text-align:center">Login</h2>
-    <form id="login_form" method="post" action="{% url 'app:login' %}">
+
+<h2 style="text-align:center">Login</h2>
+
+<form id="login_form" method="post" action="{% url 'app:login' %}">
+    <div class="container">
         {% csrf_token %}
-        Username: <input type="text" name="username" value="" size="50" />
-        <br />
-        Password: <input type="password" name="password" value="" size="50"
-            />
-        <br />
+        <!-- Username: <input type="text" name="username" value="" size="50" /> -->
+        <!-- <br /> -->
+		<label for="username"><b>Username</b></label>
+		<input type="text" placeholder="Enter Username" name="username" value="" required>
+        <!-- Password: <input type="password" name="password" value="" size="50"/> -->
+        <!-- <br /> -->
+		<label for="password"><b>Password</b></label>
+		<input type="password" placeholder="Enter Password" name="password" value="" required>
         <div class="g-recaptcha"
             data-sitekey="6LcWyN4UAAAAALfrAGuuoRR6V0m9Dck1u4YAWoE2"
-            data-callback="enableBtn"></div>
-        <input type="submit" value="submit" id="log-in-button" disabled/>
-    </form>
-</div>
+            data-callback="enableBtn">
+		</div>
+        <!-- <input type="submit" value="submit" id="log-in-button" disabled/> -->
+		<button type="submit" id="log-in-button" disabled>Login</button>
+	</div>
+	<div class="container" style="background-color:#f1f1f1">
+		<button type="button" class="back-button">Back</button>
+		<span class="password">Forgot <a href="">password?</a></span>
+	</div>
+
+</form>
 
 {% endblock %}
