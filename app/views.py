@@ -11,10 +11,18 @@ from django.contrib.auth.models import User
 # ----------- Views follow from design specification ----------- #
 
 def index(request):
+    """ handles homepage logic
+
+    Arguments:
+        request -- [standard Django request arg]
+
+    Returns:
+        render -- renders homepage and context dict
+    """
     context_dict = {
         "categories": Category.objects.all(),
         "subcategories": SubCategory.objects.all(),
-        "puroducts": Product.objects.all(),
+        "products": Product.objects.all(),
     }
     return render(request, 'app/index.html', context=context_dict)
 
@@ -101,9 +109,15 @@ def user_logout(request):
     return redirect(reverse('app:index'))
 
 
-# temp category view for debugging
-
 def show_categories(request):
+    """handles displaying all categories
+
+    Arguments:
+        request -- [standard Django request arg]
+
+    Returns:
+        render -- renders categories through context dict
+    """
     context_dict = {}
     category_list = Category.objects.all()
     context_dict['categories'] = category_list
@@ -111,6 +125,16 @@ def show_categories(request):
 
 
 def show_category(request, category_name_slug):
+    """ handles category page logic
+
+    Arguments:
+        request -- [standard Django request arg]
+        category_name_slug -- the category name slug, will 
+        determines the category that displays on page 
+
+    Returns:
+        rendering of category (to string method)
+    """
     context_dict = {}
 
     try:
@@ -124,6 +148,16 @@ def show_category(request, category_name_slug):
 
 
 def show_sub_category(request, category_name_slug, subcategory_name_slug):
+    """ handles sub_category page logic
+
+    Arguments:
+        request -- [standard Django request arg]
+        sub_category_name_slug -- the sub_category name slug, will 
+        determines the sub_category that displays on page 
+
+    Returns:
+        rendering of sub_category (to string method)
+    """
     context_dict = {}
     try:
         category = SubCategory.objects.get(slug=subcategory_name_slug)
@@ -136,6 +170,16 @@ def show_sub_category(request, category_name_slug, subcategory_name_slug):
 
 
 def product(request, product_name_slug):
+    """ handles product page logic
+
+    Arguments:
+        request -- [standard Django request arg]
+        product_name_slug -- the product name slug, will 
+        determines the product that displays on page 
+
+    Returns:
+        rendering of product (to string method)
+    """
     context_dict = {}
     try:
         product = Product.objects.get(slug=product_name_slug)
@@ -159,6 +203,7 @@ def account(request):
     return render(request, 'app/account.html')
 
 
+@login_required
 def sell(request):
     """ Handles adding a new product by user
 

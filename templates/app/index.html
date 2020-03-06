@@ -1,11 +1,51 @@
 {% extends "app/base.html" %}
+{% load static %}
+
 {% block title_block %}
-Home
+Homepage
 {% endblock %}
 
 {% block body_block %}
+<h1>Welcome to Bikezon</h1>
+<div>
+    {% if user.is_authenticated %}
+    hello {{ user.username }}! <br />
+    {% else %}
+    guest <br />
+    {% endif %}
+</div>
 
-<!-- Top navigation bar-->
+<div>
+    {% if categories %}
+    <h2>Categories</h2>
+    <ul>
+        {% for category in categories %}
+        <li>
+            <a href="/category/{{ category.slug }}/">{{ category.name }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <strong>There are no categories present.</strong>
+    {% endif %}
+</div>
 
-<h1>Temp Homepage</h1>
+<div>
+    {% if products %}
+    <h2>Products</h2>
+    <ul>
+        {% for product in products %}
+        <li>
+            <a href="/product/{{ product.slug }}/">{{ product.name }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <strong>There are no products present.</strong>
+    {% endif %}
+</div>
+
+<div>
+    <img src="{% static 'images/logo.png' %}" alt="Bikezon Logo" />
+</div>
 {% endblock %}
