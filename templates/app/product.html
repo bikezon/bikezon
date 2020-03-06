@@ -1,13 +1,19 @@
-<div>
-    <strong id="like_count">{{ product.likes }}</strong> likes
-    <button id="like_btn"
-        data-productid="{{ product.id }}"
-        class="btn btn-primary btn-sm"
-        type="button">
-        <span data-feather="thumbs-up"></span>
-        Like product
-    </button>
-</div>
 
-<!-- TODO make this a product template and made categories.html list all product pages similar to rango
-can be done once model is created-->
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block title_block %}
+{% if product %}
+{{ product.name }}
+{% else %}
+Unknown Product
+{% endif %}
+{% endblock %}
+
+{% block body_block %}
+{% if product %}
+<h1>{{ product.name }}</h1>
+{% else %}
+The specified product does not exist.
+{% endif %}
+{% endblock %}

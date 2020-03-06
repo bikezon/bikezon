@@ -135,9 +135,18 @@ def show_sub_category(request, category_name_slug, subcategory_name_slug):
     return render(request, 'app/category.html', context=context_dict)
 
 
-def product(request):
-    # temp categories view
-    return render(request, 'app/product.html')
+def product(request, product_name_slug):
+    context_dict = {}
+    try:
+        product = Product.objects.get(slug=product_name_slug)
+        print(product)
+        print("check")
+        context_dict['product'] = product
+
+    except Product.DoesNotExist:
+        context_dict['product'] = None
+
+    return render(request, 'app/product.html', context=context_dict)
 
 
 def wish_list(request):
@@ -151,6 +160,15 @@ def account(request):
 
 
 def sell(request):
+    """ Handles adding a new product by user
+
+    Arguments:
+        request -- [standard Django request arg]
+
+    Returns:
+        redirect -- on success go back to home page
+        render -- render the sell html page with correct f
+    """
     if request.method == "POST":
         post_data = request.POST.dict()
         profile = UserProfile.objects.get(user=request.user)
