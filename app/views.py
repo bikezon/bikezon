@@ -36,6 +36,7 @@ def index(request):
     Returns:
         render -- renders homepage and context dict
     """
+    avatar = None
     user = request.user
     if user:
         if user.is_active:
