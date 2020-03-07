@@ -7,6 +7,22 @@ from app.models import Category, SubCategory, Product, UserProfile
 from app.forms import UserForm, UserProfileForm, ProductForm
 from django.contrib.auth.models import User
 from django.contrib import messages
+import logging
+import os
+
+# ----------- Logger config ----------- #
+if not os.path.exists("logs/"):
+    os.makedirs("logs")
+
+if not os.path.exists("logs/main_logs.log"):
+    open("logs/main_logs.log", 'a').close()
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(filename="logs/main_logs.log",
+                            filemode='a',
+                            format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+                            datefmt='%H:%M:%S',
+                            level=logging.INFO)
 
 
 # ----------- Views follow from design specification ----------- #
@@ -25,11 +41,13 @@ def index(request):
         "subcategories": SubCategory.objects.all(),
         "products": Product.objects.all(),
     }
+    logger.info("Index requested with context dict: %s", context_dict)
     return render(request, 'app/index.html', context=context_dict)
 
 
 def contact(request):
     # temp contact view
+    logger.info("Contact requested")
     return render(request, 'app/contact.html')
 
 
@@ -50,17 +68,21 @@ def user_login(request):
         password = request.POST.get("password")
 
         user = authenticate(username=username, password=password)
-
+        logger.info("User: %s is being authenticated", username)
         if user:
             if user.is_active:
                 login(request, user)
                 return redirect(reverse("app:index"))
+                logger.info("User: %s is authenticated", username)
             else:
                 return HttpResponse("Your Bikezon account is disabled.")
+                logger.info("User: %s triggered account disabled", username)
         else:
             messages.error(request, 'username or password not correct')
+            logger.info("User: %s failed to authenticate", username)
             return redirect('app:login')
     else:
+        logger.info("Rendered login page")
         return render(request, "app/login.html")
 
 
@@ -86,12 +108,16 @@ def register(request):
             if ("picture" in request.FILES):
                 profile.picture = request.FILES["picture"]
             profile.save()
+            logger.info("User: %s is registered", user)
             registered = True
         else:
             print(user_form.errors, profile_form.errors)
+            logger.info("User: failed to register with user form errors: %s \n \
+                        and profile form errors: %s", user_form.errors, profile_form.errors)
     else:
         user_form = UserForm()
         profile_form = UserProfileForm()
+        logger.info("Rendered registration page")
 
     return render(request, "app/register.html",
                   context={"user_form": user_form,
@@ -106,6 +132,7 @@ def user_logout(request):
     Returns:
         Redirection to homepage
     """
+    logger.info("User: %s is logger out", request.user)
     logout(request)
     return redirect(reverse('app:index'))
 
@@ -122,6 +149,7 @@ def show_categories(request):
     context_dict = {}
     category_list = Category.objects.all()
     context_dict['categories'] = category_list
+    logger.info("Show categories called with categories: %s", context_dict['categories'])
     return render(request, 'app/categories.html', context=context_dict)
 
 
@@ -145,6 +173,7 @@ def show_category(request, category_name_slug):
     except Category.DoesNotExist:
         context_dict['category'] = None
 
+    logger.info("Show category called with category: %s", context_dict['category'])
     return render(request, 'app/category.html', context=context_dict)
 
 
@@ -167,6 +196,7 @@ def show_sub_category(request, category_name_slug, subcategory_name_slug):
     except Category.DoesNotExist:
         context_dict['category'] = None
 
+    logger.info("Show sub category called with sub category: %s", context_dict['category'])
     return render(request, 'app/category.html', context=context_dict)
 
 
@@ -191,16 +221,19 @@ def product(request, product_name_slug):
     except Product.DoesNotExist:
         context_dict['product'] = None
 
+    logger.info("Show product called with product: %s", context_dict['product'])
     return render(request, 'app/product.html', context=context_dict)
 
 
 def wish_list(request):
     # temp categories view
+    logger.info("Rendering wish list")
     return render(request, 'app/list.html')
 
 
 def account(request):
     # temp account view
+    logger.info("Rendering account")
     return render(request, 'app/account.html')
 
 
@@ -224,11 +257,14 @@ def sell(request):
             product = product_form.save(commit=False)
             product.seller = profile
             product.save()
+            logger.info("Product registered (sell): %s", product)
             return redirect(reverse("app:index"))
         else:
             print(product_form.errors)
+            logger.info("Product registered (sell) failed: %s", product_form.errors)
     else:
         product_form = ProductForm()
+        logger.info("Product form rendered")
 
     return render(request, "app/sell.html",
                   context={"form": product_form, })
@@ -238,9 +274,11 @@ def sell(request):
 
 def handler404(request, exception):
     # temp 404 handler
+    logger.info("404 page hit")
     return render(request, 'app/handler404.html', status=404)
 
 
 def handler500(request):
     # temp 500 handler
+    logger.info("500 page hit")
     return render(request, 'app/handler500.html', status=500)
