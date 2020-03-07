@@ -28,35 +28,41 @@
                 <img src="{% static 'images/logo.png' %}" alt="Bikezon Logo">
             </a>
             <p class="navbar-text">Bikezon</p>
-            <div class="gcse-search"></div>
-            {% if user.is_authenticated %}
-            {{ user.username }}
-            <img src="{{ picture.url }}" />
-            <a href="{% url 'app:logout' %}" class="sign-button">Logout</a>
-            {% else %}
-            <a href="{% url 'app:login' %}" class="sign-button">Sign in</a>
-            <a href="{% url 'app:register' %}" class="sign-button">Sign up</a>
-            {% endif %}
+            <nav class="main-nav">
+                {% if user.is_authenticated %}
+                <a href="{% url 'app:logout' %}" class="nav-button">Sign out</a>
+                {% else %}
+                <a href="{% url 'app:login' %}" class="nav-button">Sign in</a>
+                <a href="{% url 'app:register' %}" class="nav-button">Sign up</a>
+                {% endif %}
+                <a href="{% url 'app:contact' %}" class="nav-button">Contacts</a>
+                <a href="{% url 'app:index' %}" class="nav-button">Home</a>
+                <div class="gcse-search"></div>
+            </nav>
         </header>
 
-        <div>
+        <main class="main">
+            <aside class="main-aside">
+            {% block aside_block %}
+            {% endblock %}
+            </aside>
+            <section class="main-section">
             {% block body_block %}
             {% endblock %}
-        </div>
+            </section>
+        </main>
+        <footer>
+            <div class=footer" role="navigation">
+                <div class="footer-text"></div>
+                <div class="footer-text">
+                    <a href="https://github.com/bikezon/bikezon">
+                    <i class="fa fa-github-square fa-2x"></i>
+                    </a>
+                </div>
+                <div class="footer text">
+                    &copy; Bikezon, 2020
+                </div>
+            </div>
+        </footer>
     </body>
-
-    <footer>
-        <div class=footer"
-            role="navigation">
-            <div class="footer-text">
-            </div>
-            <div class="footer-text">
-                <a href="https://github.com/bikezon/bikezon">
-                    <i class="fa fa-github-square fa-2x"></i></a>
-            </div>
-            <div class="footer text">
-                &copy; Bikezon, 2020
-            </div>
-        </div>
-    </footer>
 </html>

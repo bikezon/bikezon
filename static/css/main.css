@@ -10,23 +10,21 @@
   }
 
 /* Style the links inside the navigation bar */
-.sign-button {
+.nav-button {
   float: right;
-  display: inline-block;
   color: white;
   background-color: lightskyblue;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
-  margin-right: 5px;
-  margin-top: 25px;
+  margin: 25px 5px 0 5px;
 }
 /* Styling search bar */
 #___gcse_0 {
   padding: 20px 0;
   float: left;
-  width: 75%;
+  width: 68%;
 }
 
 /* Style the nav-bar text */
@@ -34,7 +32,6 @@
   float: left;
   margin-right: 16px;
   color: orange;
-  display: inline-block;
   font-weight: bold;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   align-items: center;
@@ -47,7 +44,6 @@
   float: left;
   width: 60px;
   height: 60px;
-  display: inline-block;
   vertical-align: middle;
 }
 
