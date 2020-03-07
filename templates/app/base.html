@@ -31,6 +31,7 @@
             <nav class="main-nav">
                 {% if user.is_authenticated %}
                 <a href="{% url 'app:logout' %}" class="nav-button">Sign out</a>
+                <a href="{% url 'app:account' %}" class="nav-button">My Account</a>
                 {% else %}
                 <a href="{% url 'app:login' %}" class="nav-button">Sign in</a>
                 <a href="{% url 'app:register' %}" class="nav-button">Sign up</a>
@@ -43,12 +44,12 @@
 
         <main class="main">
             <aside class="main-aside">
-            {% block aside_block %}
-            {% endblock %}
+                {% block aside_block %}
+                {% endblock %}
             </aside>
             <section class="main-section">
-            {% block body_block %}
-            {% endblock %}
+                {% block body_block %}
+                {% endblock %}
             </section>
         </main>
         <footer>
@@ -56,7 +57,7 @@
                 <div class="footer-text"></div>
                 <div class="footer-text">
                     <a href="https://github.com/bikezon/bikezon">
-                    <i class="fa fa-github-square fa-2x"></i>
+                        <i class="fa fa-github-square fa-2x"></i>
                     </a>
                 </div>
                 <div class="footer text">
