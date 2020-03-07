@@ -1,5 +1,7 @@
 {% extends "app/base.html" %}
 {% load static %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
 
 {% block title_block %}
 Bikezon Account
@@ -9,4 +11,11 @@ Bikezon Account
 <h1>Account</h1>
 <p>{{ user.username }}</p>
 <img src="{{ picture.url }}" />
+<form action="{% url 'app:list' %}">
+    {% buttons %}
+    <button type="submit" class="btn btn-primary">
+        My wish list
+    </button>
+    {% endbuttons %}
+</form>
 {% endblock %}
