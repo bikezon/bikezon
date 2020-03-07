@@ -4,6 +4,7 @@ from app.models import UserProfile, Product, SubCategory
 from captcha.fields import ReCaptchaField
 from django.core.files.images import get_image_dimensions
 from django.db.utils import OperationalError
+from phone_field import PhoneField
 import logging
 import os
 
@@ -16,10 +17,10 @@ if not os.path.exists("logs/main_logs.log"):
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(filename="logs/main_logs.log",
-                            filemode='a',
-                            format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
-                            datefmt='%H:%M:%S',
-                            level=logging.INFO)
+                    filemode='a',
+                    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+                    datefmt='%H:%M:%S',
+                    level=logging.INFO)
 
 
 # ----------- Forms ----------- #
@@ -58,12 +59,21 @@ class ReCAPTCHAForm(forms.Form):
     captcha = ReCaptchaField()
 
 
+class EditProfileForm(forms.ModelForm):
+    address = forms.CharField(required=False)
+    phone = PhoneField(blank=True, help_text='Contact phone number')
+
+    class Meta:
+        model = UserProfile
+        fields = ('picture', 'address', 'phone')
+
+
 class UserProfileForm(forms.ModelForm):
     """ User Profile Form logic - handles
-    user profile info, TODO: figure out
-    how to display email, username, etc
+    user profile info
     """
     logger.info("User profile form hit")
+
     class Meta:
         model = UserProfile
         fields = ('picture', 'phone')

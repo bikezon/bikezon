@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from app.models import Category, SubCategory, Product, UserProfile
-from app.forms import UserForm, UserProfileForm, ProductForm
+from app.forms import UserForm, UserProfileForm, ProductForm, EditProfileForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 import logging
@@ -169,8 +169,8 @@ def show_category(request, category_name_slug):
 
     Arguments:
         request -- [standard Django request arg]
-        category_name_slug -- the category name slug, will 
-        determines the category that displays on page 
+        category_name_slug -- the category name slug, will
+        determines the category that displays on page
 
     Returns:
         rendering of category (to string method)
@@ -194,8 +194,8 @@ def show_sub_category(request, category_name_slug, subcategory_name_slug):
 
     Arguments:
         request -- [standard Django request arg]
-        sub_category_name_slug -- the sub_category name slug, will 
-        determines the sub_category that displays on page 
+        sub_category_name_slug -- the sub_category name slug, will
+        determines the sub_category that displays on page
 
     Returns:
         rendering of sub_category (to string method)
@@ -218,8 +218,8 @@ def product(request, product_name_slug):
 
     Arguments:
         request -- [standard Django request arg]
-        product_name_slug -- the product name slug, will 
-        determines the product that displays on page 
+        product_name_slug -- the product name slug, will
+        determines the product that displays on page
 
     Returns:
         rendering of product (to string method)
@@ -308,6 +308,36 @@ def sell(request):
 
     return render(request, "app/sell.html",
                   context={"form": product_form, })
+
+
+@login_required
+def edit_profile(request):
+    form = EditProfileForm(request.POST, request.FILES or None)
+
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, request.FILES or None)
+        if form.is_valid():
+            obj = UserProfile.objects.get(user=request.user)
+            obj.user_picture = form.cleaned_data['picture']
+            obj.address = form.cleaned_data['address']
+            obj.phone = form.cleaned_data['phone']
+            obj.save()
+
+            return redirect('app:account')
+        else:
+            print(form.errors)
+
+    avatar = None
+    user = request.user
+    if user:
+        if user.is_active:
+            profile = UserProfile.objects.get(user=request.user)
+            avatar = profile.picture
+    else:
+        avatar = None
+    context_dict = {'form': form, 'picture': avatar}
+
+    return render(request, 'app/edit_profile.html', context_dict)
 
 
 # ----------- Error handler views ----------- #

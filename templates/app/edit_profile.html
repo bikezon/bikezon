@@ -1,0 +1,36 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title_block %}
+
+{{user}}'s Page
+{% endblock %}
+{% block body_block %}
+<div class="container">
+
+    <div align="center">
+        <h1 class="text-center"><u>Hello {{ user }}</u></h1>
+        <br>
+
+        {% if picture.url %}
+        <img src="{{ picture.url }}" />
+        {% else %}
+        <p>No picture</p>
+        {% endif %}
+    </div>
+    <br>
+    <div align="center">
+        <h2>Edit Your Profile</h2>
+        <br>
+        <form method="POST" action="{% url 'app:edit_profile' %}" class="">
+            {% csrf_token %}
+            {{ form|crispy}}
+            <br>
+            <button type="submit">Save</button>
+        </form>
+
+    </div>
+    <div id="edit_profile"></div>
+
+</div>
+{% endblock %}
