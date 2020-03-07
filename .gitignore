@@ -43,3 +43,6 @@ venv.bak/
 # Email
 email.json
 sent_emails
+
+# Logging
+logs
