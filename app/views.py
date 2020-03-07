@@ -19,10 +19,10 @@ if not os.path.exists("logs/main_logs.log"):
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(filename="logs/main_logs.log",
-                            filemode='a',
-                            format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
-                            datefmt='%H:%M:%S',
-                            level=logging.INFO)
+                    filemode='a',
+                    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+                    datefmt='%H:%M:%S',
+                    level=logging.INFO)
 
 
 # ----------- Views follow from design specification ----------- #
@@ -36,10 +36,19 @@ def index(request):
     Returns:
         render -- renders homepage and context dict
     """
+    user = request.user
+    if user:
+        if user.is_active:
+            profile = UserProfile.objects.get(user=request.user)
+            avatar = profile.picture
+    else:
+        avatar = None
+
     context_dict = {
         "categories": Category.objects.all(),
         "subcategories": SubCategory.objects.all(),
         "products": Product.objects.all(),
+        "picture": avatar,
     }
     logger.info("Index requested with context dict: %s", context_dict)
     return render(request, 'app/index.html', context=context_dict)
@@ -149,7 +158,8 @@ def show_categories(request):
     context_dict = {}
     category_list = Category.objects.all()
     context_dict['categories'] = category_list
-    logger.info("Show categories called with categories: %s", context_dict['categories'])
+    logger.info("Show categories called with categories: %s",
+                context_dict['categories'])
     return render(request, 'app/categories.html', context=context_dict)
 
 
@@ -173,7 +183,8 @@ def show_category(request, category_name_slug):
     except Category.DoesNotExist:
         context_dict['category'] = None
 
-    logger.info("Show category called with category: %s", context_dict['category'])
+    logger.info("Show category called with category: %s",
+                context_dict['category'])
     return render(request, 'app/category.html', context=context_dict)
 
 
@@ -196,7 +207,8 @@ def show_sub_category(request, category_name_slug, subcategory_name_slug):
     except Category.DoesNotExist:
         context_dict['category'] = None
 
-    logger.info("Show sub category called with sub category: %s", context_dict['category'])
+    logger.info("Show sub category called with sub category: %s",
+                context_dict['category'])
     return render(request, 'app/category.html', context=context_dict)
 
 
@@ -221,7 +233,8 @@ def product(request, product_name_slug):
     except Product.DoesNotExist:
         context_dict['product'] = None
 
-    logger.info("Show product called with product: %s", context_dict['product'])
+    logger.info("Show product called with product: %s",
+                context_dict['product'])
     return render(request, 'app/product.html', context=context_dict)
 
 
@@ -261,7 +274,8 @@ def sell(request):
             return redirect(reverse("app:index"))
         else:
             print(product_form.errors)
-            logger.info("Product registered (sell) failed: %s", product_form.errors)
+            logger.info("Product registered (sell) failed: %s",
+                        product_form.errors)
     else:
         product_form = ProductForm()
         logger.info("Product form rendered")

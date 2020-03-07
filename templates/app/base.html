@@ -30,6 +30,8 @@
             <p class="navbar-text">Bikezon</p>
             <div class="gcse-search"></div>
             {% if user.is_authenticated %}
+            {{ user.username }}
+            <img src="{{ picture.url }}" />
             <a href="{% url 'app:logout' %}" class="sign-button">Logout</a>
             {% else %}
             <a href="{% url 'app:login' %}" class="sign-button">Sign in</a>
