@@ -9,6 +9,9 @@
         {% endblock %}
         <link rel="stylesheet" href="{% static 'css/main.css' %}" />
         <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+        <link
+            href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+            rel="stylesheet">
         <script async
             src="https://cse.google.com/cse.js?cx=003662769173238113687:uqaxpea1lms"></script>
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -34,15 +37,24 @@
             {% endif %}
         </header>
 
-        <!-- [TODO] emmet expansion code, 
-            1. aside and section should be implemented for each template
-        
-        please do not touch the code below unless you use emmet
-        main.main>(nav.main-nav>ul.navbar>li*5>a[href={{% url 'app:$' %}}]{$})+{{% block aside_block %}}>aside.main-aside^{{% endblock %}}+{{% block body_block %}}>section.main-section^{{% endblock %}} -->
-
         <div>
             {% block body_block %}
             {% endblock %}
         </div>
     </body>
+
+    <footer>
+        <div class=footer"
+            role="navigation">
+            <div class="footer-text">
+            </div>
+            <div class="footer-text">
+                <a href="https://github.com/bikezon/bikezon">
+                    <i class="fa fa-github-square fa-2x"></i></a>
+            </div>
+            <div class="footer text">
+                &copy; Bikezon, 2020
+            </div>
+        </div>
+    </footer>
 </html>
