@@ -5,6 +5,8 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        {% block meta_block%}
+        {% endblock %}
         <link rel="stylesheet" href="{% static 'css/main.css' %}" />
         <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
         <script async
@@ -31,6 +33,13 @@
             <a href="{% url 'app:register' %}" class="sign-button">Sign up</a>
             {% endif %}
         </header>
+
+        <!-- [TODO] emmet expansion code, 
+            1. aside and section should be implemented for each template
+        
+        please do not touch the code below unless you use emmet
+        main.main>(nav.main-nav>ul.navbar>li*5>a[href={{% url 'app:$' %}}]{$})+{{% block aside_block %}}>aside.main-aside^{{% endblock %}}+{{% block body_block %}}>section.main-section^{{% endblock %}} -->
+
         <div>
             {% block body_block %}
             {% endblock %}
