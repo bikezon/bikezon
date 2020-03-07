@@ -21,5 +21,6 @@ urlpatterns = [
     path('category/<slug:category_name_slug>/<slug:subcategory_name_slug>/',
          views.show_sub_category, name='subcategory'),
     path('product/<slug:product_name_slug>/', views.product, name='product'),
-    path('account/<slug:list_name_slug>/', views.wish_list, name='list'),
+    path('account/wish-list/', views.wish_list, name='list'),
+    path('account/<slug:list_name_slug>/', views.wish_list, name='custom-list'),
 ]

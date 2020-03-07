@@ -239,16 +239,41 @@ def product(request, product_name_slug):
     return render(request, 'app/product.html', context=context_dict)
 
 
+@login_required
 def wish_list(request):
-    # temp categories view
+
+    avatar = None
+    user = request.user
+    if user:
+        if user.is_active:
+            profile = UserProfile.objects.get(user=request.user)
+            avatar = profile.picture
+    else:
+        avatar = None
+
+    context_dict = {
+        "picture": avatar,
+    }
     logger.info("Rendering wish list")
-    return render(request, 'app/list.html')
+    return render(request, 'app/list.html', context=context_dict)
 
 
+@login_required
 def account(request):
-    # temp account view
+    avatar = None
+    user = request.user
+    if user:
+        if user.is_active:
+            profile = UserProfile.objects.get(user=request.user)
+            avatar = profile.picture
+    else:
+        avatar = None
+
+    context_dict = {
+        "picture": avatar,
+    }
     logger.info("Rendering account")
-    return render(request, 'app/account.html')
+    return render(request, 'app/account.html', context=context_dict)
 
 
 @login_required

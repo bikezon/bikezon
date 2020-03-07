@@ -1,0 +1,19 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+
+{% block title_block %}
+Bikezon Wish List
+{% endblock %}
+
+{% block body_block %}
+<h1>{{ user.username }}'s Wishlist</h1>
+<form action="{% url 'app:account' %}">
+    {% buttons %}
+    <button type="submit" class="btn btn-primary">
+        Back to account
+    </button>
+    {% endbuttons %}
+</form>
+{% endblock %}

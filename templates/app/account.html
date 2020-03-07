@@ -1,9 +1,12 @@
 {% extends "app/base.html" %}
+{% load static %}
 
 {% block title_block %}
 Bikezon Account
 {% endblock %}
 
 {% block body_block %}
-<h1>Temp Account page</h1>
+<h1>Account</h1>
+<p>{{ user.username }}</p>
+<img src="{{ picture.url }}" />
 {% endblock %}
