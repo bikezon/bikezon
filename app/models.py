@@ -5,10 +5,9 @@ from phone_field import PhoneField
 from django.core.validators import MaxValueValidator, MinValueValidator
 from datetime import datetime
 
+NAME_MAX_LENGTH = 128
 
 class Category(models.Model):
-    NAME_MAX_LENGTH = 128
-
     name = models.CharField(max_length=NAME_MAX_LENGTH, unique=True)
     description = models.TextField()
     slug = models.SlugField(unique=True)
@@ -25,8 +24,6 @@ class Category(models.Model):
 
 
 class SubCategory(models.Model):
-    NAME_MAX_LENGTH = 128
-
     name = models.CharField(max_length=NAME_MAX_LENGTH, unique=True)
     description = models.TextField()
     slug = models.SlugField(unique=True)
@@ -44,8 +41,6 @@ class SubCategory(models.Model):
 
 
 class Product(models.Model):
-    NAME_MAX_LENGTH = 128
-
     subcategory = models.ManyToManyField("Subcategory")
     name = models.CharField(max_length=NAME_MAX_LENGTH)
     slug = models.SlugField(unique=True)
@@ -67,7 +62,6 @@ class Product(models.Model):
 
 
 class ProductList(models.Model):
-    NAME_MAX_LENGTH = 128
     name = models.CharField(max_length=NAME_MAX_LENGTH)
     user = models.ForeignKey("UserProfile", on_delete=models.CASCADE)
     product = models.ManyToManyField("Product")
