@@ -30,12 +30,11 @@ class SubCategory(models.Model):
     name = models.CharField(max_length=NAME_MAX_LENGTH, unique=True)
     description = models.TextField()
     slug = models.SlugField(unique=True)
+    category = models.ForeignKey("Category", on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(SubCategory, self).save(*args, **kwargs)
-
-    category = models.ForeignKey("Category", on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = 'SubCategories'
@@ -73,6 +72,11 @@ class ProductList(models.Model):
     user = models.ForeignKey("UserProfile", on_delete=models.CASCADE)
     product = models.ManyToManyField("Product")
     item = models.PositiveSmallIntegerField()
+    slug = models.SlugField(unique=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Product, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
