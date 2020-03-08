@@ -197,3 +197,28 @@ button:hover {
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
+
+
+/* Footer */
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
+}
+
+/* Contacts github widget*/
+.hub-container{
+  margin-left: 150px;
+  margin-top: 20px;
+  display: flex;
+}
+.fixed{
+  width: 300px;
+}
+.flex-item{
+  flex-grow: 1;
+}
