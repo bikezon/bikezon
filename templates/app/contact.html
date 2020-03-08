@@ -1,20 +1,53 @@
 {% extends "app/base.html" %}
-
+<link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 {% block title_block %}
 Bikezon Contact
 {% endblock %}
 
 {% block body_block %}
-<h1>Temp Contact</h1>
-
-<div>
-    <p>Authors: </p>
-    <ul>
-        <li>Magdalena Latifa</li>
-        <li>Dominykas Meistas</li>
-        <li>Kshitiz Bisht</li>
-        <li>Ashutosh Samal</li>
-        <li>Ivan Nikitin</li>
-    </ul>
+<div class="container">
+    <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-action">Magdalena
+            Latifa</a>
+        <a href="#" class="list-group-item list-group-item-action">Kshitiz Bisht</a>
+        <a href="#" class="list-group-item list-group-item-action">Dominykas
+            Meistas</a>
+        <a href="#" class="list-group-item list-group-item-action">Ashutosh Sama</a>
+        <a href="https://apolexian.github.io/" class="list-group-item
+            list-group-item-action">Ivan Nikitin</a>
+    </div>
 </div>
+<div class="hub-container">
+    <div class="fixed">
+        <div id="github-card-1" data-username="Domcenix"></div>
+    </div>
+    <div class="fixed">
+        <div id="github-card-2" data-username="Anelacu"></div>
+    </div>
+    <div class="fixed">
+        <div id="github-card-3" data-username="Apolexian"></div>
+    </div>
+    <div class="fixed">
+        <div id="github-card-4" data-username="KshitizBisht"></div>
+    </div>
+    <div class="flex-item">
+        <div id="github-card-5" data-username="ashutoshsamal9"></div>
+    </div>
+</div>
+
+<script type="text/javascript"
+    src="https://github-profile.com/dist/gh-profile-card.min.js"></script>
+<script>
+    new GitHubCard({ template: '#github-card-1' }).init();
+    new GitHubCard({ template: '#github-card-2' }).init();
+    new GitHubCard({ template: '#github-card-3' }).init();
+    new GitHubCard({ template: '#github-card-4' }).init();
+    new GitHubCard({ template: '#github-card-5' }).init();
+</script>
 {% endblock %}

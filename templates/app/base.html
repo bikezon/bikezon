@@ -9,9 +9,6 @@
         {% endblock %}
         <link rel="stylesheet" href="{% static 'css/main.css' %}" />
         <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
-        <link
-            href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
-            rel="stylesheet">
         <script async
             src="https://cse.google.com/cse.js?cx=003662769173238113687:uqaxpea1lms"></script>
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -36,7 +33,6 @@
                 <a href="{% url 'app:login' %}" class="nav-button">Sign in</a>
                 <a href="{% url 'app:register' %}" class="nav-button">Sign up</a>
                 {% endif %}
-                <a href="{% url 'app:contact' %}" class="nav-button">Contacts</a>
                 <a href="{% url 'app:index' %}" class="nav-button">Home</a>
                 <div class="gcse-search"></div>
             </nav>
@@ -53,16 +49,9 @@
             </section>
         </main>
         <footer>
-            <div class=footer" role="navigation">
-                <div class="footer-text"></div>
-                <div class="footer-text">
-                    <a href="https://github.com/bikezon/bikezon">
-                        <i class="fa fa-github-square fa-2x"></i>
-                    </a>
-                </div>
-                <div class="footer text">
-                    &copy; Bikezon, 2020
-                </div>
+            <div class="footer text">
+                &copy; Bikezon, 2020
+                <a href="{% url 'app:contact' %}">Contact Us</a>
             </div>
         </footer>
     </body>
