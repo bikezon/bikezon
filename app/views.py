@@ -40,8 +40,9 @@ def index(request):
     user = request.user
     if user:
         if user.is_active:
-            profile = UserProfile.objects.get(user=request.user)
-            avatar = profile.picture
+            if user.username != 'admin':
+                profile = UserProfile.objects.get(user=request.user)
+                avatar = profile.picture
     else:
         avatar = None
 
