@@ -16,24 +16,46 @@ Using anaconda to create virtual-env and clone repo:
 (bikezon)workspace$:git clone https://github.com/bikezon/bikezon.git
 ```
 
-Using mkenv:
+You can use any other virtual environment if you would prefer to.
 
-```shell
-workspace$:mkvirtualenv bikezon -p python3
-workspace$:workon bikezon
-(bikezon)workspace$:git clone https://github.com/bikezon/bikezon.git
-```
-
-## Installing dependencies
+## Installing dependencies and initialising the project
 
 Pip is required to install dependencies. For more information on pip and installation see:\
-https://pip.pypa.io/en/stable/quickstart/
+<https://pip.pypa.io/en/stable/quickstart/>
 
-Dependencies for the project can be found in requirements.txt. To install all dependencies:
+Dependencies for the project can be found in requirements.txt.
+
+In order to setup the project on windows:
 
 ```shell
-(bikezon)workspace$: pip install -r requirements.txt
+(bikezon)workspace$:start init.bat
 ```
+
+And let the batch file run. After it is done you can close it. This will install all dependencies, initialise the database and populate the database.
+This also creates a super user:
+
+```shell
+username: admin
+password: admin
+```
+
+In order to setup the project on linux:
+
+```shell
+(bikezon)workspace$: ./init.sh
+```
+
+The script will do the same thing as on the windows version.
+
+All dependencies are installed **inside of your virtual environment** - so there is no need to use the --user flag unless you are setting up the project outside of a virtual environment (not reccommended).
+
+To run the project locally use:
+
+```shell
+python manage.py runserver
+```
+
+And go to [Local host](127.0.0.1:8000 "127.0.0.1:8000") in your browser.
 
 ## Hosting and access to website
 
@@ -46,3 +68,5 @@ Coming soon: unit tests guide
 ## Built with
 
 [Django](https://www.djangoproject.com/ "Django's Homepage") - Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design.
+
+[Django Boostrap 4](https://pypi.org/project/django-bootstrap4/ "Bootstrap support for Django projects") - Bootstrap support for Django projects.
