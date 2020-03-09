@@ -1,12 +1,11 @@
+
+import django
+import os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bikezon.settings')
+django.setup()
 from django.core.files import File
 from app.models import Category, SubCategory, Product, ProductList, Rating, UserProfile
 from django.contrib.auth.models import User
-import django
-import os
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bikezon.settings')
-django.setup()
-
 
 def populate():
     # data for subcategories of components
