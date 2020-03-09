@@ -18,6 +18,11 @@ Unknown Product
 <p>Or giver them a call on {{ product.seller.phone }}</p>
 
 <img src="{{ product.picture.url }}" />
+
+<form action="{% url 'app:add_to_list' product.slug %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" name="Add to list" value="Add to list" />
+</form>
 {% else %}
 The specified product does not exist.
 {% endif %}
