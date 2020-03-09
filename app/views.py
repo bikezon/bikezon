@@ -3,9 +3,8 @@ from django.http import HttpResponse
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from app.models import Category, SubCategory, Product, UserProfile
+from app.models import Category, SubCategory, Product, UserProfile, ProductList
 from app.forms import UserForm, UserProfileForm, ProductForm, EditProfileForm
-from django.contrib.auth.models import User
 from django.contrib import messages
 import logging
 import os
@@ -314,6 +313,16 @@ def sell(request):
 
 @login_required
 def edit_profile(request):
+    """ allows a user to edit their profile
+    
+    Arguments:
+        request -- [standard Django request arg]
+    
+    Returns:
+        Errors if there were errors with form completion
+        Redirect to account
+        Or renders the page
+    """
     form = EditProfileForm(request.POST, request.FILES or None)
 
     if request.method == 'POST':
@@ -342,7 +351,25 @@ def edit_profile(request):
     return render(request, 'app/edit_profile.html', context_dict)
 
 
+def add_to_list(request, product_name_slug):
+    """ add a product to a list
+    
+    Arguments:
+        request -- [standard Django request arg]
+        product_name_slug -- slug of product to pass
+    
+    Returns:
+        Redirect to the product page
+    """
+    profile = UserProfile.objects.get(user=request.user)
+    product = Product.objects.get(slug=product_name_slug)
+    if request.method == 'POST':
+        product_list = ProductList.objects.get(user=profile)
+        product_list.product.add(product)
+
+    return redirect('app:product', product_name_slug)
 # ----------- Error handler views ----------- #
+
 
 def handler404(request, exception):
     # temp 404 handler

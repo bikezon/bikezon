@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from app.models import UserProfile, Product, SubCategory
+from app.models import UserProfile, Product, SubCategory, ProductList
 from captcha.fields import ReCaptchaField
 from django.core.files.images import get_image_dimensions
 from django.db.utils import OperationalError
