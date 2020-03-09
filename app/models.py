@@ -43,7 +43,7 @@ class SubCategory(models.Model):
 class Product(models.Model):
     subcategory = models.ManyToManyField("Subcategory")
     name = models.CharField(max_length=NAME_MAX_LENGTH)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField()
 
     description = models.TextField()
     picture = models.ImageField(upload_to='media/product_images/')
