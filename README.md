@@ -13,15 +13,13 @@ Using anaconda to create virtual-env and clone repo:
 ```shell
 (base)workspace$:conda create -n bikezon python=3.6.5
 (base)workspace$:conda activate bikezon
+(bikezon)workspace$:conda install pip
 (bikezon)workspace$:git clone https://github.com/bikezon/bikezon.git
 ```
 
 You can use any other virtual environment if you would prefer to.
 
 ## Installing dependencies and initialising the project
-
-Pip is required to install dependencies. For more information on pip and installation see:\
-<https://pip.pypa.io/en/stable/quickstart/>
 
 Dependencies for the project can be found in requirements.txt.
 
