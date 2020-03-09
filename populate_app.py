@@ -1,9 +1,12 @@
 import django
 import os
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bikezon.settings')
 django.setup()
+
 from django.contrib.auth.models import User
 from app.models import Category, SubCategory, Product, ProductList, Rating, UserProfile
+from django.core.files import File
 
 
 def populate():
@@ -175,22 +178,22 @@ def populate():
         {'name': 'handlebars1',
          'subcategory': 'Handles',
          'description': 'handle1',
-         'picture': 'population_pictures/products/handlebar1.jpg',
+         'picture': 'population_pictures/products/handlebars1.jpg',
          'seller': 'Kellie2'},
         {'name': 'handlebars2',
          'subcategory': 'Handles',
          'description': 'handle2',
-         'picture': 'population_pictures/products/handlebar2.jpg',
+         'picture': 'population_pictures/products/handlebars2.jpg',
          'seller': 'Kellie3'},
         {'name': 'handlebars3',
          'subcategory': 'Handles',
          'description': 'handle3',
-         'picture': 'population_pictures/products/handlebar3.jpg',
+         'picture': 'population_pictures/products/handlebars3.jpg',
          'seller': 'Kellie2'},
         {'name': 'handlebars4',
          'subcategory': 'Handles',
          'description': 'handle4',
-         'picture': 'population_pictures/products/handlebar4.jpg',
+         'picture': 'population_pictures/products/handlebars4.png',
          'seller': 'Kellie3'}]
 
     # data for product lists
@@ -201,7 +204,8 @@ def populate():
 
     # Create superuser
     try:
-        super_user = User.objects.create_superuser(username='admin', password='admin', email='bikezon.team@gmail.com')
+        super_user = User.objects.create_superuser(
+            username='admin', password='admin', email='bikezon.team@gmail.com')
     except:
         super_user = User.objects.get(username='admin')
 
@@ -250,24 +254,26 @@ def add_subcat(name, descr, cat):
 
 
 def add_user(username, password, email):
-    u = User.objects.create_user(username=username, email=email,password=password)
-    
+    u = User.objects.create_user(
+        username=username, email=email, password=password)
+
     return u
 
 # todo those functions
 
 
 def add_user_profile(user, picture, phone, address, stars):
-    up = UserProfile.objects.get_or_create(
-        user=user, picture=picture, phone=phone, address=address, stars=stars)[0]
-    up.save()
+    up = UserProfile.objects.create(
+        user=user, phone=phone, address=address, stars=stars)
+    up.picture.save(picture, File(open(picture, 'rb')))
     return up
 
 
 def add_product(subcat, name, descr, picture, seller):
-    p = Product.objects.create(name=name, description=descr, picture=picture, seller=seller)
+    p = Product.objects.create(name=name, description=descr, seller=seller)
+    p.picture.save(picture, File(open(picture, 'rb')))
     p.subcategory.add(subcat)
-    
+
     return p
 
 
