@@ -22,7 +22,7 @@ Homepage
     <ul>
         {% for category in categories %}
         <li>
-            <a href="/category/{{ category.slug }}/">{{ category.name }}</a>
+            <a href="/{{ category.slug }}/">{{ category.name }}</a>
         </li>
         {% endfor %}
     </ul>
@@ -37,7 +37,7 @@ Homepage
     <ul>
         {% for product in products %}
         <li>
-            <a href="/product/{{ product.slug }}/">{{ product.name }}</a>
+            <a href="/{{ product.slug }}/">{{ product.name }}</a>
         </li>
         {% endfor %}
     </ul>
