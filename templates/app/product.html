@@ -13,6 +13,11 @@ Unknown Product
 {% block body_block %}
 {% if product %}
 <h1>{{ product.name }}</h1>
+<p>{{ product.description }}</p>
+<a href="mailto: {{ product.seller.user.email }}"> Get in touch with {{ product.seller }}</a>
+<p>Or giver them a call on {{ product.seller.phone }}</p>
+
+<img src="{{ product.picture.url }}" />
 {% else %}
 The specified product does not exist.
 {% endif %}

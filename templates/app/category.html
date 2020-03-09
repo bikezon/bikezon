@@ -12,5 +12,10 @@ Unknown Category
 {% if category %}
 <h1>{{ category.name }}</h1>
 <p>{{ category.description }}</p>
+{% for subcat in subcats %}
+<div>
+    <a href="/category/{{ category.name }}/{{ subcat.slug }}/">{{ subcat.name }}</a>
+</div>
+{% endfor %}
 {% endif %}
 {% endblock %}
