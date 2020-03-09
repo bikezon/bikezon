@@ -1,7 +1,9 @@
 import django
 import os
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bikezon.settings')
 django.setup()
+
 from django.contrib.auth.models import User
 from app.models import Category, SubCategory, Product, ProductList, Rating, UserProfile
 from django.core.files import File
@@ -202,7 +204,8 @@ def populate():
 
     # Create superuser
     try:
-        super_user = User.objects.create_superuser(username='admin', password='admin', email='bikezon.team@gmail.com')
+        super_user = User.objects.create_superuser(
+            username='admin', password='admin', email='bikezon.team@gmail.com')
     except:
         super_user = User.objects.get(username='admin')
 
@@ -251,25 +254,26 @@ def add_subcat(name, descr, cat):
 
 
 def add_user(username, password, email):
-    u = User.objects.create_user(username=username, email=email,password=password)
-    
+    u = User.objects.create_user(
+        username=username, email=email, password=password)
+
     return u
 
 # todo those functions
 
 
 def add_user_profile(user, picture, phone, address, stars):
-    up = UserProfile.objects.get_or_create(
-        user=user, picture=picture, phone=phone, address=address, stars=stars)[0]
-    up.save()
+    up = UserProfile.objects.create(
+        user=user, phone=phone, address=address, stars=stars)
+    up.picture.save(picture, File(open(picture, 'rb')))
     return up
 
 
 def add_product(subcat, name, descr, picture, seller):
     p = Product.objects.create(name=name, description=descr, seller=seller)
-    p.picture.save(picture,File(open(picture,'rb')))
+    p.picture.save(picture, File(open(picture, 'rb')))
     p.subcategory.add(subcat)
-    
+
     return p
 
 
