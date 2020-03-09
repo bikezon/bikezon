@@ -180,10 +180,13 @@ def show_category(request, category_name_slug):
 
     try:
         category = Category.objects.get(slug=category_name_slug)
+        subcats = SubCategory.objects.filter(category=category)
         context_dict['category'] = category
+        context_dict['subcats'] = subcats
 
     except Category.DoesNotExist:
         context_dict['category'] = None
+        context_dict['subcats'] = None
 
     logger.info("Show category called with category: %s",
                 context_dict['category'])
@@ -228,8 +231,6 @@ def product(request, product_name_slug):
     context_dict = {}
     try:
         product = Product.objects.get(slug=product_name_slug)
-        print(product)
-        print("check")
         context_dict['product'] = product
 
     except Product.DoesNotExist:
