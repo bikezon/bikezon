@@ -38,6 +38,7 @@ Homepage
         {% for product in products %}
         <li>
             <a href="/{{ product.slug }}/">{{ product.name }}</a>
+            <img src="{{ product.picture.url }}" />
         </li>
         {% endfor %}
     </ul>
