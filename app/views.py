@@ -56,6 +56,12 @@ def index(request):
 
 
 def contact(request):
+    """ contact page logic
+
+    just renders the contact page,
+    all other logic is handled on
+    the html page
+    """
     # temp contact view
     logger.info("Contact requested")
     return render(request, 'app/contact.html')
@@ -364,11 +370,14 @@ def add_to_list(request, product_name_slug):
     Returns:
         Redirect to the product page
     """
+
     profile = UserProfile.objects.get(user=request.user)
     product = Product.objects.get(slug=product_name_slug)
     if request.method == 'POST':
         product_list = ProductList.objects.get(user=profile)
         product_list.product.add(product)
+        logger.info("User %s is adding product %s to their list",
+                    request.user, product)
 
     return redirect('app:product', product_name_slug)
 # ----------- Error handler views ----------- #
