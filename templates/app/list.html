@@ -9,6 +9,15 @@ Bikezon Wish List
 
 {% block body_block %}
 <h1>{{ user.username }}'s Wishlist</h1>
+
+{% if products %}
+{% for product in products %}
+<a href="/product/{{ product.slug }}/">{{ product.name }}</a>
+<img src="{{ product.picture.url }}" />
+{% endfor %}
+{% else %}
+<p>List Empty</p>
+{% endif %}
 <form action="{% url 'app:account' %}">
     {% buttons %}
     <button type="submit" class="btn btn-primary">
