@@ -248,12 +248,15 @@ def wish_list(request):
     if user:
         if user.is_active:
             profile = UserProfile.objects.get(user=request.user)
+            product_list = ProductList.objects.get(user=profile)
+            products = Product.objects.filter(productlist=product_list)
             avatar = profile.picture
     else:
         avatar = None
 
     context_dict = {
         "picture": avatar,
+        "products": products,
     }
     logger.info("Rendering wish list")
     return render(request, 'app/list.html', context=context_dict)
@@ -314,10 +317,10 @@ def sell(request):
 @login_required
 def edit_profile(request):
     """ allows a user to edit their profile
-    
+
     Arguments:
         request -- [standard Django request arg]
-    
+
     Returns:
         Errors if there were errors with form completion
         Redirect to account
@@ -353,11 +356,11 @@ def edit_profile(request):
 
 def add_to_list(request, product_name_slug):
     """ add a product to a list
-    
+
     Arguments:
         request -- [standard Django request arg]
         product_name_slug -- slug of product to pass
-    
+
     Returns:
         Redirect to the product page
     """
