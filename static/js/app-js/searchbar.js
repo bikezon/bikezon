@@ -1,0 +1,1 @@
+document.getElementByTagName("h1").style.color = "blue";

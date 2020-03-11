@@ -38,15 +38,12 @@ Homepage
         {% for product in products %}
         <li>
             <a href="/product/{{ product.slug }}/">{{ product.name }}</a>
+            <img src="{{ product.picture.url }}" />
         </li>
         {% endfor %}
     </ul>
     {% else %}
     <strong>There are no products present.</strong>
     {% endif %}
-</div>
-
-<div>
-    <img src="{% static 'images/logo.png' %}" alt="Bikezon Logo" />
 </div>
 {% endblock %}
