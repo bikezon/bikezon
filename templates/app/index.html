@@ -6,60 +6,7 @@ Homepage
 {% endblock %}
 
 {% block body_block %}
-<style>
-h1{
-text-align:center;
-color:orange;
-font-weight:bold;
-font-family:"Times New Roman";
-}
-.auth{
-text-align:right;
-font-weight:bold;
-margin-right:2.5%;
-}
-h2{
-text-align:left;
-color:orange;
-font-weight:bold;
-font-family:"Times New Roman";
-}
-.secondh2{
-text-align:center;
-color:orange;
-font-weight:bold;
-font-family:"Times New Roman";
-}
-.catName{
-color:Dodgeblue;
-font-size:20px;
-margin:20px;
-border:2px;
-font-family:"Times New Roman";
-}
-.products{
-font-weight:bold;
-text-transform:capitalize;
-display:block;
-
-}
-.row {
-  display: flex;
-}
-
-.column {
-  
-  flex: 33.33%;
-  padding-left:20px;
-}
-.proImage{
-  text-align:center;
-  border: 2px solid black;
-  margin:15px;
-  padding:10px;
-}
-</style>
-
+<link rel="stylesheet" href="{% static 'css/index.css' %}" />
 <h1>Welcome to Bikezon</h1>
 <div  class="auth">
     {% if user.is_authenticated %}
