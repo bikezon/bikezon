@@ -50,6 +50,7 @@ class Product(models.Model):
     dateAdded = models.DateTimeField(default=datetime.now, blank=True)
     views = models.IntegerField(default=0)
     available = models.PositiveSmallIntegerField(default=1)
+    price = models.PositiveIntegerField()
     seller = models.ForeignKey(
         "UserProfile", on_delete=models.CASCADE, blank=True)
 
