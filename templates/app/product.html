@@ -29,4 +29,10 @@ Unknown Product
 {% else %}
 The specified product does not exist.
 {% endif %}
+
+<form action="{% url 'app:follow_user' product.slug %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" name="Follow this user" value="username" />
+</form>
+
 {% endblock %}

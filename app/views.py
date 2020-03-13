@@ -380,7 +380,20 @@ def add_to_list(request, product_name_slug):
                     request.user, product)
 
     return redirect('app:product', product_name_slug)
-# ----------- Error handler views ----------- #
+
+
+def feed(request):
+    profile = UserProfile.objects.get(user=request.user)
+    following = profile.follows
+    profiles = []
+    for user in following.all():
+        profiles.append(user)
+
+    context_dict = {'profiles': profiles}
+
+    return render(request, 'app/feed.html', context=context_dict)
+
+    # ----------- Error handler views ----------- #
 
 
 def handler404(request, exception):

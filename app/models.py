@@ -105,6 +105,7 @@ class UserProfile(models.Model):
         blank=True,
         null=True
     )
+    follows = models.ManyToManyField('UserProfile', related_name='followed_by')
 
     def __str__(self):
         return self.user.username
