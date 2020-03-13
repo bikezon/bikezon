@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from app.models import Category, SubCategory, Product, UserProfile, ProductList, FollowerGroup
+from app.models import Category, SubCategory, Product, UserProfile, ProductList
 from app.forms import UserForm, UserProfileForm, ProductForm, EditProfileForm
 from django.contrib import messages
 import logging
@@ -384,14 +384,15 @@ def add_to_list(request, product_name_slug):
 
 def feed(request):
     profile = UserProfile.objects.get(user=request.user)
-    following = FollowerGroup.objects.get(owner=profile)
+    following = profile.follows
     profiles = []
-    for user in following.following.all():
+    for user in following.all():
         profiles.append(user)
-    
+
     context_dict = {'profiles': profiles}
 
     return render(request, 'app/feed.html', context=context_dict)
+
     # ----------- Error handler views ----------- #
 
 

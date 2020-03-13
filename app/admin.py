@@ -1,14 +1,12 @@
 from django.contrib import admin
 from app.models import Category, UserProfile, Rating, ProductList, Product, \
-    SubCategory, FollowerGroup
-
+    SubCategory
 
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
     list_display = ('name', 'description')
 
 
-admin.site.register(FollowerGroup)
 admin.site.register(Rating)
 admin.site.register(SubCategory)
 admin.site.register(ProductList)
