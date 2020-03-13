@@ -383,21 +383,56 @@ def add_to_list(request, product_name_slug):
 
 
 def feed(request):
+    """ handles user follows feed logic
+    gets the name of the user, finds users
+    that this user follows and then displays 
+    the products that those users are selling
+
+    Arguments:
+        request -- [standard Django request arg]
+
+    Returns:
+        rendered page with appropriate context
+    """
     profile = UserProfile.objects.get(user=request.user)
     following = profile.follows
     profiles = []
     for user in following.all():
         profiles.append(user)
-    
+
     products = {}
     for user in profiles:
-        product_list = Product.objects.filter(seller = user)
+        product_list = Product.objects.filter(seller=user)
         products[user] = product_list
-    
+
     print(products)
-    context_dict = {'profiles': profiles,'products':products}
+    context_dict = {'profiles': profiles, 'products': products}
 
     return render(request, 'app/feed.html', context=context_dict)
+
+
+def follow_user(request, product_name_slug):
+    """ handles logic of following a user
+    this view relies on the product seller name
+    from the product.html template. It uses
+    the seller name to determine the profile
+    to follow. 
+
+    Arguments:
+        request -- [standard Django request arg]
+        product_name_slug -- slug of product to pass to redirect
+
+    Returns:
+        redirection to the product page
+    """
+    owner = UserProfile.objects.get(user=request.user)
+    if request.method == 'POST':
+        user_to_follow = request.POST.get('follow_this').split(' ')[1]
+        for profile in UserProfile.objects.all():
+            if profile.user.username == user_to_follow:
+                owner.follows.add(profile)
+
+    return redirect('app:product', product_name_slug)
 
     # ----------- Error handler views ----------- #
 
