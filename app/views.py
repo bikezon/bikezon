@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from app.models import Category, SubCategory, Product, UserProfile, ProductList
-from app.forms import UserForm, UserProfileForm, ProductForm, EditProfileForm
+from app.forms import UserForm, UserProfileForm, ProductForm, EditProfileForm, EditListingForm
 from django.contrib import messages
 import logging
 import os
@@ -243,6 +243,20 @@ def product(request, product_name_slug):
 
     logger.info("Show product called with product: %s",
                 context_dict['product'])
+
+    profile = UserProfile.objects.get(user=request.user)
+
+    # check if user is authed, if yes, they can edit listing
+    auth_user = False
+    if product:
+        if product.seller == profile:
+            auth_user = True
+
+    context_dict['auth_user'] = auth_user
+
+    # cache product name to pass to edit listing
+    request.session['product_slug'] = product_name_slug
+
     return render(request, 'app/product.html', context=context_dict)
 
 
@@ -434,6 +448,36 @@ def follow_user(request, product_name_slug):
 
     return redirect('app:product', product_name_slug)
 
+
+@login_required
+def edit_listing(request):
+    """ allows a user to edit their profile
+
+    Arguments:
+        request -- [standard Django request arg]
+
+    Returns:
+        Errors if there were errors with form completion
+        Redirect to account
+        Or renders the page
+    """
+    form = EditListingForm()
+    if request.method == 'POST':
+        form = EditListingForm(request.POST, request.FILES)
+        if form.is_valid():
+            obj = Product.objects.get(slug=request.session['product_slug'])
+            obj.name = form.cleaned_data['name']
+            obj.price = form.cleaned_data['price']
+            obj.description = form.cleaned_data['description']
+            obj.save()
+
+            return redirect('app:index')
+        else:
+            print(form.errors)
+
+    context_dict = {'form': form}
+
+    return render(request, 'app/edit_listing.html', context_dict)
     # ----------- Error handler views ----------- #
 
 
