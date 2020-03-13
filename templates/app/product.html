@@ -30,9 +30,11 @@ Unknown Product
 The specified product does not exist.
 {% endif %}
 
+<!-- This form relies on product seller name to get the person to follow
+so be careful if altering it or product seller-->
 <form action="{% url 'app:follow_user' product.slug %}" method="POST">
     {% csrf_token %}
-    <input type="submit" name="Follow this user" value="username" />
+    <input type="submit" name="follow_this" value="Follow {{ product.seller }}" />
 </form>
 
 {% endblock %}
