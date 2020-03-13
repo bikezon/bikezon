@@ -1,6 +1,8 @@
 
 {% extends "app/base.html" %}
 {% load static %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
 
 {% block title_block %}
 {% if product %}
@@ -34,7 +36,18 @@ The specified product does not exist.
 so be careful if altering it or product seller-->
 <form action="{% url 'app:follow_user' product.slug %}" method="POST">
     {% csrf_token %}
+    {% buttons %}
     <input type="submit" name="follow_this" value="Follow {{ product.seller }}" />
+    {% endbuttons %}
 </form>
+
+{% if auth_user %}
+<form action="{% url 'app:edit_listing' %}" method="POST">
+    {% csrf_token %}
+    {% buttons %}
+    <input type="submit" name="edit_listing" value="Edit {{ product.slug }}" />
+    {% endbuttons %}
+</form>
+{% endif %}
 
 {% endblock %}
