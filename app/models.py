@@ -108,3 +108,14 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class FollowerGroup(models.Model):
+    owner = models.OneToOneField("UserProfile", on_delete=models.CASCADE,related_name='owner')
+    following = models.ManyToManyField("UserProfile",related_name='following')
+
+    def __str__(self):
+        following = [follower for follower in self.following.all()]
+        owner = self.owner.user.username
+        data = str(owner) + ":" + str(following)
+        return data
