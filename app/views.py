@@ -388,8 +388,14 @@ def feed(request):
     profiles = []
     for user in following.all():
         profiles.append(user)
-
-    context_dict = {'profiles': profiles}
+    
+    products = {}
+    for user in profiles:
+        product_list = Product.objects.filter(seller = user)
+        products[user] = product_list
+    
+    print(products)
+    context_dict = {'profiles': profiles,'products':products}
 
     return render(request, 'app/feed.html', context=context_dict)
 
