@@ -6,7 +6,7 @@
 /* Add a white background color to the top navigation bar */
 .main-header {
     overflow: hidden;
-    background-color: white;
+    background-color: LemonChiffon;
   }
 
 /* Style the links inside the navigation bar */
@@ -15,20 +15,23 @@
   color: white;
   background-color: lightskyblue;
   text-align: center;
-  padding: 14px 16px;
+  padding: 0.6% 0.6%;
   text-decoration: none;
   font-size: 17px;
   margin: 25px 5px 0 5px;
 }
 /* Styling search bar */
 #___gcse_0 {
-  padding: 20px 0;
-  float: left;
-  width: 68%;
+  border-width:0px;
+  float:left;
+  width:60%;
+  margin:0%;
+  padding-top:0.3%;
 }
 
 /* Style the nav-bar text */
 .main-header p {
+  padding-top:3%;
   float: left;
   margin-right: 16px;
   color: orange;
@@ -40,11 +43,13 @@
 }
 
 .main-header img {
+  padding-top:1%;
   margin: 15px 10px;
   float: left;
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   vertical-align: middle;
+  
 }
 
 body {
@@ -200,13 +205,16 @@ button:hover {
 
 
 /* Footer */
-#footer {
+.footer {
+  bottom:0;
+  text-align:center;
+  font-size:15px;
+  font-weight:bold;
   width: 100%;
-  height : 60px;
+  height : 40px;
   background-color:grey;
   display: inline-block;
-  position: absolute;
-}
+  position:relative;
 
 #content{
   position: absolute;

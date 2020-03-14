@@ -337,10 +337,8 @@ def sell(request):
 @login_required
 def edit_profile(request):
     """ allows a user to edit their profile
-
     Arguments:
         request -- [standard Django request arg]
-
     Returns:
         Errors if there were errors with form completion
         Redirect to account
@@ -376,7 +374,6 @@ def edit_profile(request):
 
 def add_to_list(request, product_name_slug):
     """ add a product to a list
-
     Arguments:
         request -- [standard Django request arg]
         product_name_slug -- slug of product to pass
@@ -384,7 +381,6 @@ def add_to_list(request, product_name_slug):
     Returns:
         Redirect to the product page
     """
-
     profile = UserProfile.objects.get(user=request.user)
     product = Product.objects.get(slug=product_name_slug)
     if request.method == 'POST':

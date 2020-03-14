@@ -245,6 +245,7 @@ def populate():
             if user['username'] == user_prof['username']:
                 add_user_profile(
                     u, user_prof['picture'], user_prof['phone'], user_prof['address'], user_prof['stars'])
+                
                 break
 
     # Populate the followers for each user profile
@@ -313,6 +314,7 @@ def add_user_profile(user, picture, phone, address, stars):
 def add_product(subcat, name, descr, price, picture, seller):
     p = Product.objects.create(
         name=name, description=descr, price=price, seller=seller)
+
     p.picture.save(picture, File(open(picture, 'rb')))
     p.subcategory.add(subcat)
 
