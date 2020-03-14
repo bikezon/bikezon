@@ -372,6 +372,7 @@ def edit_profile(request):
     return render(request, 'app/edit_profile.html', context_dict)
 
 
+@login_required
 def add_to_list(request, product_name_slug):
     """ add a product to a list
     Arguments:
@@ -392,6 +393,7 @@ def add_to_list(request, product_name_slug):
     return redirect('app:product', product_name_slug)
 
 
+@login_required
 def feed(request):
     """ handles user follows feed logic
     gets the name of the user, finds users
@@ -415,12 +417,13 @@ def feed(request):
         product_list = Product.objects.filter(seller=user)
         products[user] = product_list
 
-    print(products)
+    logger.info("Generating feed for: %s", request.user)
     context_dict = {'profiles': profiles, 'products': products}
 
     return render(request, 'app/feed.html', context=context_dict)
 
 
+@login_required
 def follow_user(request, product_name_slug):
     """ handles logic of following a user
     this view relies on the product seller name
@@ -441,6 +444,7 @@ def follow_user(request, product_name_slug):
         for profile in UserProfile.objects.all():
             if profile.user.username == user_to_follow:
                 owner.follows.add(profile)
+                logger.info("%s followed %s", owner, user_to_follow)
 
     return redirect('app:product', product_name_slug)
 
@@ -466,13 +470,14 @@ def edit_listing(request):
             obj.price = form.cleaned_data['price']
             obj.description = form.cleaned_data['description']
             obj.save()
-
+            logger.info("Edited listing for: %s by user: %s.",
+                        obs, request.user)
             return redirect('app:index')
         else:
             print(form.errors)
 
     context_dict = {'form': form}
-
+    logger.info("Rendered edit_listing view.")
     return render(request, 'app/edit_listing.html', context_dict)
     # ----------- Error handler views ----------- #
 
