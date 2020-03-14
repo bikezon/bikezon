@@ -46,3 +46,11 @@ sent_emails
 
 # Logging
 logs
+
+# coverage testing
+htmlcov
+.coverage
+
+# uploaded pics
+media/media/product_images/population_pictures
+media/media/profile_images/population_pictures
