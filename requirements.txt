@@ -5,3 +5,4 @@ django-recaptcha==2.0.6
 django-bootstrap4
 django-crispy-forms
 coverage
+selenium
