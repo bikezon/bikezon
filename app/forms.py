@@ -68,6 +68,12 @@ class EditProfileForm(forms.ModelForm):
         fields = ('picture', 'address', 'phone')
 
 
+class EditListingForm(forms.ModelForm):
+
+    class Meta:
+        model = Product
+        fields = ('name', 'description', 'subcategory', 'price', 'picture')
+
 class UserProfileForm(forms.ModelForm):
     """ User Profile Form logic - handles
     user profile info
@@ -94,7 +100,7 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ('name', 'description', 'subcategory', 'picture')
+        fields = ('name', 'description', 'subcategory', 'price', 'picture')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

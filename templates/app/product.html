@@ -1,6 +1,8 @@
 
 {% extends "app/base.html" %}
 {% load static %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
 
 {% block title_block %}
 {% if product %}
@@ -103,16 +105,12 @@ function imageZoom(imgID, resultID) {
 <p>{{ product.description }}</p>
 <a href="mailto: {{ product.seller.user.email }}"> Get in touch with {{ product.seller }}</a>
 <p>Or giver them a call on {{ product.seller.phone }}</p>
-<div class="r">
-<div class="img-zoom-container">
-<img id="myimage" src="{{ product.picture.url }}" />
-<div id="myresult" class="img-zoom-result"></div>
-</div>
-</div>
-<script class="col">
-// Initiate zoom effect:
-imageZoom("myimage", "myresult");
-</script>
+
+<img src="{{ product.picture.url }}" />
+
+{% if message %}
+{{ message }}
+{% endif %}
 
 <form action="{% url 'app:add_to_list' product.slug %}" method="POST">
     {% csrf_token %}
@@ -121,4 +119,23 @@ imageZoom("myimage", "myresult");
 {% else %}
 The specified product does not exist.
 {% endif %}
+
+<!-- This form relies on product seller name to get the person to follow
+so be careful if altering it or product seller-->
+<form action="{% url 'app:follow_user' product.slug %}" method="POST">
+    {% csrf_token %}
+    {% buttons %}
+    <input type="submit" name="follow_this" value="Follow {{ product.seller }}" />
+    {% endbuttons %}
+</form>
+
+{% if auth_user %}
+<form action="{% url 'app:edit_listing' %}" method="POST">
+    {% csrf_token %}
+    {% buttons %}
+    <input type="submit" name="edit_listing" value="Edit {{ product.slug }}" />
+    {% endbuttons %}
+</form>
+{% endif %}
+
 {% endblock %}

@@ -1,0 +1,25 @@
+
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block title_block %}
+Your Feed
+{% endblock %}
+
+{% block body_block %}
+{% if profiles %}
+{% for profile in profiles %}
+
+<h1>{{ profile.user.username }}</h1>
+
+{% for key, value in products.items %}
+{% if key == profile %}
+{% for elem in value %}
+<a href="/product/{{ elem.slug }}/">{{ elem.name }}</a>
+<img src="{{ elem.picture.url }}" />
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endif %}
+{% endblock %}

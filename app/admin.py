@@ -2,7 +2,6 @@ from django.contrib import admin
 from app.models import Category, UserProfile, Rating, ProductList, Product, \
     SubCategory
 
-
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
     list_display = ('name', 'description')

@@ -16,13 +16,15 @@ urlpatterns = [
     path('logout/', views.user_logout, name='logout'),
     path('register/', views.register, name='register'),
     path('categories/', views.show_categories, name='categories'),
-    # slugs
     path('category/<slug:category_name_slug>/',
          views.show_category, name='show_category'),
     path('category/<slug:category_name_slug>/<slug:subcategory_name_slug>/',
          views.show_sub_category, name='subcategory'),
     path('product/<slug:product_name_slug>/', views.product, name='product'),
+    path('product/edit_listing', views.edit_listing, name='edit_listing'),
     path('product/<slug:product_name_slug>/add_to_list', views.add_to_list, name='add_to_list'),
+    path('product/<slug:product_name_slug>/follow_user', views.follow_user, name='follow_user'),
     path('account/wish-list/', views.wish_list, name='list'),
+    path('account/feed/', views.feed, name='feed'),
     path('account/<slug:list_name_slug>/', views.wish_list, name='custom-list'),
 ]

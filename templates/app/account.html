@@ -11,6 +11,9 @@ Bikezon Account
 <h1>Account</h1>
 <p>{{ user.username }}</p>
 <img src="{{ picture.url }}" />
+
+<!-- Wishlist button -->
+
 <form action="{% url 'app:list' %}">
     {% buttons %}
     <button type="submit" class="btn btn-primary">
@@ -18,6 +21,9 @@ Bikezon Account
     </button>
     {% endbuttons %}
 </form>
+
+<!-- Edit profile button -->
+
 <form action="{% url 'app:edit_profile' %}">
     {% buttons %}
     <button type="submit" class="btn btn-primary">
@@ -25,4 +31,15 @@ Bikezon Account
     </button>
     {% endbuttons %}
 </form>
+
+<!-- Feed button -->
+
+<form action="{% url 'app:feed' %}">
+    {% buttons %}
+    <button type="submit" class="btn btn-primary">
+        My feed
+    </button>
+    {% endbuttons %}
+</form>
+
 {% endblock %}

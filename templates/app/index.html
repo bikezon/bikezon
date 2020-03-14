@@ -37,12 +37,10 @@ Homepage
     <h2 class="secondh2">Products</h2>
     <ul class="row">
         {% for product in products %}
-        <div class="column">
-		<div  class = "proImage">
+        <li>
+            <a href="/product/{{ product.slug }}/">{{ product.name }}</a>
             <img src="{{ product.picture.url }}" />
-			<a class="products" href="/product/{{ product.slug }}/">{{ product.name }}</a>
-        </div>
-		</div>
+        </li>
         {% endfor %}
     </ul>
     {% else %}

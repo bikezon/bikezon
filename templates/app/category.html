@@ -28,10 +28,10 @@ font-weight:bold;
 }
 </style>
 <h1>{{ category.name }}</h1>
-<p class="catDis">{{ category.description }}</p>
+<p>{{ category.description }}</p>
 {% for subcat in subcats %}
-<div class="subcat">
-    <a class = "item" href="/category/{{ category.name }}/{{ subcat.slug }}/">-> {{ subcat.name }}</a>
+<div>
+    <a href="/category/{{ category.name }}/{{ subcat.slug }}/">{{ subcat.name }}</a>
 </div>
 {% endfor %}
 {% endif %}

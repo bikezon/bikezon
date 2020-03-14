@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from app.models import Category, SubCategory, Product, UserProfile, ProductList
-from app.forms import UserForm, UserProfileForm, ProductForm, EditProfileForm
+from app.forms import UserForm, UserProfileForm, ProductForm, EditProfileForm, EditListingForm
 from django.contrib import messages
 import logging
 import os
@@ -56,6 +56,12 @@ def index(request):
 
 
 def contact(request):
+    """ contact page logic
+
+    just renders the contact page,
+    all other logic is handled on
+    the html page
+    """
     # temp contact view
     logger.info("Contact requested")
     return render(request, 'app/contact.html')
@@ -237,6 +243,20 @@ def product(request, product_name_slug):
 
     logger.info("Show product called with product: %s",
                 context_dict['product'])
+
+    profile = UserProfile.objects.get(user=request.user)
+
+    # check if user is authed, if yes, they can edit listing
+    auth_user = False
+    if product:
+        if product.seller == profile:
+            auth_user = True
+
+    context_dict['auth_user'] = auth_user
+
+    # cache product name to pass to edit listing
+    request.session['product_slug'] = product_name_slug
+
     return render(request, 'app/product.html', context=context_dict)
 
 
@@ -248,12 +268,15 @@ def wish_list(request):
     if user:
         if user.is_active:
             profile = UserProfile.objects.get(user=request.user)
+            product_list = ProductList.objects.get(user=profile)
+            products = Product.objects.filter(productlist=product_list)
             avatar = profile.picture
     else:
         avatar = None
 
     context_dict = {
         "picture": avatar,
+        "products": products,
     }
     logger.info("Rendering wish list")
     return render(request, 'app/list.html', context=context_dict)
@@ -314,10 +337,8 @@ def sell(request):
 @login_required
 def edit_profile(request):
     """ allows a user to edit their profile
-    
     Arguments:
         request -- [standard Django request arg]
-    
     Returns:
         Errors if there were errors with form completion
         Redirect to account
@@ -353,11 +374,10 @@ def edit_profile(request):
 
 def add_to_list(request, product_name_slug):
     """ add a product to a list
-    
     Arguments:
         request -- [standard Django request arg]
         product_name_slug -- slug of product to pass
-    
+
     Returns:
         Redirect to the product page
     """
@@ -366,9 +386,95 @@ def add_to_list(request, product_name_slug):
     if request.method == 'POST':
         product_list = ProductList.objects.get(user=profile)
         product_list.product.add(product)
+        logger.info("User %s is adding product %s to their list",
+                    request.user, product)
 
     return redirect('app:product', product_name_slug)
-# ----------- Error handler views ----------- #
+
+
+def feed(request):
+    """ handles user follows feed logic
+    gets the name of the user, finds users
+    that this user follows and then displays 
+    the products that those users are selling
+
+    Arguments:
+        request -- [standard Django request arg]
+
+    Returns:
+        rendered page with appropriate context
+    """
+    profile = UserProfile.objects.get(user=request.user)
+    following = profile.follows
+    profiles = []
+    for user in following.all():
+        profiles.append(user)
+
+    products = {}
+    for user in profiles:
+        product_list = Product.objects.filter(seller=user)
+        products[user] = product_list
+
+    print(products)
+    context_dict = {'profiles': profiles, 'products': products}
+
+    return render(request, 'app/feed.html', context=context_dict)
+
+
+def follow_user(request, product_name_slug):
+    """ handles logic of following a user
+    this view relies on the product seller name
+    from the product.html template. It uses
+    the seller name to determine the profile
+    to follow. 
+
+    Arguments:
+        request -- [standard Django request arg]
+        product_name_slug -- slug of product to pass to redirect
+
+    Returns:
+        redirection to the product page
+    """
+    owner = UserProfile.objects.get(user=request.user)
+    if request.method == 'POST':
+        user_to_follow = request.POST.get('follow_this').split(' ')[1]
+        for profile in UserProfile.objects.all():
+            if profile.user.username == user_to_follow:
+                owner.follows.add(profile)
+
+    return redirect('app:product', product_name_slug)
+
+
+@login_required
+def edit_listing(request):
+    """ allows a user to edit their profile
+
+    Arguments:
+        request -- [standard Django request arg]
+
+    Returns:
+        Errors if there were errors with form completion
+        Redirect to account
+        Or renders the page
+    """
+    form = EditListingForm()
+    if request.method == 'POST':
+        form = EditListingForm(request.POST, request.FILES)
+        if form.is_valid():
+            obj = Product.objects.get(slug=request.session['product_slug'])
+            obj.name = form.cleaned_data['name']
+            obj.price = form.cleaned_data['price']
+            obj.description = form.cleaned_data['description']
+            obj.save()
+
+            return redirect('app:index')
+        else:
+            print(form.errors)
+
+    context_dict = {'form': form}
+
+    return render(request, 'app/edit_listing.html', context_dict)
+    # ----------- Error handler views ----------- #
 
 
 def handler404(request, exception):
