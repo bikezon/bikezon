@@ -447,8 +447,12 @@ def follow_user(request, product_name_slug):
         user_to_follow = request.POST.get('follow_this').split(' ')[1]
         for profile in UserProfile.objects.all():
             if profile.user.username == user_to_follow:
-                owner.follows.add(profile)
-                logger.info("%s followed %s", owner, user_to_follow)
+                if not profile in owner.follows.all():
+                    owner.follows.add(profile)
+                    logger.info("%s followed %s", owner, user_to_follow)
+                else:
+                    owner.follows.remove(profile)
+                    logger.info("%s Unfollowed %s", owner, user_to_follow)
 
     return redirect('app:product', product_name_slug)
 
