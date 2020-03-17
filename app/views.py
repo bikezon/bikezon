@@ -244,7 +244,11 @@ def product(request, product_name_slug):
     logger.info("Show product called with product: %s",
                 context_dict['product'])
 
-    profile = UserProfile.objects.get(user=request.user)
+    # if user is not authenticated set to none
+    if request.user.is_authenticated:
+        profile = UserProfile.objects.get(user=request.user)
+    else:
+        profile = None
 
     # check if user is authed, if yes, they can edit listing
     auth_user = False
