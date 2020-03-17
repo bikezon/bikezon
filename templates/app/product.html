@@ -125,7 +125,7 @@ so be careful if altering it or product seller-->
 <form action="{% url 'app:follow_user' product.slug %}" method="POST">
     {% csrf_token %}
     {% buttons %}
-    <input type="submit" name="follow_this" value="Follow {{ product.seller }}" />
+    <input type="submit" name="follow_this" value="Follow/Unfollow {{ product.seller }}" />
     {% endbuttons %}
 </form>
 
