@@ -62,6 +62,32 @@ form {
   margin: 0 auto;
 }
 
+.input-lg {
+    /* CSS code */
+}
+
+#user_form  {
+    font-weight: bold;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+  padding: 14px 20px;
+  background-color: #f44336;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn, .signupbtn {
+  float: left;
+  width: 50%;
+}
+
 /* style the container */
 .container {
   padding: 8px 16px 0 16px;
