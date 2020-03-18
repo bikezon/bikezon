@@ -227,10 +227,15 @@ def populate():
          'seller': 'Kellie3'}]
 
     # data for product lists
-    # todo
-
-    # data for rating
-    # todo
+    wishlists = [
+        {'username': 'Ellie',
+         'products': ['bike1', 'bike2', 'bike3', 'bike4']},
+        {'username': 'Kellie',
+         'products': ['pedal1', 'pedal2']},
+        {'username': 'Dellie',
+         'products': ['road_bike1', 'road_bike2', 'handlebars1']},
+        {'username': 'Bellie',
+         'products': ['road_bike1', 'handlebars2']}]
 
     # Create superuser to be accessed with standard login credentials
     try:
@@ -254,12 +259,12 @@ def populate():
             if user['username'] == user_prof['username']:
                 add_user_profile(
                     u, user_prof['picture'], user_prof['phone'], user_prof['address'], user_prof['stars'])
-
                 break
 
     # Populate the followers for each user profile
     for owner in UserProfile.objects.all():
         following = []
+
         # Get the list of users followed by the owner
         for user_prof in user_profiles:
             if owner.user.username == user_prof['username']:
@@ -284,12 +289,26 @@ def populate():
         for s in UserProfile.objects.all():
             if s.user.username == product['seller']:
                 seller = s
+                break
 
         subcat = SubCategory.objects.get(name=product['subcategory'])
 
         p = add_product(subcat, product['name'], product['description'],
                         product['price'], product['picture'], seller)
-    # todo call all other populate functions
+
+    # Populate the wishlists
+    for wl in wishlists:
+        # Get the user profile
+        for temp in UserProfile.objects.all():
+            if temp.user.username == wl['username']:
+                up = temp
+                break
+        products = []
+        # Get the list of product objects
+        for p in wl['products']:
+            products.append(Product.objects.get(name=p))
+
+        wl = add_productlist(up, products)
 
 
 def add_category(name, descr):
@@ -362,12 +381,18 @@ def add_product(subcat, name, descr, price, picture, seller):
     return p
 
 
-def add_productlist():
-    pass
+def add_productlist(up, products):
+    """
+    Purpose - Create a product list (e.g. a wishlist) in the database
+    Use - add_productlist(up, products) where up is the user profile and
+            products is a list of products to be added to the list
+    Returns - created ProductList object
+    """
+    plist = ProductList.objects.get(user=up)
+    for p in products:
+        plist.product.add(p)
 
-
-def add_rating():
-    pass
+    return plist
 
 
 # Run the population script only when the module is the main program
