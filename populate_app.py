@@ -340,6 +340,9 @@ def add_user_profile(user, picture, phone, address, stars):
     up = UserProfile.objects.create(
         user=user, phone=phone, address=address, stars=stars)
     up.picture.save(picture, File(open(picture, 'rb')))
+    # Create wishlist for every user profile
+    wish_list = ProductList.objects.create(name=user.username, user=up)
+
     return up
 
 
