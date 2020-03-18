@@ -1,5 +1,7 @@
 # Bikezon
 
+<https://bikezon.pythonanywhere.com/>
+
 Django based website that will allow users to participate in an online bicycle and parts marketplace. Users will be able to create accounts, postings, browse categories and book items to buy. The marketplace will specifically focus on bikes and parts for them.
 
 ## Getting started
@@ -57,7 +59,7 @@ And go to [Local host](127.0.0.1:8000 "127.0.0.1:8000") in your browser.
 
 ## Hosting and access to website
 
-Coming soon: pythonanywhere hosting
+[Check out the website](https://bikezon.pythonanywhere.com/)
 
 ## Running tests
 
