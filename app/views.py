@@ -382,7 +382,7 @@ def edit_profile(request):
 
 @login_required
 def add_to_list(request, product_name_slug):
-    """ add a product to a list
+    """ add/remove a product to a list
     Arguments:
         request -- [standard Django request arg]
         product_name_slug -- slug of product to pass
@@ -394,9 +394,14 @@ def add_to_list(request, product_name_slug):
     product = Product.objects.get(slug=product_name_slug)
     if request.method == 'POST':
         product_list = ProductList.objects.get(user=profile)
-        product_list.product.add(product)
-        logger.info("User %s is adding product %s to their list",
-                    request.user, product)
+        if product in product_list.product.all():
+            product_list.product.remove(product)
+            logger.info("User %s is removing product %s from their list",
+                        request.user, product)
+        else:
+            product_list.product.add(product)
+            logger.info("User %s is adding product %s to their list",
+                        request.user, product)
 
     return redirect('app:product', product_name_slug)
 
