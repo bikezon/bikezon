@@ -22,12 +22,17 @@ Bikezon Register
     {{ profile_form.as_p }}
 	</div>
 
-    <!-- <input id="submit" type="submit" name="submit" value="Register" /> -->
-	<div class="clearfix">
-		<button class="cancelbtn" {% url 'app:index' %}>Back</button>
-		<button id="submit" type="submit" name="submit" value="Register" class="signupbtn">Register</button>
-	</div>
-	
+  <div class="clearfix">
+    <button type="button" class="cancelbtn">Cancel</button>
+    <button type="submit" class="signupbtn">Sign Up</button>
+  </div>
+
+  <!-- <div class="clearfix">
+     <a href="{% url 'app:index' %}" class="cancelbtn">Click Here</a>
+     <a class="signupbtn">Sign Up</a>
+  </div> -->
+
+
 </form>
 {% endif %}
 {% endblock %}
