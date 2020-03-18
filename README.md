@@ -67,9 +67,27 @@ In order to run the test file for the project the [geckodriver](https://github.c
 (see link). On windows geckodriver must also be added to your PATH variable. The [Mozilla Firefox](https://www.mozilla.org/en-GB/firefox/new/ "Mozilla Firefox") web browser is required.
 In order to launch the tests run the test file:
 
+First, clean the database:
+
+Windows
+
 ```shell
-(bikezon)workspace$: python test.py
+(bikezon)workspace$: start clean_db.bat
 ```
+
+Linux
+
+```shell
+(bikezon)workspace$: ./clean_db.sh
+```
+
+After the database is clean, run the tests (this may take a while):
+
+```shell
+(bikezon)workspace$: python tests.py
+```
+
+Test results are logged into logs/test_logs.log
 
 ## Built with
 
