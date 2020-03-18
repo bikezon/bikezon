@@ -114,7 +114,7 @@ function imageZoom(imgID, resultID) {
 
 <form action="{% url 'app:add_to_list' product.slug %}" method="POST">
     {% csrf_token %}
-    <input type="submit" name="Add to list" value="Add to list" />
+    <input type="submit" name="Add to list" value="Add/Remove to wishlist" />
 </form>
 {% else %}
 The specified product does not exist.

@@ -54,3 +54,6 @@ htmlcov
 # uploaded pics
 media/media/product_images/population_pictures
 media/media/profile_images/population_pictures
+
+# recaptcha keys
+recaptcha.json
