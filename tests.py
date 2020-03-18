@@ -2,13 +2,17 @@ import os
 import django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bikezon.settings')
 django.setup()
-from selenium import common
-from selenium import webdriver
-import unittest
-from app.forms import UserForm
-from app.models import UserProfile, User, ProductList
-import logging
 from django.core.exceptions import ObjectDoesNotExist
+import logging
+from app.models import UserProfile, User, ProductList
+from app.forms import UserForm
+import unittest
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium import webdriver
+from selenium import common
+
 
 # ----------- Logger config ----------- #
 if not os.path.exists("logs/"):
@@ -30,7 +34,7 @@ test_logger.addHandler(handler)
 class TestSignup(unittest.TestCase):
     # param unittest.TestCase: python unit testing library
 
-    def setUp(self):
+    def __init__(self):
         self.driver = webdriver.Firefox()
 
     # localhost firefox registration test
@@ -100,12 +104,52 @@ class TestSignup(unittest.TestCase):
 
     # setup driver, run the tests and kill the driver
     def run(self):
-        self.setUp()
         self.test_signup_fire()
+        self.tearDown()
+
+
+class TestLogIn(unittest.TestCase):
+
+    def __init__(self):
+        self.driver = webdriver.Firefox()
+
+    def test_login_fire(self):
+        # try to login as user that was just created
+        self.driver.get("http://127.0.0.1:8000/login/")
+        self.driver.find_element_by_id('id_username').send_keys('TestUser')
+        self.driver.find_element_by_id('id_password').send_keys('1234')
+        self.driver.find_element_by_id('log-in-button').click()
+
+        # if redirected to home, then successful login, else failed
+        if "http://127.0.0.1:8000/" == self.driver.current_url:
+            test_logger.info("Sign in and redirect correct")
+        else:
+            test_logger.warning("Sign in or redirect failed")
+
+    # kill driver on teardown
+    def tearDown(self):
+        self.driver.quit()
+
+    # setup driver, run the tests and kill the driver
+    def run(self):
+        self.test_login_fire()
         self.tearDown()
 
 
 # launch tests
 if __name__ == '__main__':
-    sign_up_test = TestSignup()
-    sign_up_test.run()
+    print("Starting all tests, this may take a while...")
+    # run registration tests
+    print("Testing registartion...")
+    test_logger.info("Started registration tests.")
+    registration_tester = TestSignup()
+    registration_tester.run()
+    print("Ok.")
+    test_logger.info("All passed.")
+    # run login tests
+    print("Testing logging in...")
+    test_logger.info("Started login tests.")
+    login_tester = TestLogIn()
+    login_tester.run()
+    print("Ok.")
+    test_logger.info("All passed.")
