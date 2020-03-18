@@ -212,5 +212,10 @@ if __name__ == '__main__':
     login_tester.run()
     print("Ok.")
     test_logger.info("All passed.")
+    # run base redirect tests
+    print("Testing base redirects...")
+    test_logger.info("Started base redirect tests.")
     redirect_tester = TestBaseRedirects()
     redirect_tester.run()
+    print("Ok.")
+    test_logger.info("All passed.")
