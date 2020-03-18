@@ -4,7 +4,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bikezon.settings')
 django.setup()
 from django.core.exceptions import ObjectDoesNotExist
 import logging
-from app.models import UserProfile, User, ProductList
+from app.models import UserProfile, User, ProductList, Product
 from app.forms import UserForm
 import unittest
 from selenium import webdriver
@@ -193,6 +193,79 @@ class TestBaseRedirects(unittest.TestCase):
     def run(self):
         self.test_base_redirects()
         self.tearDown()
+    
+
+class TestFollowAndList(unittest.TestCase):
+
+    def __init__(self):
+        self.driver = webdriver.Firefox()
+
+    # kill driver on teardown
+    def tearDown(self):
+        self.driver.quit()
+
+    # setup driver, run the tests and kill the driver
+    def run(self):
+        self.test_follow_and_list()
+        self.tearDown()
+
+    def test_follow_and_list(self):
+        # go to index page
+        self.driver.get("http://127.0.0.1:8000/")
+        # login as test user
+        self.driver.find_element_by_id('id_login').click()
+        self.driver.find_element_by_id('id_username').send_keys('TestUser')
+        self.driver.find_element_by_id('id_password').send_keys('1234')
+        self.driver.find_element_by_id('log-in-button').click()
+        # go to index page
+        self.driver.get("http://127.0.0.1:8000/")
+        # go to bike3 product
+        self.driver.find_element_by_id('id_bike3').click()
+        # check if redirected to correct page
+        if "http://127.0.0.1:8000/product/bike3/" == self.driver.current_url:
+            test_logger.info("Correct redirect to product from index")
+        else:
+            test_logger.warning("Wrong redirect to product from index")
+
+        # add to wish list and follow user
+        self.driver.find_element_by_id('id_wishlist').click()
+        self.driver.find_element_by_id('id_follow').click()
+        user = User.objects.get(username='TestUser')
+        user_profile = UserProfile.objects.get(user=user)
+
+        # check that follow worked
+        user_to_follow = User.objects.get(username="Dellie")
+        profile_to_follow = UserProfile.objects.get(user=user)
+        if profile_to_follow in user_profile.follows.all():
+            test_logger.info("Following works correctly")
+        else:
+            test_logger.warning("Following user test failed")
+
+        # check product got added to wish list
+        product = Product.objects.get(name="bike3")
+        product_list = ProductList.objects.get(user=user_profile)
+        if product in product_list.product.all():
+            test_logger.info("Adding to wishlist works correctly")
+        else:
+            test_logger.warning("Adding to wishlist failed")
+
+        # go back to product page
+        self.driver.get("http://127.0.0.1:8000/product/bike3/")
+        # remove from list and unfollow user
+        self.driver.find_element_by_id('id_wishlist').click()
+        self.driver.find_element_by_id('id_follow').click()
+
+        # check that unfollowed user
+        if not profile_to_follow in user_profile.follows.all():
+            test_logger.info("Unfollowing works correctly")
+        else:
+            test_logger.warning("Unfollowing user test failed")
+
+        # check product got removed from wish list
+        if not product in product_list.product.all():
+            test_logger.info("Adding to wishlist works correctly")
+        else:
+            test_logger.warning("Adding to wishlist failed")
 
 
 # launch tests
@@ -212,5 +285,17 @@ if __name__ == '__main__':
     login_tester.run()
     print("Ok.")
     test_logger.info("All passed.")
+    # run base redirect tests
+    print("Testing base redirects...")
+    test_logger.info("Started base redirect tests.")
     redirect_tester = TestBaseRedirects()
     redirect_tester.run()
+    print("Ok.")
+    test_logger.info("All passed.")
+    # run user following tests
+    print("Testing following...")
+    test_logger.info("Started following tests.")
+    follow_tester = TestFollowAndList()
+    follow_tester.run()
+    print("Ok.")
+    test_logger.info("All passed.")
