@@ -4,7 +4,7 @@ from app.models import UserProfile, Product, SubCategory, ProductList
 from captcha.fields import ReCaptchaField
 from django.core.files.images import get_image_dimensions
 from django.db.utils import OperationalError
-from phone_field import PhoneField
+from phone_field import PhoneFormField, PhoneWidget
 import logging
 import os
 
@@ -61,7 +61,9 @@ class ReCAPTCHAForm(forms.Form):
 
 class EditProfileForm(forms.ModelForm):
     address = forms.CharField(required=False)
-    phone = PhoneField(blank=True, help_text='Contact phone number')
+    phone = PhoneFormField(widget=PhoneWidget(
+        attrs={"class": "form-control input-lg"}),
+        help_text='Contact phone number')
 
     class Meta:
         model = UserProfile
