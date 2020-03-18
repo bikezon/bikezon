@@ -121,9 +121,13 @@ def register(request):
             user.save()
             profile = profile_form.save(commit=False)
             profile.user = user
+            # check for picture
             if ("picture" in request.FILES):
                 profile.picture = request.FILES["picture"]
             profile.save()
+            # create wish list for new user
+            wish_list = ProductList.objects.create(
+                name=user.username, user=profile)
             logger.info("User: %s is registered", user)
             registered = True
         else:

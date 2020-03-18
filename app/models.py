@@ -7,6 +7,7 @@ from datetime import datetime
 
 NAME_MAX_LENGTH = 128
 
+
 class Category(models.Model):
     name = models.CharField(max_length=NAME_MAX_LENGTH, unique=True)
     description = models.TextField()
@@ -66,7 +67,7 @@ class ProductList(models.Model):
     name = models.CharField(max_length=NAME_MAX_LENGTH)
     user = models.ForeignKey("UserProfile", on_delete=models.CASCADE)
     product = models.ManyToManyField("Product")
-    item = models.PositiveSmallIntegerField()
+    item = models.PositiveSmallIntegerField(blank=True, null=True)
     slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
