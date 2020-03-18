@@ -30,13 +30,13 @@
             <p class="navbar-text">Bikezon</p>
             <nav class="main-nav">
                 {% if user.is_authenticated %}
-                <a href="{% url 'app:logout' %}" class="nav-button">Sign out</a>
-                <a href="{% url 'app:account' %}" class="nav-button">My Account</a>
+                <a href="{% url 'app:logout' %}" class="nav-button" id="id_logout">Sign out</a>
+                <a href="{% url 'app:account' %}" class="nav-button" id="id_account">My Account</a>
                 {% else %}
-                <a href="{% url 'app:login' %}" class="nav-button">Sign in</a>
-                <a href="{% url 'app:register' %}" class="nav-button">Sign up</a>
+                <a href="{% url 'app:login' %}" class="nav-button" id="id_login">Sign in</a>
+                <a href="{% url 'app:register' %}" class="nav-button" id="id_register">Sign up</a>
                 {% endif %}
-                <a href="{% url 'app:index' %}" class="nav-button">Home</a>
+                <a href="{% url 'app:index' %}" class="nav-button" id="id_index">Home</a>
                 <div class="gcse-search"></div>
             </nav>
         </header>
