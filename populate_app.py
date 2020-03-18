@@ -6,8 +6,17 @@ from django.core.files import File
 from app.models import Category, SubCategory, Product, ProductList, Rating, UserProfile
 from django.contrib.auth.models import User
 
+
 def populate():
-    # data for subcategories of components
+    """
+    Purpose - Main function used for populating the database.
+                Creates a superuser as well as other elements needed in order to
+                demonstrate website's functionality.
+    Use - populate()
+    Throws - n/a
+    Returns - n/a
+    """
+    # Data for subcategories of components
     comp_subcats = [
         {'name': 'Handles',
          'description': 'If you are not ready to go hands free'},
@@ -22,15 +31,16 @@ def populate():
         {'name': 'Pedal',
          'description': 'Do not forget to grab both, one is not too useful'}]
 
-    # data for subcategories of bikes
-    bike_subcats = [{'name': 'MTB',
-                     'description': 'Because risk is in your blood'},
-                    {'name': 'Road bike',
-                     'description': 'Public transport is expensive after all'},
-                    {'name': 'Hybrid',
-                     'description': 'Why not both'}]
+    # Data for subcategories of bikes
+    bike_subcats = [
+        {'name': 'MTB',
+         'description': 'Because risk is in your blood'},
+        {'name': 'Road bike',
+         'description': 'Public transport is expensive after all'},
+        {'name': 'Hybrid',
+         'description': 'Why not both'}]
 
-    # data for categories
+    # Data for categories i.e. components and bikes
     categories = [
         {'name': 'Components',
          'description': 'All the parts of bike you will need!',
@@ -39,7 +49,7 @@ def populate():
          'description': 'Ready to go bike if you are feeling lazy',
          'subcats': bike_subcats}]
 
-    # data for users
+    # Data for users (8 users)
     users = [
         {'username': 'Ellie',
          'password': '123',
@@ -66,7 +76,7 @@ def populate():
          'password': '12321',
          'email': 'imightbebellie@hi.com'}]
 
-    # data for user profiles
+    # Data for user profiles for each user
     user_profiles = [
         {'username': 'Ellie',
          'picture': 'population_pictures/user_profiles/ellie.jpg',
@@ -115,10 +125,9 @@ def populate():
          'phone': '008',
          'follows': ['Dellie'],
          'address': 'address of bellie or so I heard',
-         'stars': 3}
-    ]
+         'stars': 3}]
 
-    # data for products
+    # Data for products
     products = [
         {'name': 'bike1',
          'subcategory': 'MTB',
@@ -218,12 +227,17 @@ def populate():
          'seller': 'Kellie3'}]
 
     # data for product lists
-    # todo
+    wishlists = [
+        {'username': 'Ellie',
+         'products': ['bike1', 'bike2', 'bike3', 'bike4']},
+        {'username': 'Kellie',
+         'products': ['pedal1', 'pedal2']},
+        {'username': 'Dellie',
+         'products': ['road_bike1', 'road_bike2', 'handlebars1']},
+        {'username': 'Bellie',
+         'products': ['road_bike1', 'handlebars2']}]
 
-    # data for rating
-    # todo
-
-    # Create superuser
+    # Create superuser to be accessed with standard login credentials
     try:
         super_user = User.objects.create_superuser(
             username='admin', password='admin', email='bikezon.team@gmail.com')
@@ -236,7 +250,7 @@ def populate():
         for sub_d in cat_d['subcats']:
             add_subcat(sub_d['name'], sub_d['description'], c)
 
-    # Populate users and user profiles
+    # Populate users and user profiles without followers
     for user in users:
         # First create the user
         u = add_user(user['username'], user['password'], user['email'])
@@ -245,50 +259,77 @@ def populate():
             if user['username'] == user_prof['username']:
                 add_user_profile(
                     u, user_prof['picture'], user_prof['phone'], user_prof['address'], user_prof['stars'])
-                
                 break
 
     # Populate the followers for each user profile
     for owner in UserProfile.objects.all():
         following = []
+
         # Get the list of users followed by the owner
         for user_prof in user_profiles:
             if owner.user.username == user_prof['username']:
                 following = user_prof['follows']
                 break
-        # Add each user followed
+
+        # Add each followed user
         for f in following:
             followed = None
+            # Find the user
             for temp in UserProfile.objects.all():
                 if temp.user.username == f:
                     followed = temp
                     break
-            owner.follows.add(followed)
+            if followed != None:
+                owner.follows.add(followed)
 
+    # Populate the products
     for product in products:
         # Get the seller object
         seller = None
         for s in UserProfile.objects.all():
             if s.user.username == product['seller']:
                 seller = s
+                break
 
         subcat = SubCategory.objects.get(name=product['subcategory'])
-        '''for s in SubCategory.objects.all():
-            if s.name == product['subcategory']:
-                subcat = s'''
 
         p = add_product(subcat, product['name'], product['description'],
                         product['price'], product['picture'], seller)
-    # todo call all other populate functions
+
+    # Populate the wishlists
+    for wl in wishlists:
+        # Get the user profile
+        for temp in UserProfile.objects.all():
+            if temp.user.username == wl['username']:
+                up = temp
+                break
+        products = []
+        # Get the list of product objects
+        for p in wl['products']:
+            products.append(Product.objects.get(name=p))
+
+        wl = add_productlist(up, products)
 
 
 def add_category(name, descr):
+    """
+    Purpose - Create a category in the database
+    Use - add_category(name, descr) where name is the category's name 
+            and descr is category's description
+    Returns - created Category object
+    """
     c = Category.objects.get_or_create(name=name, description=descr)[0]
     c.save()
     return c
 
 
 def add_subcat(name, descr, cat):
+    """
+    Purpose - Create a subcategory in the database
+    Use - add_subcat(name, descr, cat) where name is the subcategory's name, 
+            descr is subcategory's description and cat is parent category 
+    Returns - created SubCategory object
+    """
     c = SubCategory.objects.get_or_create(name=name, description=descr,
                                           category=cat)[0]
     c.save()
@@ -296,22 +337,41 @@ def add_subcat(name, descr, cat):
 
 
 def add_user(username, password, email):
+    """
+    Purpose - Create a user in the database
+    Use - add_user(username, password, email) where username, password and email  
+            are user's username, password and email respectively.
+    Returns - created User object
+    """
     u = User.objects.create_user(
         username=username, email=email, password=password)
 
     return u
 
-# todo those functions
-
 
 def add_user_profile(user, picture, phone, address, stars):
+    """
+    Purpose - Create a user profile in the database
+    Use - add_user_profile(user, picture, phone, address, stars) where user, picture, phone, address, 
+            starts are user profile's user, picture, phone, address and star rating respectively.
+    Returns - created UserProfile object
+    """
     up = UserProfile.objects.create(
         user=user, phone=phone, address=address, stars=stars)
     up.picture.save(picture, File(open(picture, 'rb')))
+    # Create wishlist for every user profile
+    wish_list = ProductList.objects.create(name=user.username, user=up)
+
     return up
 
 
 def add_product(subcat, name, descr, price, picture, seller):
+    """
+    Purpose - Create a product in the database
+    Use - add_product(subcat, name, descr, price, picture, seller) where subcat, name, descr, price, picture
+        and seller are product's subcategory, name, description, price, picture and seller respectively.
+    Returns - created Product object
+    """
     p = Product.objects.create(
         name=name, description=descr, price=price, seller=seller)
 
@@ -321,14 +381,21 @@ def add_product(subcat, name, descr, price, picture, seller):
     return p
 
 
-def add_productlist():
-    pass
+def add_productlist(up, products):
+    """
+    Purpose - Create a product list (e.g. a wishlist) in the database
+    Use - add_productlist(up, products) where up is the user profile and
+            products is a list of products to be added to the list
+    Returns - created ProductList object
+    """
+    plist = ProductList.objects.get(user=up)
+    for p in products:
+        plist.product.add(p)
+
+    return plist
 
 
-def add_rating():
-    pass
-
-
+# Run the population script only when the module is the main program
 if __name__ == '__main__':
     print("Starting the population script")
     populate()
