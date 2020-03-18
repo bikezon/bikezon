@@ -24,18 +24,18 @@ Bikezon Login
         <!-- <br /> -->
         <label for="username"><b>Username</b></label>
         <input type="text" placeholder="Enter Username" name="username" value=""
-            required>
+            required id="id_username">
         <!-- Password: <input type="password" name="password" value="" size="50"/> -->
         <!-- <br /> -->
         <label for="password"><b>Password</b></label>
         <input type="password" placeholder="Enter Password" name="password"
-            value="" required>
+            value="" required id="id_password">
         <div class="g-recaptcha"
-            data-sitekey="6LcWyN4UAAAAALfrAGuuoRR6V0m9Dck1u4YAWoE2"
+            data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
             data-callback="enableBtn">
         </div>
         <!-- <input type="submit" value="submit" id="log-in-button" disabled/> -->
-        <button type="submit" id="log-in-button" disabled>Complete Captcha</button>
+        <button type="submit" id="log-in-button" >Complete Captcha</button>
     </div>
     <div class="container" style="background-color:#f1f1f1">
         <form action="{% url 'app:index' %}">
