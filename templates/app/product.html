@@ -114,7 +114,7 @@ function imageZoom(imgID, resultID) {
 
 <form action="{% url 'app:add_to_list' product.slug %}" method="POST">
     {% csrf_token %}
-    <input type="submit" name="Add to list" value="Add/Remove to wishlist" />
+    <input type="submit" name="Add to list" value="Add/Remove to wishlist" id="id_wishlist"/>
 </form>
 {% else %}
 The specified product does not exist.
@@ -122,10 +122,10 @@ The specified product does not exist.
 
 <!-- This form relies on product seller name to get the person to follow
 so be careful if altering it or product seller-->
-<form action="{% url 'app:follow_user' product.slug %}" method="POST">
+<form action="{% url 'app:follow_user' product.slug %}" method="POST" id="id_follow">
     {% csrf_token %}
     {% buttons %}
-    <input type="submit" name="follow_this" value="Follow/Unfollow {{ product.seller }}" />
+    <input type="submit" name="follow_this" value="Follow/Unfollow {{ product.seller }}" id="id_follow"/>
     {% endbuttons %}
 </form>
 
