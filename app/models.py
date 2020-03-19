@@ -97,7 +97,8 @@ class Rating(models.Model):
 class UserProfile(models.Model):
     # User class implements email, username and password
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    picture = models.ImageField(upload_to='media/profile_images', blank=True)
+    picture = models.ImageField(
+        upload_to='media/profile_images', default='default.png', blank=True)
     phone = PhoneField(unique=True, blank=False)
     address = models.CharField(max_length=200)
     stars = models.DecimalField(
