@@ -10,8 +10,11 @@ Bikezon Account
 {% block body_block %}
 <h1>Account</h1>
 <p>{{ user.username }}</p>
+{% if picture %}
 <img src="{{ picture.url }}" />
-
+{% else %}
+<img src="{% static 'images/no_profile_picture.png' %}" />
+{% endif %}
 <!-- Wishlist button -->
 
 <form action="{% url 'app:list' %}">
