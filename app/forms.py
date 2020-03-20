@@ -30,13 +30,13 @@ class UserForm(forms.ModelForm):
     """
     logger.info("User form hit")
     username = forms.CharField(widget=forms.TextInput(
-        attrs={"class": "form-control input-lg"}))
+        attrs={"class": "form-control input-lg", "placeholder": "Enter Username"}))
     email = forms.CharField(widget=forms.TextInput(
-        attrs={"class": "form-control input-lg"}))
+        attrs={"class": "form-control input-lg", "placeholder": "Enter Email"}))
     password = forms.CharField(widget=forms.PasswordInput(
-        attrs={"class": "form-control input-lg"}))
+        attrs={"class": "form-control input-lg", "placeholder": "Enter Password"}))
     verify_password = forms.CharField(widget=forms.PasswordInput(
-        attrs={"class": "form-control input-lg", "placeholder": "Re-enter password"}))
+        attrs={"class": "form-control input-lg", "placeholder": "Re-enter Password"}))
 
     class Meta:
         model = User

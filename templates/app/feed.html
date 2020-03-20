@@ -10,16 +10,19 @@ Your Feed
 {% if profiles %}
 {% for profile in profiles %}
 
-<h1>{{ profile.user.username }}</h1>
+<div class="scrollmenu">
+  <h1>{{ profile.user.username }}</h1>
 
-{% for key, value in products.items %}
-{% if key == profile %}
-{% for elem in value %}
-<a href="/product/{{ elem.slug }}/">{{ elem.name }}</a>
-<img src="{{ elem.picture.url }}" />
-{% endfor %}
-{% endif %}
-{% endfor %}
+  {% for key, value in products.items %}
+  {% if key == profile %}
+  {% for elem in value %}
+    <a class="scrollmenu" href="/product/{{ elem.slug }}/">{{ elem.name }}</a>
+    <img src="{{ elem.picture.url }}" />
+  {% endfor %}
+  {% endif %}
+  {% endfor %}
+</div>
+
 {% endfor %}
 {% endif %}
 {% endblock %}
