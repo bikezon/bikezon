@@ -32,19 +32,44 @@ Homepage
     {% endif %}
 </div>
 
-<div>
+<!-- <div>
     {% if products %}
     <h2 class="secondh2">Products</h2>
     <ul class="row">
-        {% for product in products %}
+      {% for subcat in subcategories %}
+      {% for product in products %}
+      {% if subcat in product.subcategory.all %}
         <li>
             <a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.name }}</a>
             <img src="{{ product.picture.url }}" />
         </li>
-        {% endfor %}
+      {% endif %}
+      {% endfor %}
+      {% endfor %}
     </ul>
     {% else %}
-    <strong>There are no products present.</strong>
+        <strong>There are no products present.</strong>
+    {% endif %}
+</div> -->
+
+
+<div>
+    {% if products %}
+    <h2 class="secondh2">Products</h2>
+      {% for subcat in subcategories %}
+      <!-- <a>{{ subcat.name }}</a> -->
+      <div class="scrollmenu">
+      {% for product in products %}
+      {% if subcat in product.subcategory.all %}
+          <a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.name }}</a>
+          <img src="{{ product.picture.url }}" />
+      {% endif %}
+      {% endfor %}
+      </div>
+      {% endfor %}
+    {% else %}
+        <strong>There are no products present.</strong>
     {% endif %}
 </div>
+
 {% endblock %}

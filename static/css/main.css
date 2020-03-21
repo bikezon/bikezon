@@ -7,16 +7,21 @@
 .main-header {
     overflow: hidden;
     background-color: LemonChiffon;
-  }
+}
 
-  div.scrollmenu {
+div.scrollmenu {
     overflow: auto;
     white-space: nowrap;
-  }
+}
 
-  div.scrollmenu a {
+div.scrollmenu a {
     padding: 14px;
-  }
+}
+
+img {
+    width: 270px;
+    height: 190px;
+}
 
 /* Style the links inside the navigation bar */
 .nav-button {

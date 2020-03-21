@@ -5,6 +5,16 @@ color:orange;
 font-weight:bold;
 font-family:"Times New Roman";
 }
+
+div.scrollmenu {
+    overflow: auto;
+    white-space: nowrap;
+}
+
+div.scrollmenu a {
+    padding: 14px;
+}
+
 .auth{
 text-align:right;
 font-weight:bold;
@@ -36,7 +46,7 @@ display:block;
 
 }
 .row {
-  display: flex;
+  /* display: flex; */
 }
 
 .column {
@@ -49,7 +59,6 @@ display:block;
   padding:10%;
 }
 img{
-height:90%;
-width:90%;
+  width: 270px;
+  height: 190px;
 }
-
