@@ -29,6 +29,15 @@ font-family:"Times New Roman";
 	background-color: #555;
 }
 
+/* ::-webkit-scrollbar-button:single-button:horizontal {
+  background-color: #D14021;
+  border-color: transparent transparent #bbbbbb transparent;
+  display: block;
+  border-style: solid;
+  height: 13px;
+  width: 16px;
+} */
+
 div.scrollmenu {
     overflow: auto;
     white-space: nowrap;
