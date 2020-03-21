@@ -15,6 +15,7 @@ Homepage
     guest <br />
     {% endif %}
 </div>
+
 <div class="gcse-search"></div>
 
 <div>
@@ -31,27 +32,6 @@ Homepage
     <strong>There are no categories present.</strong>
     {% endif %}
 </div>
-
-<!-- <div>
-    {% if products %}
-    <h2 class="secondh2">Products</h2>
-    <ul class="row">
-      {% for subcat in subcategories %}
-      {% for product in products %}
-      {% if subcat in product.subcategory.all %}
-        <li>
-            <a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.name }}</a>
-            <img src="{{ product.picture.url }}" />
-        </li>
-      {% endif %}
-      {% endfor %}
-      {% endfor %}
-    </ul>
-    {% else %}
-        <strong>There are no products present.</strong>
-    {% endif %}
-</div> -->
-
 
 <div>
     {% if products %}
