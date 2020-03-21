@@ -1,9 +1,32 @@
-
-h1{
+h1 {
 text-align:center;
 color:orange;
 font-weight:bold;
 font-family:"Times New Roman";
+}
+
+::-webkit-scrollbar {
+    height: 8px;
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(249, 180, 45,1);
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+::-webkit-scrollbar-thumb:vertical {
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
 }
 
 div.scrollmenu {
@@ -15,50 +38,52 @@ div.scrollmenu a {
     padding: 14px;
 }
 
-.auth{
+.auth {
 text-align:right;
 font-weight:bold;
 margin-right:2.5%;
 }
-h2{
+
+h2 {
 text-align:left;
 color:orange;
 font-weight:bold;
 font-family:"Times New Roman";
 }
-.secondh2{
+
+.secondh2 {
 text-align:center;
 color:orange;
 font-weight:bold;
 font-family:"Times New Roman";
 }
-.catName{
+
+.catName {
 color:Dodgeblue;
 font-size:20px;
 margin:20px;
 border:2px;
 font-family:"Times New Roman";
 }
-.products{
+
+.products {
 font-weight:bold;
 text-transform:capitalize;
 display:block;
-
-}
-.row {
-  /* display: flex; */
 }
 
 .column {
   flex: 33.33%;
 }
-.proImage{
+
+.proImage {
   text-align:center;
   border: 2px solid black;
   margin:1.5%;
   padding:10%;
 }
-img{
+
+img {
   width: 270px;
   height: 190px;
 }
