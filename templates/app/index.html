@@ -37,15 +37,21 @@ Homepage
     {% if products %}
     <h2 class="secondh2">Products</h2>
       {% for subcat in subcategories %}
-      <!-- <a>{{ subcat.name }}</a> -->
-      <div class="scrollmenu">
+
+      <!-- <h3 class="subcatname">{{ subcat.name }}</h3> -->
+      <div id="members" class="scrollmenu">
       {% for product in products %}
       {% if subcat in product.subcategory.all %}
-          <a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.name }}</a>
+        <figure class="img-wrapper">
           <img src="{{ product.picture.url }}" />
+          <figcaption><a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.name }}</a></figcaption>
+          </br>
+          <figcaption><a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.price }}£</a></figcaption>
+        </figure>
       {% endif %}
       {% endfor %}
       </div>
+
       {% endfor %}
     {% else %}
         <strong>There are no products present.</strong>
