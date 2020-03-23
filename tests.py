@@ -309,7 +309,7 @@ class TestSellItem(unittest.TestCase):
         self.driver.find_element_by_id('id_name').send_keys('test_item')
         self.driver.find_element_by_id('id_description').send_keys(
             'This is a test item added by selenium.')
-        self.driver.find_element_by_id('id_subcategory_6').click()
+        self.driver.find_element_by_id('id_subcategory_8').click()
         self.driver.find_element_by_id('id_price').send_keys('20')
 
         # try to register with picture
@@ -320,6 +320,38 @@ class TestSellItem(unittest.TestCase):
             pass
         
         self.driver.find_element_by_id('id_sell').click()
+
+        test_item = None
+        try:
+            test_item = Product.objects.get(name = "test_item")
+        except ObjectDoesNotExist as e:
+            test_logger.warning("Did not find created sell item in db.")
+            raise e
+        if test_item != None:
+            # test name correctness
+            if test_item.name == "test_item":
+                test_logger.info("correct sell item name")
+            else:
+                test_logger.warning("incorrect sell item name supplied")
+            
+            # test description correctness
+            if test_item.description == 'This is a test item added by selenium.':   
+                test_logger.info("correct sell item description")
+            else:
+                test_logger.warning("incorrect sell item description supplied")
+            
+            # test subcat correctness
+            if test_item.subcategory == 'Hybrid':
+                test_logger.info("correct sell item subcategory: %s", test_item.subcategory)
+            else:
+                test_logger.warning("incorrect sell item subcategory supplied")
+            
+            # test price correctness
+            if test_item.price == 20:
+                test_logger.info("correct sell item price")
+            else:
+                test_logger.warning("incorrect sell item price supplied")
+
 
 # launch tests
 if __name__ == '__main__':
