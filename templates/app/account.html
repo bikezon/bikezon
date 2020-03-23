@@ -45,4 +45,14 @@ Bikezon Account
     {% endbuttons %}
 </form>
 
+<!-- Sell item button -->
+
+<form action="{% url 'app:sell' %}">
+    {% buttons %}
+    <button type="submit" class="btn btn-primary" id="id_sell">
+        Sell item
+    </button>
+    {% endbuttons %}
+</form>
+
 {% endblock %}
