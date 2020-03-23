@@ -2,14 +2,13 @@ import os
 import django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bikezon.settings')
 django.setup()
-from django.core.exceptions import ObjectDoesNotExist
-import logging
-from app.models import UserProfile, User, ProductList, Product
-from app.forms import UserForm
-import unittest
-from selenium import webdriver
 from selenium import common
-
+from selenium import webdriver
+import unittest
+from app.forms import UserForm
+from app.models import UserProfile, User, ProductList, Product
+import logging
+from django.core.exceptions import ObjectDoesNotExist
 
 # ----------- Logger config ----------- #
 if not os.path.exists("logs/"):
@@ -44,6 +43,18 @@ class TestSignup(unittest.TestCase):
         test_user_details = {'username': 'TestUser',
                              'email': 'test.user@testemail.com',
                              'password': '1234'}
+
+        # test the cancel button
+        self.driver.get("http://127.0.0.1:8000/register/")
+        self.driver.find_element_by_id('id_cancel').click()
+
+        # test that it redirects back to home page
+        if "http://127.0.0.1:8000/" == self.driver.current_url:
+            test_logger.info("Correct redirect after registration cancel")
+        else:
+            test_logger.warning(
+                "Incorrect redirect noticed after registration cancel")
+
         # locate sign in page
         self.driver.get("http://127.0.0.1:8000/register/")
         # fill in form
@@ -64,14 +75,13 @@ class TestSignup(unittest.TestCase):
 
         self.driver.find_element_by_id('id_phone_0').send_keys("981773")
         self.driver.find_element_by_id('id_phone_1').send_keys("44")
-        self.driver.find_element_by_id('submit').click()
+        self.driver.find_element_by_id('id_submit').click()
 
         # check correct redirection
         if "http://127.0.0.1:8000/register/" == self.driver.current_url:
             test_logger.info("Correct redirect after registration")
         else:
             test_logger.warning("Incorrect redirect noticed")
-            print(self.driver.current_url)
 
         # check that new user object and profile exist
         try:
@@ -138,7 +148,6 @@ class TestBaseRedirects(unittest.TestCase):
     def __init__(self):
         self.driver = webdriver.Firefox()
 
-
     def test_base_redirects(self):
         self.driver.get("http://127.0.0.1:8000/")
         # check login button takes user to login
@@ -166,7 +175,7 @@ class TestBaseRedirects(unittest.TestCase):
             test_logger.info("Correct redirect from logout")
         else:
             test_logger.warning("Wrong redirect from logout")
-        
+
         # redirect back to home page
         self.driver.get("http://127.0.0.1:8000/")
 
@@ -182,10 +191,9 @@ class TestBaseRedirects(unittest.TestCase):
             test_logger.info("Correct redirect to account from base")
         else:
             test_logger.warning("Wrong redirect to account from base")
-        
-            
-    
+
     # kill driver on teardown
+
     def tearDown(self):
         self.driver.quit()
 
@@ -193,7 +201,7 @@ class TestBaseRedirects(unittest.TestCase):
     def run(self):
         self.test_base_redirects()
         self.tearDown()
-    
+
 
 class TestFollowAndList(unittest.TestCase):
 
@@ -268,6 +276,51 @@ class TestFollowAndList(unittest.TestCase):
             test_logger.warning("Adding to wishlist failed")
 
 
+class TestSellItem(unittest.TestCase):
+
+    def __init__(self):
+        self.driver = webdriver.Firefox()
+
+    # kill driver on teardown
+    def tearDown(self):
+        self.driver.quit()
+
+    # setup driver, run the tests and kill the driver
+    def run(self):
+        self.test_sell_item()
+        self.tearDown()
+
+    def test_sell_item(self):
+        # go to index page
+        self.driver.get("http://127.0.0.1:8000/")
+        # login as test user
+        self.driver.find_element_by_id('id_login').click()
+        self.driver.find_element_by_id('id_username').send_keys('TestUser')
+        self.driver.find_element_by_id('id_password').send_keys('1234')
+        self.driver.find_element_by_id('log-in-button').click()
+
+         # go to account
+        self.driver.get("http://127.0.0.1:8000/account/")
+
+        # click on sell item
+        self.driver.find_element_by_id('id_sell').click()
+
+        # fill in form
+        self.driver.find_element_by_id('id_name').send_keys('test_item')
+        self.driver.find_element_by_id('id_description').send_keys(
+            'This is a test item added by selenium.')
+        self.driver.find_element_by_id('id_subcategory_6').click()
+        self.driver.find_element_by_id('id_price').send_keys('20')
+
+        # try to register with picture
+        try:
+            self.driver.find_element_by_id(
+                "id_picture").send_keys("test_img.png")
+        except common.exceptions.InvalidArgumentException as e:
+            pass
+        
+        self.driver.find_element_by_id('id_sell').click()
+
 # launch tests
 if __name__ == '__main__':
     print("Starting all tests, this may take a while...")
@@ -297,5 +350,12 @@ if __name__ == '__main__':
     test_logger.info("Started following tests.")
     follow_tester = TestFollowAndList()
     follow_tester.run()
+    print("Ok.")
+    test_logger.info("All passed.")
+    # run user following tests
+    print("Testing selling...")
+    test_logger.info("Started selling tests.")
+    sell_tester = TestSellItem()
+    sell_tester.run()
     print("Ok.")
     test_logger.info("All passed.")
