@@ -48,7 +48,7 @@ class Product(models.Model):
 
     description = models.TextField()
     picture = models.ImageField(
-        upload_to='media/product_images/', default='default.png')
+        upload_to='media/product_images/', blank=True)
     dateAdded = models.DateTimeField(default=datetime.now, blank=True)
     views = models.IntegerField(default=0)
     available = models.PositiveSmallIntegerField(default=1)
