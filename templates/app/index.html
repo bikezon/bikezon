@@ -8,34 +8,10 @@ Homepage
 {% block body_block %}
 <link rel="stylesheet" href="{% static 'css/index.css' %}" />
 <h1>Welcome to Bikezon</h1>
-<div  class="auth">
-    {% if user.is_authenticated %}
-    Hello {{ user.username }}!! <br />
-    {% else %}
-    guest <br />
-    {% endif %}
-</div>
-
 <div class="gcse-search"></div>
-
-<div>
-    {% if categories %}
-    <h2>Categories</h2>
-    <ul>
-        {% for category in categories %}
-        <li>
-            <a class="catName" href="/category/{{ category.slug }}/">{{ category.name }}</a>
-        </li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <strong>There are no categories present.</strong>
-    {% endif %}
-</div>
-
 <div>
     {% if products %}
-    <h2 class="secondh2">Products</h2>
+    <h2 class="secondh2">Browse</h2>
       {% for subcat in subcategories %}
 
       <!-- <h3 class="subcatname">{{ subcat.name }}</h3> -->
