@@ -25,22 +25,26 @@ Unknown Product
 {{ message }}
 {% endif %}
 
+{% if user.is_authenticated %}
 <form action="{% url 'app:add_to_list' product.slug %}" method="POST">
     {% csrf_token %}
     <input type="submit" name="Add to list" value="Add/Remove to wishlist" id="id_wishlist"/>
 </form>
+{% endif %}
 {% else %}
 The specified product does not exist.
 {% endif %}
 
 <!-- This form relies on product seller name to get the person to follow
 so be careful if altering it or product seller-->
+{% if user.is_authenticated %}
 <form action="{% url 'app:follow_user' product.slug %}" method="POST" id="id_follow">
     {% csrf_token %}
     {% buttons %}
     <input type="submit" name="follow_this" value="Follow/Unfollow {{ product.seller }}" id="id_follow"/>
     {% endbuttons %}
 </form>
+{% endif %}
 
 {% if auth_user %}
 <form action="{% url 'app:edit_listing' %}" method="POST">
