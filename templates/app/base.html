@@ -10,10 +10,12 @@
         {% block meta_block%}
         {% endblock %}
         <link rel="stylesheet" href="{% static 'css/main.css' %}" />
-		<link rel="stylesheet" href="{% static 'css/category.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/category.css' %}" />
         <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
-        <script async src="https://cse.google.com/cse.js?cx=003662769173238113687:uyr4oqobmbu"></script>
+        <script async
+            src="https://cse.google.com/cse.js?cx=003662769173238113687:uyr4oqobmbu"></script>
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <script src="{% static 'js/app-js/account_button.js' %}"> </script>
         <title>
             {% block title_block %}
             App
@@ -29,13 +31,24 @@
             <p class="navbar-text">Bikezon</p>
             <nav class="main-nav">
                 {% if user.is_authenticated %}
-                <a href="{% url 'app:logout' %}" class="nav-button" id="id_logout">Sign out</a>
-                <a href="{% url 'app:account' %}" class="nav-button" id="id_account">My Account</a>
+                <a href="{% url 'app:logout' %}" class="nav-button"
+                    id="id_logout">Sign out</a>
+                <div class="dropdown">
+                    <button onclick="myFunction()" class="dropbtn">My Account</button>
+                    <div id="myDropdown" class="dropdown-content">
+                        <a href="{% url 'app:account' %}">Go to account</a>
+                        <a href="{% url 'app:feed' %}">Go to my feed</a>
+                        <a href="{% url 'app:sell' %}">Sell an item</a>
+                    </div>
+                </div>
                 {% else %}
-                <a href="{% url 'app:login' %}" class="nav-button" id="id_login">Sign in</a>
-                <a href="{% url 'app:register' %}" class="nav-button" id="id_register">Sign up</a>
+                <a href="{% url 'app:login' %}" class="nav-button"
+                    id="id_login">Sign in</a>
+                <a href="{% url 'app:register' %}" class="nav-button"
+                    id="id_register">Sign up</a>
                 {% endif %}
-                <a href="{% url 'app:index' %}" class="nav-button" id="id_index">Home</a>
+                <a href="{% url 'app:index' %}" class="nav-button"
+                    id="id_index">Home</a>
             </nav>
         </header>
 
