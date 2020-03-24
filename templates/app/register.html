@@ -7,20 +7,32 @@ Bikezon Register
 {% endblock %}
 
 {% block body_block %}
-<h1>Temp Register page</h1>
+<h2 style="text-align:center">Register</h2>
 
 {% if registered %}
-<strong>thank you for registering!</strong>
+<strong>Thank you for registering!</strong>
 <a href="{% url 'app:index' %}">Return to the homepage.</a><br />
 {% else %}
-<strong>register here!</strong><br />
+<strong>Please fill in this form to create an account</strong><br />
 <form id="user_form" method="post" action="{% url 'app:register' %}"
     enctype="multipart/form-data">
+	<div class="container">
     {% csrf_token %}
     {{ user_form.as_p }}
     {{ profile_form.as_p }}
+	</div>
 
-    <input id="submit" type="submit" name="submit" value="Register" />
+  <div class="clearfix">
+    <button type="button" class="cancelbtn" id="id_cancel">Cancel</button>
+    <button type="submit" class="signupbtn" id="id_submit">Sign Up</button>
+  </div>
+
+  <!-- <div class="clearfix">
+     <a href="{% url 'app:index' %}" class="cancelbtn">Click Here</a>
+     <a class="signupbtn">Sign Up</a>
+  </div> -->
+
+
 </form>
 {% endif %}
 {% endblock %}

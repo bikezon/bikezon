@@ -47,7 +47,8 @@ class Product(models.Model):
     slug = models.SlugField()
 
     description = models.TextField()
-    picture = models.ImageField(upload_to='media/product_images/')
+    picture = models.ImageField(
+        upload_to='media/product_images/', blank=True)
     dateAdded = models.DateTimeField(default=datetime.now, blank=True)
     views = models.IntegerField(default=0)
     available = models.PositiveSmallIntegerField(default=1)

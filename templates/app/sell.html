@@ -1,18 +1,20 @@
 {% extends "app/base.html" %}
+{% load static %}
 {% load bootstrap4 %}
+{% load crispy_forms_tags %}
 
 {% block title_block %}
 Bikezon Sell Item
 {% endblock %}
 
 {% block body_block %}
-<h1>Temp Sell Item page</h1>
+<link rel="stylesheet" href="{% static 'css/sell.css' %}" />
 
 <form method="post" action="{% url 'app:sell' %}" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ form|crispy }}
     {% buttons %}
-    <button type="submit" class="btn btn-primary">
+    <button type="submit" class="btn btn-primary" id="id_sell">
         Sell
     </button>
     {% endbuttons %}

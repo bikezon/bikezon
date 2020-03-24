@@ -8,43 +8,32 @@ Homepage
 {% block body_block %}
 <link rel="stylesheet" href="{% static 'css/index.css' %}" />
 <h1>Welcome to Bikezon</h1>
-<div  class="auth">
-    {% if user.is_authenticated %}
-    Hello {{ user.username }}!! <br />
-    {% else %}
-    guest <br />
-    {% endif %}
-</div>
 <div class="gcse-search"></div>
-
-<div>
-    {% if categories %}
-    <h2>Categories</h2>
-    <ul>
-        {% for category in categories %}
-        <li>
-            <a class="catName" href="/category/{{ category.slug }}/">{{ category.name }}</a>
-        </li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <strong>There are no categories present.</strong>
-    {% endif %}
-</div>
-
 <div>
     {% if products %}
-    <h2 class="secondh2">Products</h2>
-    <ul class="row">
-        {% for product in products %}
-        <li>
-            <a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.name }}</a>
-            <img src="{{ product.picture.url }}" />
-        </li>
-        {% endfor %}
-    </ul>
+    <h2 class="secondh2">Browse</h2>
+      {% for subcat in subcategories %}
+
+      <!-- <h3 class="subcatname">{{ subcat.name }}</h3> -->
+      <div id="members" class="scrollmenu">
+      {% for product in products %}
+      {% if subcat in product.subcategory.all %}
+        <figure class="img-wrapper">
+          <a href="/product/{{ product.slug }}/">
+          <img src="{{ product.picture.url }}" />
+          </a>
+          <figcaption><a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.name }}</a></figcaption>
+          </br>
+          <figcaption><a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.price }}£</a></figcaption>
+        </figure>
+      {% endif %}
+      {% endfor %}
+      </div>
+
+      {% endfor %}
     {% else %}
-    <strong>There are no products present.</strong>
+        <strong>There are no products present.</strong>
     {% endif %}
 </div>
+
 {% endblock %}

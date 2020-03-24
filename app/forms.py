@@ -30,13 +30,13 @@ class UserForm(forms.ModelForm):
     """
     logger.info("User form hit")
     username = forms.CharField(widget=forms.TextInput(
-        attrs={"class": "form-control input-lg"}))
+        attrs={"class": "form-control input-lg", "placeholder": "Enter Username"}))
     email = forms.CharField(widget=forms.TextInput(
-        attrs={"class": "form-control input-lg"}))
+        attrs={"class": "form-control input-lg", "placeholder": "Enter Email"}))
     password = forms.CharField(widget=forms.PasswordInput(
-        attrs={"class": "form-control input-lg"}))
+        attrs={"class": "form-control input-lg", "placeholder": "Enter Password"}))
     verify_password = forms.CharField(widget=forms.PasswordInput(
-        attrs={"class": "form-control input-lg", "placeholder": "Re-enter password"}))
+        attrs={"class": "form-control input-lg", "placeholder": "Re-enter Password"}))
 
     class Meta:
         model = User
@@ -111,40 +111,40 @@ class ProductForm(forms.ModelForm):
     def clean_picture(self):
         logger.info("Product form cleaning picture")
         avatar = self.cleaned_data['picture']
+        if avatar != None:
+            try:
+                w, h = get_image_dimensions(avatar)
 
-        try:
-            w, h = get_image_dimensions(avatar)
+                # validate dimensions
+                logger.info("Product form image validate dimensions")
+                max_width = max_height = 250
+                if w > max_width or h > max_height:
+                    raise forms.ValidationError(
+                        u'Please use an image that is '
+                        '%s x %s pixels or smaller.' % (max_width, max_height))
+                    logger.warning("Product form image bad dimensions")
 
-            # validate dimensions
-            logger.info("Product form image validate dimensions")
-            max_width = max_height = 250
-            if w > max_width or h > max_height:
-                raise forms.ValidationError(
-                    u'Please use an image that is '
-                    '%s x %s pixels or smaller.' % (max_width, max_height))
-                logger.warning("Product form image bad dimensions")
+                # validate content type
+                logger.info("Product form image validate content")
+                main, sub = avatar.content_type.split('/')
+                if not (main == 'image' and sub in ['jpeg', 'pjpeg', 'gif', 'png']):
+                    raise forms.ValidationError(u'Please use a JPEG, '
+                                                'GIF or PNG image.')
+                    logger.warning("Product form image bad content")
 
-            # validate content type
-            logger.info("Product form image validate content")
-            main, sub = avatar.content_type.split('/')
-            if not (main == 'image' and sub in ['jpeg', 'pjpeg', 'gif', 'png']):
-                raise forms.ValidationError(u'Please use a JPEG, '
-                                            'GIF or PNG image.')
-                logger.warning("Product form image bad content")
+                # validate file size
+                logger.info("Product form image validate file size")
+                if len(avatar) > (20 * 1024):
+                    raise forms.ValidationError(
+                        u'Avatar file size may not exceed 20kb.')
+                    logger.warning("Product form image bad file size")
 
-            # validate file size
-            logger.info("Product form image validate file size")
-            if len(avatar) > (20 * 1024):
-                raise forms.ValidationError(
-                    u'Avatar file size may not exceed 20kb.')
-                logger.warning("Product form image bad file size")
-
-        except AttributeError:
-            """
-            Handles case when we are updating the user profile
-            and do not supply a new avatar
-            """
-            logger.info("Product form no image supplied")
-            pass
+            except AttributeError:
+                """
+                Handles case when we are updating the user profile
+                and do not supply a new avatar
+                """
+                logger.info("Product form no image supplied")
+                pass
 
         return avatar
