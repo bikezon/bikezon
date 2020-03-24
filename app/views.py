@@ -270,7 +270,15 @@ def product(request, product_name_slug):
 
 @login_required
 def wish_list(request):
+    """ wish list logic, could be used
+    for different lists too
 
+    Arguments:
+        request -- [standard Django request arg]
+
+    Returns:
+        rendering of wish list
+    """
     avatar = None
     user = request.user
     if user:
@@ -292,8 +300,20 @@ def wish_list(request):
 
 @login_required
 def account(request):
+    """ logic to display user's account
+    also displays all products that are
+    listed under this seller
+
+    Arguments:
+         request -- [standard Django request arg]
+
+    Returns:
+        rendering with context dict
+    """
     avatar = None
     user = request.user
+    seller = UserProfile.objects.get(user=user)
+    products = Product.objects.filter(seller=seller)
     if user:
         if user.is_active:
             profile = UserProfile.objects.get(user=request.user)
@@ -303,6 +323,7 @@ def account(request):
 
     context_dict = {
         "picture": avatar,
+        "products": products
     }
     logger.info("Rendering account")
     return render(request, 'app/account.html', context=context_dict)
@@ -352,9 +373,10 @@ def edit_profile(request):
         Redirect to account
         Or renders the page
     """
+    logger.info("Edit profile page hit")
     form = EditProfileForm(request.POST, request.FILES or None)
-
     if request.method == 'POST':
+        logger.info("%s is editing ptofile", request.user)
         form = EditProfileForm(request.POST, request.FILES or None)
         if form.is_valid():
             obj = UserProfile.objects.get(user=request.user)
@@ -500,12 +522,28 @@ def edit_listing(request):
 
 
 def handler404(request, exception):
-    # temp 404 handler
+    """ 404 page handler (page not found)
+    
+    Arguments:
+        request - [standard Django request arg]
+        exception - exception type (in this case should be 404)
+    
+    Returns:
+        rendering of 404 page
+    """
     logger.info("404 page hit")
     return render(request, 'app/handler404.html', status=404)
 
 
 def handler500(request):
-    # temp 500 handler
+    """ 500 page handler (server error)
+    
+    Arguments:
+        request - [standard Django request arg]
+        exception - exception type (in this case should be 404)
+    
+    Returns:
+        rendering of 500 page
+    """
     logger.info("500 page hit")
     return render(request, 'app/handler500.html', status=500)
