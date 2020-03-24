@@ -19,7 +19,9 @@ Homepage
       {% for product in products %}
       {% if subcat in product.subcategory.all %}
         <figure class="img-wrapper">
+          <a href="/product/{{ product.slug }}/">
           <img src="{{ product.picture.url }}" />
+          </a>
           <figcaption><a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.name }}</a></figcaption>
           </br>
           <figcaption><a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.price }}£</a></figcaption>
