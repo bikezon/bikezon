@@ -33,6 +33,10 @@ h3 {
   border:1px solid #f1f1f1;
 }
 
+#members figure:hover{
+  border:1px solid black;
+}
+
 #members img {
   display:block;
 }
