@@ -1,8 +1,10 @@
+@import "https://fonts.googleapis.com/css?family=B612";
+
 h1 {
 text-align:center;
 color:orange;
 font-weight:bold;
-font-family:"Times New Roman";
+font-family:"B612";
 }
 
 h3 {
@@ -10,7 +12,7 @@ h3 {
   color:orange;
   font-size:22px;
   font-weight:bold;
-  font-family:"Times New Roman";
+  font-family:"B612";
 }
 
 #subcatname {
@@ -99,14 +101,14 @@ margin-top: 100px;
 text-align:left;
 color:orange;
 font-weight:bold;
-font-family:"Times New Roman";
+font-family:"B612";
 }
 
 .secondh2 {
 text-align:center;
 color:orange;
 font-weight:bold;
-font-family:"Times New Roman";
+font-family:"B612";
 }
 
 .catName {
@@ -114,7 +116,7 @@ color:Dodgeblue;
 font-size:20px;
 margin:20px;
 border:2px;
-font-family:"Times New Roman";
+font-family:"B612";
 }
 
 /* .products {
