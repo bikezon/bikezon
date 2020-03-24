@@ -15,7 +15,9 @@
         <script async
             src="https://cse.google.com/cse.js?cx=003662769173238113687:uyr4oqobmbu"></script>
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="{% static 'js/app-js/account_button.js' %}"> </script>
+        <script src="{% static 'js/app-js/footer.js' %}"> </script>
         <title>
             {% block title_block %}
             App
@@ -62,7 +64,7 @@
                 {% endblock %}
             </section>
         </main>
-        <footer>
+        <footer id = "footer">
             <div class="footer text">
                 &copy; Bikezon, 2020
                 <a href="{% url 'app:contact' %}">Contact Us</a>
