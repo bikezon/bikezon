@@ -1,4 +1,3 @@
-
 {% extends "app/base.html" %}
 {% load static %}
 {% load bootstrap4 %}
@@ -13,22 +12,22 @@ Unknown Product
 {% endblock %}
 
 {% block body_block %}
+<link rel="stylesheet" href="{% static 'css/product.css' %}" />
+
 {% if product %}
-<h1>{{ product.name }}</h1>
-<p>{{ product.description }}</p>
-<a href="mailto: {{ product.seller.user.email }}"> Get in touch with {{ product.seller }}</a>
-<p>Or giver them a call on {{ product.seller.phone }}</p>
-
-<img src="{{ product.picture.url }}" />
-
-{% if message %}
-{{ message }}
-{% endif %}
-
+<div class="card">
+    <img src="{{ product.picture.url }}" alt="{{ product.name }}">
+    <h1>{{ product.name }}</h1>
+    <p class="price">{{ product.price}} £</p>
+    <p>{{ product.description }}</p>
+    <a href="mailto: {{ product.seller.user.email }}"> Get in touch with {{ product.seller }}</a>
+    <p>Or giver them a call on {{ product.seller.phone }}</p>
+</div>
 {% if user.is_authenticated %}
-<form action="{% url 'app:add_to_list' product.slug %}" method="POST">
+<form action="{% url 'app:add_to_list' product.slug %}" method="POST" >
     {% csrf_token %}
-    <input type="submit" name="Add to list" value="Add/Remove to wishlist" id="id_wishlist"/>
+    <input type="submit" name="Add to list" value="Add/Remove to wishlist"
+        id="id_wishlist" class="btn btn-primary" />
 </form>
 {% endif %}
 {% else %}
@@ -38,10 +37,12 @@ The specified product does not exist.
 <!-- This form relies on product seller name to get the person to follow
 so be careful if altering it or product seller-->
 {% if user.is_authenticated %}
-<form action="{% url 'app:follow_user' product.slug %}" method="POST" id="id_follow">
+<form action="{% url 'app:follow_user' product.slug %}" method="POST"
+    id="id_follow">
     {% csrf_token %}
     {% buttons %}
-    <input type="submit" name="follow_this" value="Follow/Unfollow {{ product.seller }}" id="id_follow"/>
+    <input type="submit" name="follow_this" value="Follow/Unfollow {{product.seller }}" 
+    id="id_follow" class="btn btn-primary"/>
     {% endbuttons %}
 </form>
 {% endif %}
@@ -50,7 +51,8 @@ so be careful if altering it or product seller-->
 <form action="{% url 'app:edit_listing' %}" method="POST">
     {% csrf_token %}
     {% buttons %}
-    <input type="submit" name="edit_listing" value="Edit {{ product.slug }}" />
+    <input type="submit" name="edit_listing" value="Edit {{ product.slug }}"
+        class="btn btn-primary"/>
     {% endbuttons %}
 </form>
 {% endif %}
