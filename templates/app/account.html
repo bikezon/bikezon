@@ -8,18 +8,21 @@ Bikezon Account
 {% endblock %}
 
 {% block body_block %}
-<h1>Account</h1>
-<p>{{ user.username }}</p>
+<link rel="stylesheet" href="{% static 'css/account.css' %}" />
+<h1 class="account">Account</h1>
+<div class="profile">
 {% if picture %}
 <img src="{{ picture.url }}" />
 {% else %}
 <img src="{% static 'images/no_profile_picture.png' %}" />
 {% endif %}
+<p class="name">{{ user.username }}</p>
+</div>
 <!-- Wishlist button -->
 
 <form action="{% url 'app:list' %}">
     {% buttons %}
-    <button type="submit" class="btn btn-primary">
+    <button type="submit" class="btn-primary">
         My wish list
     </button>
     {% endbuttons %}
@@ -29,7 +32,7 @@ Bikezon Account
 
 <form action="{% url 'app:edit_profile' %}">
     {% buttons %}
-    <button type="submit" class="btn btn-primary">
+    <button type="submit" class="btn-primary">
         Edit my profile
     </button>
     {% endbuttons %}
@@ -39,7 +42,7 @@ Bikezon Account
 
 <form action="{% url 'app:feed' %}">
     {% buttons %}
-    <button type="submit" class="btn btn-primary">
+    <button type="submit" class="btn-primary">
         My feed
     </button>
     {% endbuttons %}
@@ -49,7 +52,7 @@ Bikezon Account
 
 <form action="{% url 'app:sell' %}">
     {% buttons %}
-    <button type="submit" class="btn btn-primary" id="id_sell">
+    <button type="submit" class="btn-primary" id="id_sell">
         Sell item
     </button>
     {% endbuttons %}
