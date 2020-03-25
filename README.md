@@ -95,7 +95,21 @@ Test results are logged into logs/test_logs.log
 
 [Django Boostrap 4](https://pypi.org/project/django-bootstrap4/ "Bootstrap support for Django projects") - Bootstrap support for Django projects.
 
+[Django crispy forms](https://django-crispy-forms.readthedocs.io/en/latest/) - django-crispy-forms provides you with a |crispy filter and {% crispy %} tag that will let you control the rendering behavior of your Django forms in a very elegant and DRY way.
+
+[Pillow](https://pillow.readthedocs.io/en/stable/) - Pillow is the friendly PIL fork by Alex Clark and Contributors. PIL is the Python Imaging Library by Fredrik Lundh and Contributors.
+
+[Django phone field](https://github.com/VeryApt/django-phone-field) - Lightweight model and form field for phone numbers in Django.
+
 [jQuery](https://jquery.com/ "jQuery") - jQuery is a fast, small, and feature-rich JavaScript library.
+
+[Google AJAX API](https://support.google.com/webmasters/answer/174993?hl=en) - a set of web development techniques using many web technologies on the client side to create asynchronous web applications.
+
+[Google Search API](https://developers.google.com/custom-search/v1/overview) - The Custom Search JSON API lets you develop websites and applications to retrieve and display search results from Google Custom Search programmatically.
+
+[reCAPTCHA v2](https://developers.google.com/recaptcha/docs/display) - reCAPTCHA protects you against spam and other types of automated abuse. Here, we explain how to add reCAPTCHA to your site or application.
+
+[Github Cards API](https://github.com/lepture/github-cards) - Card for your GitHub profile, card for your GitHub repositories.
 
 [Selenium](https://www.selenium.dev/ "selenium") - Selenium is a portable framework for testing web applications.
 
