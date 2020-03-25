@@ -279,6 +279,16 @@ button:hover {
   flex-grow: 1;
 }
 
+button.dropbtn {
+  float: right;
+  color: white;
+  background-color: lightskyblue;
+  text-align: center;
+  text-decoration: none;
+  font-size: 10px;
+  margin-top: 23px;
+}
+
 /* Dropdown button on hover & focus */
 .dropbtn:hover, .dropbtn:focus {
   background-color: #2980B9;
@@ -288,6 +298,7 @@ button:hover {
 .dropdown {
   position: relative;
   display: inline-block;
+  float: right;
 }
 
 /* Dropdown Content (Hidden by Default) */
