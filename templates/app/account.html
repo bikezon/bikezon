@@ -58,7 +58,6 @@ Bikezon Account
 <h2>Your listed items: </h2>
 {% for product in products %}
 <a class="scrollmenu" href="/product/{{ product.slug }}/">{{ product.name }}</a>
-<img src="{{ product.picture.url }}" />
 {% endfor %}
 
 {% endblock %}
