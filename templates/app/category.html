@@ -10,28 +10,17 @@ Unknown Category
 {% block body_block %}
 {% if category %}
 <style>
-.footer {
-  bottom:0;
-  text-align:center;
-  font-size:15px;
-  font-weight:bold;
-  width: 100%;
-  height : 40px;
-  background-color:grey;
-  display: inline-block;
-  position:fixed;
-}
-h1{
+.categoryName{
 text-align:center;
 color:orange;
 font-weight:bold;
 }
 </style>
-<h1>{{ category.name }}</h1>
-<p>{{ category.description }}</p>
+<h1 class="categoryName">{{ category.name }}</h1>
+<p class="catDis">{{ category.description }}</p>
 {% for subcat in subcats %}
-<div>
-    <a href="/category/{{ category.name }}/{{ subcat.slug }}/">{{ subcat.name }}</a>
+<div class="subcat">
+    <a class="catHeading" href="/category/{{ category.name }}/{{ subcat.slug }}/">{{ subcat.name }}</a>
 </div>
 {% endfor %}
 {% endif %}
