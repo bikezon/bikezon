@@ -220,10 +220,12 @@ def show_sub_category(request, category_name_slug, subcategory_name_slug):
 
     except Category.DoesNotExist:
         context_dict['category'] = None
+    products = Product.objects.filter(subcategory=category)
+    context_dict['products'] = products
 
-    logger.info("Show sub category called with sub category: %s",
+    logger.info("Show subcategory called with sub category: %s",
                 context_dict['category'])
-    return render(request, 'app/category.html', context=context_dict)
+    return render(request, 'app/subcategory.html', context=context_dict)
 
 
 def product(request, product_name_slug):
@@ -523,11 +525,11 @@ def edit_listing(request):
 
 def handler404(request, exception):
     """ 404 page handler (page not found)
-    
+
     Arguments:
         request - [standard Django request arg]
         exception - exception type (in this case should be 404)
-    
+
     Returns:
         rendering of 404 page
     """
@@ -537,11 +539,11 @@ def handler404(request, exception):
 
 def handler500(request):
     """ 500 page handler (server error)
-    
+
     Arguments:
         request - [standard Django request arg]
         exception - exception type (in this case should be 404)
-    
+
     Returns:
         rendering of 500 page
     """

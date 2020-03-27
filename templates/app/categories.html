@@ -1,13 +1,24 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block title_block %}
+Categories
+{% endblock %}
+
+
+{% block body_block %}
+<link rel="stylesheet" href="{% static 'css/cats.css' %}" />
 <div>
     {% if categories %}
-    <ul>
+    <div class="row">
+        <div class="column">
         {% for category in categories %}
-        <li>
             <a href="/category/{{ category.slug }}/">{{ category.name }}</a>
-        </li>
         {% endfor %}
-    </ul>
+    </div>
+    </div>
     {% else %}
     <strong>There are no categories present.</strong>
     {% endif %}
 </div>
+{% endblock %}
