@@ -41,7 +41,8 @@
                 <div class="dropdown">
                     <button onclick="myFunction()" class="dropbtn">My Account</button>
                     <div id="myDropdown" class="dropdown-content">
-                        <a href="{% url 'app:account' %}">Go to account</a>
+                        <a href="{% url 'app:account' %}">My Account</a>
+                        <a href="{% url 'app:list' %}">My Wishlist</a>
                         <a href="{% url 'app:feed' %}">Go to my feed</a>
                         <a href="{% url 'app:sell' %}">Sell an item</a>
                     </div>
