@@ -12,22 +12,21 @@ Homepage
 <div>
     {% if products %}
     <h2 class="secondh2">Browse</h2>
-      {% for subcat in subcategories %}
-
-      <!-- <h3 class="subcatname">{{ subcat.name }}</h3> -->
-      <div id="members" class="scrollmenu">
-      {% for product in products %}
-      {% if subcat in product.subcategory.all %}
+      {% for subcat, productlist in mapping.items %}
+        {% if productlist %}
+        <h3 class="subcatname">{{ subcat.name }}</h3>
+        {% endif %}
+        <div id="members" class="scrollmenu">
+        {% for product in productlist %}
         <figure class="img-wrapper">
-          <a href="/product/{{ product.slug }}/">
-          <img src="{{ product.picture.url }}" />
-          </a>
-          <figcaption><a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.name }}</a></figcaption>
-          </br>
-          <figcaption><a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.price }}£</a></figcaption>
+        <a href="/product/{{ product.slug }}/">
+        <img src="{{ product.picture.url }}" />
+        </a>
+        <figcaption><a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.name }}</a></figcaption>
+        </br>
+        <figcaption><a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.price }}£</a></figcaption>
         </figure>
-      {% endif %}
-      {% endfor %}
+        {% endfor %}
       </div>
 
       {% endfor %}
