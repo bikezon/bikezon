@@ -60,7 +60,33 @@ To run the project locally use:
 (bikezon)workspace$:python manage.py runserver
 ```
 
-And go to [Local host](127.0.0.1:8000 "127.0.0.1:8000") in your browser.
+And go to 127.0.0.1:8000 in your browser.
+
+## Using the provided Dockerfile
+
+On Linux:
+
+Requires docker and docker-compose.
+
+```shell
+workspace$: git clone https://github.com/bikezon/bikezon.git
+workspace$: cd bikezon
+workspace/bikezon$: sudo docker-compose up
+```
+
+And go to 127.0.0.1:8000 in your browser.
+
+On Windows:
+
+Get docker and docker-compose for windows: <https://docs.docker.com/docker-for-windows/>
+
+```shell
+workspace$: git clone https://github.com/bikezon/bikezon.git
+workspace$: cd bikezon
+workspace/bikezon$: docker-compose up
+```
+
+And go to 127.0.0.1:8000 in your browser.
 
 ## Hosting and access to website
 
