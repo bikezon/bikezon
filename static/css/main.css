@@ -202,7 +202,7 @@ input[type=text], input[type=password] {
 /* } */
 
 button {
-  background-color: blue;
+  background-color:orange;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -303,7 +303,6 @@ button:hover {
   text-decoration: none;
   display: block;
 }
-
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {background-color: #ddd}
 
