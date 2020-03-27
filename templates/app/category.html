@@ -10,13 +10,13 @@ Unknown Category
 {% block body_block %}
 {% if category %}
 <style>
-.categoryName{
+h1{
 text-align:center;
 color:orange;
 font-weight:bold;
 }
 </style>
-<h1 class="categoryName">{{ category.name }}</h1>
+<h1>{{ category.name }}</h1>
 <p class="catDis">{{ category.description }}</p>
 {% for subcat in subcats %}
 <div class="subcat">

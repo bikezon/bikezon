@@ -35,7 +35,7 @@
                 {% if user.is_authenticated %}
                 <a href="{% url 'app:logout' %}" class="nav-button"
                     id="id_logout">Sign out</a>
-                <div class="dropdown">
+                <div class="nav-button">
                     <button onclick="myFunction()" class="dropbtn">My Account</button>
                     <div id="myDropdown" class="dropdown-content">
                         <a href="{% url 'app:account' %}">Go to account</a>
