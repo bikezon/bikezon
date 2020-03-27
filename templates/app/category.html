@@ -9,24 +9,6 @@ Unknown Category
 
 {% block body_block %}
 {% if category %}
-<style>
-.footer {
-  bottom:0;
-  text-align:center;
-  font-size:15px;
-  font-weight:bold;
-  width: 100%;
-  height : 40px;
-  background-color:grey;
-  display: inline-block;
-  position:fixed;
-}
-h1{
-text-align:center;
-color:orange;
-font-weight:bold;
-}
-</style>
 <h1>{{ category.name }}</h1>
 <p>{{ category.description }}</p>
 {% for subcat in subcats %}

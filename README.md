@@ -9,6 +9,14 @@
 
 Django based website that will allow users to participate in an online bicycle and parts marketplace. Users will be able to create accounts, postings, browse categories and book items to buy. The marketplace will specifically focus on bikes and parts for them.
 
+## Note on API keys for email and reCAPTCHA
+
+The email API and reCAPTCHA API use keys that **will not** be provided with the repo. These keys however, exist in production, so you can see the
+fully working features there. **Instead** for development, the email will print the email that would be sent to local output and reCAPTCHA uses test
+API key that means the captcha is always complete. Again, **these fully work in production**. If you would like for these to work on your own machine,
+you can provide your own reCAPTCHA key and your **gmail** email and password. The email credentials must be provided in json format. If the server finds the json
+then it will use that email instead. In order for this to work, less secure apps have to be enabled on the gmail account.
+
 ## Getting started
 
 In order to setup the project on your local machine:
