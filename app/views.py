@@ -51,6 +51,10 @@ def index(request):
         "products": Product.objects.all(),
         "picture": avatar,
     }
+    mapping = {}
+    for subcat in SubCategory.objects.all():
+        mapping[subcat] = Product.objects.filter(subcategory=subcat)
+    context_dict["mapping"] = mapping
     logger.info("Index requested with context dict: %s", context_dict)
     return render(request, 'app/index.html', context=context_dict)
 
@@ -434,7 +438,7 @@ def add_to_list(request, product_name_slug):
 def feed(request):
     """ handles user follows feed logic
     gets the name of the user, finds users
-    that this user follows and then displays 
+    that this user follows and then displays
     the products that those users are selling
 
     Arguments:
@@ -466,7 +470,7 @@ def follow_user(request, product_name_slug):
     this view relies on the product seller name
     from the product.html template. It uses
     the seller name to determine the profile
-    to follow. 
+    to follow.
 
     Arguments:
         request -- [standard Django request arg]
