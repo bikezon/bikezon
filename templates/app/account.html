@@ -8,56 +8,39 @@ Bikezon Account
 {% endblock %}
 
 {% block body_block %}
-<h1>Account</h1>
-<p>{{ user.username }}</p>
+<link rel="stylesheet" href="{% static 'css/index.css' %}" />
+<link rel="stylesheet" href="{% static 'css/account.css' %}" />
+
+<div class="card">
+<h1>{{ user.username }}</h1>
 {% if picture %}
 <img src="{{ picture.url }}" />
+<a href="{% url 'app:edit_profile' %}"><button >Edit my profile</button></a>
 {% else %}
-<img src="{% static 'images/no_profile_picture.png' %}" />
+<img src="{% static 'images/no_profile_picture.png' %}" class="prof-pic"/>
+<a href="{% url 'app:edit_profile' %}"><button >Edit my profile</button></a>
 {% endif %}
-<!-- Wishlist button -->
-
-<form action="{% url 'app:list' %}">
-    {% buttons %}
-    <button type="submit" class="btn btn-primary">
-        My wish list
-    </button>
-    {% endbuttons %}
-</form>
-
+</div>
 <!-- Edit profile button -->
 
-<form action="{% url 'app:edit_profile' %}">
-    {% buttons %}
-    <button type="submit" class="btn btn-primary">
-        Edit my profile
-    </button>
-    {% endbuttons %}
-</form>
-
-<!-- Feed button -->
-
-<form action="{% url 'app:feed' %}">
-    {% buttons %}
-    <button type="submit" class="btn btn-primary">
-        My feed
-    </button>
-    {% endbuttons %}
-</form>
-
-<!-- Sell item button -->
-
-<form action="{% url 'app:sell' %}">
-    {% buttons %}
-    <button type="submit" class="btn btn-primary" id="id_sell">
-        Sell item
-    </button>
-    {% endbuttons %}
-</form>
-
-<h2>Your listed items: </h2>
-{% for product in products %}
-<a class="scrollmenu" href="/product/{{ product.slug }}/">{{ product.name }}</a>
-{% endfor %}
+<div class ="account_list">
+    {% if products %}
+      <!-- <h3 class="subcatname">{{ subcat.name }}</h3> -->
+      <div id="members" class="scrollmenu">
+      {% for product in products %}
+        <figure class="img-wrapper">
+          <a href="/product/{{ product.slug }}/">
+          <img src="{{ product.picture.url }}" />
+          </a>
+          <figcaption><a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.name }}</a></figcaption>
+          </br>
+          <figcaption><a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.price }}£</a></figcaption>
+        </figure>
+      {% endfor %}
+      </div>
+    {% else %}
+        <strong>There are no products present in {{ category.name }}.</strong>
+    {% endif %}
+</div>
 
 {% endblock %}
