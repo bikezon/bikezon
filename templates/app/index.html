@@ -14,7 +14,7 @@ Homepage
     <h2 class="secondh2">Browse</h2>
       {% for subcat, productlist in mapping.items %}
         {% if productlist %}
-        <h3 class="subcatname">{{ subcat.name }}</h3>
+        <h3 ><a href="/category/{{ subcat.category }}/{{ subcat.slug }}/">{{ subcat.name }}</a></h3>
         {% endif %}
         <div id="members" class="scrollmenu">
         {% for product in productlist %}
