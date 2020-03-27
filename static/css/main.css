@@ -215,6 +215,20 @@ button:hover {
   opacity: 0.8;
 }
 
+button.dropbtn {
+  background-color: lightskyblue;
+}
+
+a.nav-button:hover {
+  text-decoration: none;
+  color: white;
+  opacity: 0.8;
+}
+
+div.nav-button:hover {
+  opacity: 0.8;
+}
+
 /* input[type=submit]:hover { */
   /* background-color: orange; */
 /* } */
@@ -281,7 +295,7 @@ button:hover {
 
 /* Dropdown button on hover & focus */
 .dropbtn:hover, .dropbtn:focus {
-  background-color: #2980B9;
+  /* background-color: #2980B9; */
 }
 
 /* The container <div> - needed to position the dropdown content */
@@ -308,4 +322,3 @@ button:hover {
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
-
