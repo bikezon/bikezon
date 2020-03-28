@@ -10,10 +10,10 @@ Unknown Category
 {% block body_block %}
 {% if category %}
 <h1>{{ category.name }}</h1>
-<p>{{ category.description }}</p>
+<p class="catDis">{{ category.description }}</p>
 {% for subcat in subcats %}
-<div>
-    <a href="/category/{{ category.name }}/{{ subcat.slug }}/">{{ subcat.name }}</a>
+<div class="subcat">
+    <a class="catHeading" href="/category/{{ category.name }}/{{ subcat.slug }}/">{{ subcat.name }}</a>
 </div>
 {% endfor %}
 {% endif %}

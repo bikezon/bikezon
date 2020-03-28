@@ -202,7 +202,7 @@ input[type=text], input[type=password] {
 /* } */
 
 button {
-  background-color: orange;
+  background-color:orange;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -212,6 +212,20 @@ button {
 }
 
 button:hover {
+  opacity: 0.8;
+}
+
+button.dropbtn {
+  background-color: lightskyblue;
+}
+
+a.nav-button:hover {
+  text-decoration: none;
+  color: white;
+  opacity: 0.8;
+}
+
+div.nav-button:hover {
   opacity: 0.8;
 }
 
@@ -246,7 +260,7 @@ button:hover {
 
 /* Footer */
 .footer {
-  bottom:0;
+  padding-bottom:0;
   text-align:center;
   font-size:15px;
   font-weight:bold;
@@ -254,7 +268,7 @@ button:hover {
   height : 40px;
   background-color:lightgray;
   display: inline-block;
-  position:relative;
+  position:absolute;
 }
 
 #content {
@@ -291,15 +305,9 @@ button.dropbtn {
 
 /* Dropdown button on hover & focus */
 .dropbtn:hover, .dropbtn:focus {
-  background-color: #2980B9;
+  /* background-color: #2980B9; */
 }
 
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: relative;
-  display: inline-block;
-  float: right;
-}
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
@@ -319,7 +327,6 @@ button.dropbtn {
   display: block;
   font-size: 10px;
 }
-
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {background-color: #ddd}
 
