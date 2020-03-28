@@ -329,7 +329,8 @@ def account(request):
 
     context_dict = {
         "picture": avatar,
-        "products": products
+        "products": products,
+        "profile": profile,
     }
     logger.info("Rendering account")
     return render(request, 'app/account.html', context=context_dict)

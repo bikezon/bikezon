@@ -84,7 +84,7 @@ class UserProfileForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        fields = ('picture', 'phone')
+        fields = ('picture', 'phone', 'address')
 
 
 class ProductForm(forms.ModelForm):
