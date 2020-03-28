@@ -15,13 +15,16 @@ Bikezon Account
 <h1>{{ user.username }}</h1>
 {% if picture %}
 <img src="{{ picture.url }}" />
-<a href="{% url 'app:edit_profile' %}"><button >Edit my profile</button></a>
 {% else %}
 <img src="{% static 'images/no_profile_picture.png' %}" class="prof-pic"/>
-<a href="{% url 'app:edit_profile' %}"><button >Edit my profile</button></a>
 {% endif %}
+<a href="{% url 'app:edit_profile' %}"><button >Edit my profile</button></a>
+<p>{{ profile.address }}</p>
+<p>{{ profile.phone }}</p>
 </div>
 <!-- Edit profile button -->
+
+<h2>Your listed items:</h2>
 
 <div class ="account_list">
     {% if products %}
