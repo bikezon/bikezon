@@ -6,8 +6,8 @@
 {% block title_block %}
 Bikezon Wish List
 {% endblock %}
-
 {% block body_block %}
+<link rel="stylesheet" href="{% static 'css/list.css' %}" />
 <h1>{{ user.username }}'s Wishlist</h1>
 
 {% if products %}
@@ -16,13 +16,6 @@ Bikezon Wish List
 <img src="{{ product.picture.url }}" />
 {% endfor %}
 {% else %}
-<p>List Empty</p>
+<p class="empty">List Empty</p>
 {% endif %}
-<form action="{% url 'app:account' %}">
-    {% buttons %}
-    <button type="submit" class="btn btn-primary">
-        Back to account
-    </button>
-    {% endbuttons %}
-</form>
 {% endblock %}
