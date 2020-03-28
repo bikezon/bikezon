@@ -4,12 +4,7 @@
 {% bootstrap_css %}
 <html>
     <head>
-	<style>
-button.dropbtn{
-padding:0;
-margin:0;
-}
-</style>
+
         <meta charset="UTF-8">
         {% block extra_head %}
         {% endblock %}
@@ -45,12 +40,14 @@ margin:0;
                 <a href="{% url 'app:logout' %}" class="nav-button"
                     id="id_logout">Sign out</a>
                 <div class="nav-button">
+				
                     <button onclick="myFunction()" class="dropbtn">My Account</button>
                     <div id="myDropdown" class="dropdown-content">
                         <a href="{% url 'app:account' %}">My Account</a>
                         <a href="{% url 'app:list' %}">My Wishlist</a>
                         <a href="{% url 'app:feed' %}">Go to my feed</a>
                         <a href="{% url 'app:sell' %}">Sell an item</a>
+						
                     </div>
                 </div>
                 {% else %}
