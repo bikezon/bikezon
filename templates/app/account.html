@@ -8,54 +8,38 @@ Bikezon Account
 {% endblock %}
 
 {% block body_block %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}" />
 <link rel="stylesheet" href="{% static 'css/account.css' %}" />
-<h1 class="account">My Account</h1>
-<div class="profile">
+
+<div class="card">
+<h1>{{ user.username }}</h1>
 {% if picture %}
 <img src="{{ picture.url }}" />
+<a href="{% url 'app:edit_profile' %}"><button >Edit my profile</button></a>
 {% else %}
-<img src="{% static 'images/no_profile_picture.png' %}" />
+<img src="{% static 'images/no_profile_picture.png' %}" class="prof-pic"/>
+<a href="{% url 'app:edit_profile' %}"><button >Edit my profile</button></a>
 {% endif %}
-<p class="name">{{ user.username }}</p>
 </div>
-<!-- Wishlist button -->
-
-<form action="{% url 'app:list' %}">
-    {% buttons %}
-    <button type="submit" class="btn-primary">
-        My wish list
-    </button>
-    {% endbuttons %}
-</form>
-
 <!-- Edit profile button -->
 
-<form action="{% url 'app:edit_profile' %}">
-    {% buttons %}
-    <button type="submit" class="btn-primary">
-        Edit my profile
-    </button>
-    {% endbuttons %}
-</form>
-
-<!-- Feed button -->
-
-<form action="{% url 'app:feed' %}">
-    {% buttons %}
-    <button type="submit" class="btn-primary">
-        My feed
-    </button>
-    {% endbuttons %}
-</form>
-
-<!-- Sell item button -->
-
-<form action="{% url 'app:sell' %}">
-    {% buttons %}
-    <button type="submit" class="btn-primary" id="id_sell">
-        Sell item
-    </button>
-    {% endbuttons %}
-</form>
+<div class ="account_list">
+    {% if products %}
+      <!-- <h3 class="subcatname">{{ subcat.name }}</h3> -->
+      <div id="members" class="scrollmenu">
+      {% for product in products %}
+        <figure class="img-wrapper">
+          <a href="/product/{{ product.slug }}/">
+          <img src="{{ product.picture.url }}" />
+          </a>
+          <figcaption><a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.name }}</a></figcaption>
+          <figcaption><a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.price }}£</a></figcaption>
+        </figure>
+      {% endfor %}
+      </div>
+    {% else %}
+        <strong>There are no products present in {{ category.name }}.</strong>
+    {% endif %}
+</div>
 
 {% endblock %}

@@ -1,8 +1,21 @@
 # Bikezon
 
+[![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://bikezon.pythonanywhere.com/)
+[![Issues](https://img.shields.io/github/issues-raw/tterb/PlayMusic.svg?maxAge=25000)](https://github.com/bikezon/bikezon/issues/)
+[![GitHub pull-requests](https://img.shields.io/github/issues-pr/Naereen/StrapDown.js.svg)](https://github.com/bikezon/bikezon/pulls)
+
+
 <https://bikezon.pythonanywhere.com/>
 
 Django based website that will allow users to participate in an online bicycle and parts marketplace. Users will be able to create accounts, postings, browse categories and book items to buy. The marketplace will specifically focus on bikes and parts for them.
+
+## Note on API keys for email and reCAPTCHA
+
+The email API and reCAPTCHA API use keys that **will not** be provided with the repo. These keys however, exist in production, so you can see the
+fully working features there. **Instead** for development, the email will print the email that would be sent to local output and reCAPTCHA uses test
+API key that means the captcha is always complete. Again, **these fully work in production**. If you would like for these to work on your own machine,
+you can provide your own reCAPTCHA key and your **gmail** email and password. The email credentials must be provided in json format. If the server finds the json
+then it will use that email instead. In order for this to work, less secure apps have to be enabled on the gmail account.
 
 ## Getting started
 
@@ -55,7 +68,33 @@ To run the project locally use:
 (bikezon)workspace$:python manage.py runserver
 ```
 
-And go to [Local host](127.0.0.1:8000 "127.0.0.1:8000") in your browser.
+And go to 127.0.0.1:8000 in your browser.
+
+## Using the provided Dockerfile
+
+On Linux:
+
+Requires docker and docker-compose.
+
+```shell
+workspace$: git clone https://github.com/bikezon/bikezon.git
+workspace$: cd bikezon
+workspace/bikezon$: sudo docker-compose up
+```
+
+And go to 127.0.0.1:8000 in your browser.
+
+On Windows:
+
+Get docker and docker-compose for windows: <https://docs.docker.com/docker-for-windows/>
+
+```shell
+workspace$: git clone https://github.com/bikezon/bikezon.git
+workspace$: cd bikezon
+workspace/bikezon$: docker-compose up
+```
+
+And go to 127.0.0.1:8000 in your browser.
 
 ## Hosting and access to website
 
@@ -95,7 +134,21 @@ Test results are logged into logs/test_logs.log
 
 [Django Boostrap 4](https://pypi.org/project/django-bootstrap4/ "Bootstrap support for Django projects") - Bootstrap support for Django projects.
 
+[Django crispy forms](https://django-crispy-forms.readthedocs.io/en/latest/) - django-crispy-forms provides you with a |crispy filter and {% crispy %} tag that will let you control the rendering behavior of your Django forms in a very elegant and DRY way.
+
+[Pillow](https://pillow.readthedocs.io/en/stable/) - Pillow is the friendly PIL fork by Alex Clark and Contributors. PIL is the Python Imaging Library by Fredrik Lundh and Contributors.
+
+[Django phone field](https://github.com/VeryApt/django-phone-field) - Lightweight model and form field for phone numbers in Django.
+
 [jQuery](https://jquery.com/ "jQuery") - jQuery is a fast, small, and feature-rich JavaScript library.
+
+[Google AJAX API](https://support.google.com/webmasters/answer/174993?hl=en) - a set of web development techniques using many web technologies on the client side to create asynchronous web applications.
+
+[Google Search API](https://developers.google.com/custom-search/v1/overview) - The Custom Search JSON API lets you develop websites and applications to retrieve and display search results from Google Custom Search programmatically.
+
+[reCAPTCHA v2](https://developers.google.com/recaptcha/docs/display) - reCAPTCHA protects you against spam and other types of automated abuse. Here, we explain how to add reCAPTCHA to your site or application.
+
+[Github Cards API](https://github.com/lepture/github-cards) - Card for your GitHub profile, card for your GitHub repositories.
 
 [Selenium](https://www.selenium.dev/ "selenium") - Selenium is a portable framework for testing web applications.
 

@@ -21,7 +21,8 @@ margin:0;
         <script async
             src="https://cse.google.com/cse.js?cx=003662769173238113687:uyr4oqobmbu"></script>
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="{% static 'js/app-js/account_button.js' %}"> </script>
         <script src="{% static 'js/app-jquery/footer.js' %}"> </script>
         <title>
@@ -36,7 +37,9 @@ margin:0;
             <a href="{% url 'app:index' %}">
                 <img src="{% static 'images/logo.png' %}" alt="Bikezon Logo">
             </a>
-            <p class="navbar-text">Bikezon</p>
+            <a href="{% url 'app:index' %}">
+                <p class="navbar-text">Bikezon</p>
+            </a>
             <nav class="main-nav">
                 {% if user.is_authenticated %}
                 <a href="{% url 'app:logout' %}" class="nav-button"
@@ -44,7 +47,8 @@ margin:0;
                 <div class="nav-button">
                     <button onclick="myFunction()" class="dropbtn">My Account</button>
                     <div id="myDropdown" class="dropdown-content">
-                        <a href="{% url 'app:account' %}">Go to account</a>
+                        <a href="{% url 'app:account' %}">My Account</a>
+                        <a href="{% url 'app:list' %}">My Wishlist</a>
                         <a href="{% url 'app:feed' %}">Go to my feed</a>
                         <a href="{% url 'app:sell' %}">Sell an item</a>
                     </div>
@@ -70,7 +74,7 @@ margin:0;
                 {% endblock %}
             </section>
         </main>
-        <footer id = "footer">
+        <footer id="footer">
             <div class="footer text">
                 &copy; Bikezon, 2020
                 <a href="{% url 'app:contact' %}">Contact Us</a>
