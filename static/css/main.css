@@ -293,12 +293,20 @@ div.nav-button:hover {
   flex-grow: 1;
 }
 
+button.dropbtn {
+  float: right;
+  color: white;
+  background-color: lightskyblue;
+  text-align: center;
+  text-decoration: none;
+  font-size: 10px;
+  margin-top: 23px;
+}
+
 /* Dropdown button on hover & focus */
 .dropbtn:hover, .dropbtn:focus {
   /* background-color: #2980B9; */
 }
-
-/* The container <div> - needed to position the dropdown content */
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
@@ -313,9 +321,10 @@ div.nav-button:hover {
 /* Links inside the dropdown */
 .dropdown-content a {
   color: black;
-  padding: 12px 16px;
+  padding: 5px;
   text-decoration: none;
   display: block;
+  font-size: 10px;
 }
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {background-color: #ddd}

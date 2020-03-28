@@ -51,6 +51,10 @@ def index(request):
         "products": Product.objects.all(),
         "picture": avatar,
     }
+    mapping = {}
+    for subcat in SubCategory.objects.all():
+        mapping[subcat] = Product.objects.filter(subcategory=subcat)
+    context_dict["mapping"] = mapping
     logger.info("Index requested with context dict: %s", context_dict)
     return render(request, 'app/index.html', context=context_dict)
 
@@ -220,10 +224,12 @@ def show_sub_category(request, category_name_slug, subcategory_name_slug):
 
     except Category.DoesNotExist:
         context_dict['category'] = None
+    products = Product.objects.filter(subcategory=category)
+    context_dict['products'] = products
 
-    logger.info("Show sub category called with sub category: %s",
+    logger.info("Show subcategory called with sub category: %s",
                 context_dict['category'])
-    return render(request, 'app/category.html', context=context_dict)
+    return render(request, 'app/subcategory.html', context=context_dict)
 
 
 def product(request, product_name_slug):
@@ -270,7 +276,15 @@ def product(request, product_name_slug):
 
 @login_required
 def wish_list(request):
+    """ wish list logic, could be used
+    for different lists too
 
+    Arguments:
+        request -- [standard Django request arg]
+
+    Returns:
+        rendering of wish list
+    """
     avatar = None
     user = request.user
     if user:
@@ -292,8 +306,20 @@ def wish_list(request):
 
 @login_required
 def account(request):
+    """ logic to display user's account
+    also displays all products that are
+    listed under this seller
+
+    Arguments:
+         request -- [standard Django request arg]
+
+    Returns:
+        rendering with context dict
+    """
     avatar = None
     user = request.user
+    seller = UserProfile.objects.get(user=user)
+    products = Product.objects.filter(seller=seller)
     if user:
         if user.is_active:
             profile = UserProfile.objects.get(user=request.user)
@@ -303,6 +329,7 @@ def account(request):
 
     context_dict = {
         "picture": avatar,
+        "products": products
     }
     logger.info("Rendering account")
     return render(request, 'app/account.html', context=context_dict)
@@ -352,9 +379,10 @@ def edit_profile(request):
         Redirect to account
         Or renders the page
     """
+    logger.info("Edit profile page hit")
     form = EditProfileForm(request.POST, request.FILES or None)
-
     if request.method == 'POST':
+        logger.info("%s is editing ptofile", request.user)
         form = EditProfileForm(request.POST, request.FILES or None)
         if form.is_valid():
             obj = UserProfile.objects.get(user=request.user)
@@ -410,7 +438,7 @@ def add_to_list(request, product_name_slug):
 def feed(request):
     """ handles user follows feed logic
     gets the name of the user, finds users
-    that this user follows and then displays 
+    that this user follows and then displays
     the products that those users are selling
 
     Arguments:
@@ -442,7 +470,7 @@ def follow_user(request, product_name_slug):
     this view relies on the product seller name
     from the product.html template. It uses
     the seller name to determine the profile
-    to follow. 
+    to follow.
 
     Arguments:
         request -- [standard Django request arg]
@@ -500,12 +528,28 @@ def edit_listing(request):
 
 
 def handler404(request, exception):
-    # temp 404 handler
+    """ 404 page handler (page not found)
+
+    Arguments:
+        request - [standard Django request arg]
+        exception - exception type (in this case should be 404)
+
+    Returns:
+        rendering of 404 page
+    """
     logger.info("404 page hit")
     return render(request, 'app/handler404.html', status=404)
 
 
 def handler500(request):
-    # temp 500 handler
+    """ 500 page handler (server error)
+
+    Arguments:
+        request - [standard Django request arg]
+        exception - exception type (in this case should be 404)
+
+    Returns:
+        rendering of 500 page
+    """
     logger.info("500 page hit")
     return render(request, 'app/handler500.html', status=500)

@@ -1,13 +1,32 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block title_block %}
+{{ category.name }}
+{% endblock %}
+
+{% block body_block %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}" />
+
 <div>
-    <strong id="like_count">{{ subcategory.likes }}</strong> likes
-    <button id="like_btn"
-        data-subcategoryid="{{ subcategory.id }}"
-        class="btn btn-primary btn-sm"
-        type="button">
-        <span data-feather="thumbs-up"></span>
-        Like subCategory
-    </button>
+    {% if products %}
+    <h2 class="secondh2">{{ category.name }} - {{ category.description }}</h2>
+      <!-- <h3 class="subcatname">{{ subcat.name }}</h3> -->
+      <div id="members" class="scrollmenu">
+      {% for product in products %}
+        <figure class="img-wrapper">
+          <a href="/product/{{ product.slug }}/">
+          <img src="{{ product.picture.url }}" />
+          </a>
+          <figcaption><a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.name }}</a></figcaption>
+          </br>
+          <figcaption><a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.price }}£</a></figcaption>
+        </figure>
+      {% endfor %}
+      </div>
+    {% else %}
+        <strong>There are no products present in {{ category.name }}.</strong>
+    {% endif %}
 </div>
 
-<!-- TODO make this a subcategory template and made categories.html list all subcategory pages similar to rango
-can be done once model is created-->
+{% endblock %}
