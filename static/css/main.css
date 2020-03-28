@@ -324,7 +324,6 @@ div.nav-button:hover {
   padding: 5px;
   text-decoration: none;
   display: block;
-  font-size: 10px;
 }
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {background-color: #ddd}
