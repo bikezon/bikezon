@@ -8,14 +8,26 @@ Bikezon Wish List
 {% endblock %}
 {% block body_block %}
 <link rel="stylesheet" href="{% static 'css/list.css' %}" />
-<h1>{{ user.username }}'s Wishlist</h1>
+<link rel="stylesheet" href="{% static 'css/index.css' %}" />
+
+<h1>Your Wishlist</h1>
 
 {% if products %}
-{% for product in products %}
-<a href="/product/{{ product.slug }}/">{{ product.name }}</a>
-<img src="{{ product.picture.url }}" />
-{% endfor %}
-{% else %}
-<p class="empty">List Empty</p>
-{% endif %}
+      <div id="members" class="scrollmenu">
+      {% for product in products %}
+        <figure class="img-wrapper">
+          <a href="/product/{{ product.slug }}/">
+          <img src="{{ product.picture.url }}" />
+          </a>
+          <figcaption><a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.name }}</a></figcaption>
+          </br>
+          <figcaption><a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.price }}£</a></figcaption>
+          <p>Product description: {{ product.description }}</p>
+          <p>Seller's phone: {{ product.seller.phone }}</p>
+        </figure>
+      {% endfor %}
+      </div>
+    {% else %}
+        <strong>There are no products present in your wish list.</strong>
+    {% endif %}
 {% endblock %}
