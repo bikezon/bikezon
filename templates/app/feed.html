@@ -7,22 +7,27 @@ Your Feed
 {% endblock %}
 
 {% block body_block %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}" />
 {% if profiles %}
 {% for profile in profiles %}
-
-<div class="scrollmenu">
   <h1>{{ profile.user.username }}</h1>
-
   {% for key, value in products.items %}
   {% if key == profile %}
+  <div id="members" class="scrollmenu">
   {% for elem in value %}
-    <a class="scrollmenu" href="/product/{{ elem.slug }}/">{{ elem.name }}</a>
+  
+  <figure class="img-wrapper">
+    <a href="/product/{{ elem.slug }}/">
     <img src="{{ elem.picture.url }}" />
-  {% endfor %}
-  {% endif %}
+    </a>
+    <figcaption><a href="/product/{{ elem.slug }}/" id="id_{{ elem.slug }}">{{ elem.name }}</a></figcaption>
+    </br>
+    <figcaption><a href="/product/{{ elem.slug }}/" id="id_{{ elem.slug }}">{{ elem.price }}£</a></figcaption>
+  </figure>
   {% endfor %}
 </div>
-
+  {% endif %}
+  {% endfor %}
 {% endfor %}
 {% endif %}
 {% endblock %}
