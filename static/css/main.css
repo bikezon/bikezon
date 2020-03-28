@@ -23,7 +23,6 @@ img {
     height: 190px;
 }
 
-
 /* Style the links inside the navigation bar */
 .nav-button {
   float: right;
@@ -203,6 +202,10 @@ input[type=text], input[type=password] {
 /* } */
 
 button {
+  background-color:orange;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
   border: none;
   cursor: pointer;
   width: 100%;
@@ -290,7 +293,7 @@ div.nav-button:hover {
   flex-grow: 1;
 }
 
-button.dropbtn {
+.dropbtn button{
   float: right;
   color: white;
   background-color: lightskyblue;
