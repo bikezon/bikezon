@@ -37,13 +37,10 @@ def index(request):
     """
     avatar = None
     user = request.user
-    if user:
-        if user.is_active:
-            if user.username != 'admin':
-                profile = UserProfile.objects.get(user=request.user)
-                avatar = profile.picture
-    else:
-        avatar = None
+
+    if user and user.is_active and user.username != 'admin':
+        profile = UserProfile.objects.get(user=request.user)
+        avatar = profile.picture
 
     context_dict = {
         "categories": Category.objects.all(),
