@@ -13,7 +13,6 @@ Bikezon Register
 <strong>Thank you for registering!</strong>
 <a href="{% url 'app:index' %}">Return to the homepage.</a><br />
 {% else %}
-<strong>Please fill in this form to create an account</strong><br />
 <form id="user_form" method="post" action="{% url 'app:register' %}"
     enctype="multipart/form-data">
 	<div class="container">
@@ -23,8 +22,7 @@ Bikezon Register
 	</div>
 
   <div class="clearfix">
-    <button type="button" class="cancelbtn" id="id_cancel">Cancel</button>
-    <button type="submit" class="signupbtn" id="id_submit">Sign Up</button>
+    <button type="submit" class="signupbtn" id="id_submit" style="margin-left: 25%;">Sign Up</button>
   </div>
 
   <!-- <div class="clearfix">
