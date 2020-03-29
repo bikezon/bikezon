@@ -1,4 +1,4 @@
-Django==3.0.3
+Django==3.0.4
 Pillow==7.0.0
 django-phone-field==1.8.0
 django-recaptcha==2.0.6
