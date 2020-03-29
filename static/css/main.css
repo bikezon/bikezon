@@ -45,7 +45,7 @@ img {
 
 /* Style the nav-bar text */
 .main-header p {
-  padding-top:3%;
+  padding-top:2%;
   float: left;
   margin-right: 16px;
   color: orange;
@@ -57,7 +57,7 @@ img {
 }
 
 .main-header img {
-  padding-top:1%;
+  padding-top:0.3%;
   margin: 15px 10px;
   float: left;
   width: 70px;
