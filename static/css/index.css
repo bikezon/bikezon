@@ -140,12 +140,6 @@ img {
   width: 270px;
   height: 190px;
 }
-#___gcse_0 {
-  border-width:10px;
-  float:right;
-  position:absolute;
-  width:60%;
-  margin:0%;
-  padding-top:0.3%;
+.googlebar{
+padding-left:18%;
 }
-

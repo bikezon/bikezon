@@ -6,9 +6,15 @@ Homepage
 {% endblock %}
 
 {% block body_block %}
+<style>
+.googlebar{
+padding-left:18%;
+}
+</style>
 <link rel="stylesheet" href="{% static 'css/index.css' %}" />
 <h1>Welcome to Bikezon</h1>
-<div class="gcse-search">
+<div class="googlebar">
+<div class="gcse-search"></div>
 </div>
 <div>
     {% if products %}
