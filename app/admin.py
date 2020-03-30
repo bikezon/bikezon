@@ -27,14 +27,29 @@ class ProductListAdmin(admin.ModelAdmin):
     list.
     """
     prepopulated_fields = {'slug': ('name',)}
-    list_display = ('name', 'user', 'product')
+    list_display = ('name', 'user')
+
+
+class UserProfileAdmin(admin.ModelAdmin):
+    """admin view for user profiles
+    displays the user (will show username),
+    picture url, address and phone.
+    """
+    list_display = ('user', 'picture', 'address', 'phone')
+
+
+class SubCategoryAdmin(admin.ModelAdmin):
+    """admin view for subcategory, prepopulates
+    subcategory slug, displays the name, description
+    and category fields.
+    """
+    prepopulated_fields = {'slug': ('name',)}
+    list_display = ('name', 'description', 'category')
 
 
 admin.site.register(Rating)
-admin.site.register(SubCategory)
+admin.site.register(SubCategory, SubCategoryAdmin)
 admin.site.register(ProductList, ProductListAdmin)
 admin.site.register(Product, ProductAdmin)
-admin.site.register(UserProfile)
+admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(Category, CategoryAdmin)
-
-# Register your models here.
