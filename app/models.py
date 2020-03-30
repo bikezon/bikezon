@@ -42,6 +42,10 @@ class SubCategory(models.Model):
 
 
 class Product(models.Model):
+    """product model handles all of the products
+    that can be registered on site. Seller is the
+    person that sells the product. 
+    """
     subcategory = models.ManyToManyField("Subcategory")
     name = models.CharField(max_length=NAME_MAX_LENGTH)
     slug = models.SlugField()

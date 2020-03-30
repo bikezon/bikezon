@@ -6,27 +6,25 @@
 {% endblock %}
 
 {% block body_block %}
-<link rel="stylesheet" href="{% static 'css/index.css' %}" />
+<link rel="stylesheet" href="{% static 'css/subcat.css' %}" />
 
-<div>
-    {% if products %}
-    <h2 class="secondh2">{{ category.name }} - {{ category.description }}</h2>
-      <!-- <h3 class="subcatname">{{ subcat.name }}</h3> -->
-      <div id="members" class="scrollmenu">
-      {% for product in products %}
-        <figure class="img-wrapper">
-          <a href="/product/{{ product.slug }}/">
-          <img src="{{ product.picture.url }}" />
-          </a>
-          <figcaption><a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.name }}</a></figcaption>
-          </br>
-          <figcaption><a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">£ {{ product.price }}</a></figcaption>
-        </figure>
-      {% endfor %}
-      </div>
-    {% else %}
-        <strong>There are no products present in {{ category.name }}.</strong>
-    {% endif %}
+{% if products %}
+<div class="row">
+  {% for product in products %}
+  <div class="column">
+    <div class="card">
+      <a href="/product/{{ product.slug }}/">
+        <img src="{{ product.picture.url }}" />
+        </a>
+        <a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.name }}</a>
+        </br>
+        <a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">£ {{ product.price }}</a>
+      </figure>
+    </div>
+  </div>
+    {% endfor %}
 </div>
-
+{% else %}
+<strong>There are no products present in {{ category.name }}.</strong>
+{% endif %}
 {% endblock %}

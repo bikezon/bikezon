@@ -55,11 +55,15 @@ class UserForm(forms.ModelForm):
 
 
 class ReCAPTCHAForm(forms.Form):
+    """for google reCAPTCHA API
+    """
     logger.info("ReCAPTCHA form hit")
     captcha = ReCaptchaField()
 
 
 class EditProfileForm(forms.ModelForm):
+    """ editing profiles
+    """
     address = forms.CharField(required=False)
     phone = PhoneFormField(widget=PhoneWidget(
         attrs={"class": "form-control input-lg"}),
@@ -88,6 +92,8 @@ class UserProfileForm(forms.ModelForm):
 
 
 class ProductForm(forms.ModelForm):
+    """in order to sell products
+    """
     logger.info("Product form hit")
     try:
         subcats = SubCategory.objects.values('name')

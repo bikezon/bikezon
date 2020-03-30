@@ -8,10 +8,10 @@ Bikezon Account
 {% endblock %}
 
 {% block body_block %}
-<link rel="stylesheet" href="{% static 'css/index.css' %}" />
+<link rel="stylesheet" href="{% static 'css/subcat.css' %}" />
 <link rel="stylesheet" href="{% static 'css/account.css' %}" />
 
-<div class="card">
+<div class="account-card">
 <h1>{{ user.username }}</h1>
 {% if picture %}
 <img src="{{ picture.url }}" />
@@ -26,23 +26,24 @@ Bikezon Account
 
 <h2>Your listed items:</h2>
 
-<div class ="account_list">
-    {% if products %}
-      <!-- <h3 class="subcatname">{{ subcat.name }}</h3> -->
-      <div id="members" class="scrollmenu">
-      {% for product in products %}
-        <figure class="img-wrapper">
-          <a href="/product/{{ product.slug }}/">
-          <img src="{{ product.picture.url }}" />
-          </a>
-          <figcaption><a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.name }}</a></figcaption>
-          <figcaption><a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.price }}£</a></figcaption>
-        </figure>
-      {% endfor %}
-      </div>
-    {% else %}
-        <strong>There are no products present in {{ category.name }}.</strong>
-    {% endif %}
+{% if products %}
+<div class="row">
+  {% for product in products %}
+  <div class="column">
+    <div class="card">
+      <a href="/product/{{ product.slug }}/">
+        <img src="{{ product.picture.url }}" />
+        </a>
+        <a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.name }}</a>
+        </br>
+        <a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">£ {{ product.price }}</a>
+      </figure>
+    </div>
+  </div>
+    {% endfor %}
 </div>
+{% else %}
+<strong>No products listed.</strong>
+{% endif %}
 
 {% endblock %}
