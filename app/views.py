@@ -521,7 +521,7 @@ def edit_listing(request):
             obj.description = form.cleaned_data['description']
             obj.save()
             logger.info("Edited listing for: %s by user: %s.",
-                        obs, request.user)
+                        obj, request.user)
             return redirect('app:index')
         else:
             print(form.errors)
