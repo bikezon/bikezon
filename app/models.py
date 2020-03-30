@@ -104,7 +104,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     picture = models.ImageField(
         upload_to='media/profile_images', default='default.png', blank=True)
-    phone = PhoneField(unique=True, blank=False)
+    phone = PhoneField(unique=True, blank=True)
     address = models.CharField(max_length=200)
     stars = models.DecimalField(
         max_digits=3,

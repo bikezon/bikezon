@@ -67,7 +67,7 @@ class EditProfileForm(forms.ModelForm):
     address = forms.CharField(required=False)
     phone = PhoneFormField(widget=PhoneWidget(
         attrs={"class": "form-control input-lg"}),
-        help_text='Contact phone number')
+        help_text='Contact phone number', required=False)
 
     class Meta:
         model = UserProfile

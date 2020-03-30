@@ -385,17 +385,17 @@ def edit_profile(request):
         Or renders the page
     """
     logger.info("Edit profile page hit")
-    form = EditProfileForm(request.POST, request.FILES or None)
+    form = EditProfileForm(request.POST, request.FILES)
     if request.method == 'POST':
         logger.info("%s is editing ptofile", request.user)
-        form = EditProfileForm(request.POST, request.FILES or None)
+        form = EditProfileForm(request.POST, request.FILES)
         if form.is_valid():
             obj = UserProfile.objects.get(user=request.user)
             obj.user_picture = form.cleaned_data['picture']
+            print(obj.user_picture)
             obj.address = form.cleaned_data['address']
             obj.phone = form.cleaned_data['phone']
             obj.save()
-
             return redirect('app:account')
         else:
             print(form.errors)
