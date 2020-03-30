@@ -3,6 +3,9 @@ from app.models import Category, UserProfile, Rating, ProductList, Product, \
     SubCategory
 
 class CategoryAdmin(admin.ModelAdmin):
+    """admin view for categories, displays
+    the name and description of the category
+    """
     prepopulated_fields = {'slug': ('name',)}
     list_display = ('name', 'description')
 
