@@ -27,4 +27,5 @@ urlpatterns = [
     path('account/wish-list/', views.wish_list, name='list'),
     path('account/feed/', views.feed, name='feed'),
     path('account/<slug:list_name_slug>/', views.wish_list, name='custom-list'),
+    path('product/edit_listing/delete_product', views.delete_product, name='delete_product'),
 ]
