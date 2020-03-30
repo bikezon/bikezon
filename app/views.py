@@ -557,6 +557,36 @@ def visitor_cookie_handler(request):
         request.session["last_visit"] = last_visit_cookie
 
     request.session["visits"] = visits
+
+
+def delete_product(request):
+    """remove a listed product then
+    redirect to user account with correct
+    context.
+    """
+    instance = Product.objects.get(slug=request.session['product_slug'])
+    logger.info("Deleting product: %s", instance)
+    instance.delete()
+
+    user = request.user
+    if user:
+        if user.is_active:
+            profile = UserProfile.objects.get(user=request.user)
+            avatar = profile.picture
+    else:
+        avatar = None
+    
+    seller = UserProfile.objects.get(user=user)
+    products = Product.objects.filter(seller=seller)
+
+    context_dict = {
+        "picture": avatar,
+        "profile": profile,
+        "products": products,
+    }
+
+    return render(request, 'app/account.html', context=context_dict)
+
     # ----------- Error handler views ----------- #
 
 

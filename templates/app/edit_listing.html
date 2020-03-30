@@ -1,10 +1,9 @@
 {% extends 'app/base.html' %}
 {% load static %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
 {% load crispy_forms_tags %}
-{% block title_block %}
 
-{{user}}'s Page
-{% endblock %}
 {% block body_block %}
 <div class="container">
 
@@ -27,4 +26,12 @@
     <div id="edit_listing"></div>
 
 </div>
+
+<form action="{% url 'app:delete_product' %}" method="POST">
+    {% csrf_token %}
+    {% buttons %}
+    <input type="submit" name="delete_product" value="Or Remove It?"
+        class="btn btn-primary"/>
+    {% endbuttons %}
+</form>
 {% endblock %}
