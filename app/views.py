@@ -385,17 +385,17 @@ def edit_profile(request):
         Or renders the page
     """
     logger.info("Edit profile page hit")
-    form = EditProfileForm(request.POST, request.FILES or None)
+    form = EditProfileForm(request.POST, request.FILES)
     if request.method == 'POST':
         logger.info("%s is editing ptofile", request.user)
-        form = EditProfileForm(request.POST, request.FILES or None)
+        form = EditProfileForm(request.POST, request.FILES)
         if form.is_valid():
             obj = UserProfile.objects.get(user=request.user)
             obj.user_picture = form.cleaned_data['picture']
+            print(obj.user_picture)
             obj.address = form.cleaned_data['address']
             obj.phone = form.cleaned_data['phone']
             obj.save()
-
             return redirect('app:account')
         else:
             print(form.errors)
@@ -521,7 +521,7 @@ def edit_listing(request):
             obj.description = form.cleaned_data['description']
             obj.save()
             logger.info("Edited listing for: %s by user: %s.",
-                        obs, request.user)
+                        obj, request.user)
             return redirect('app:index')
         else:
             print(form.errors)
@@ -557,6 +557,36 @@ def visitor_cookie_handler(request):
         request.session["last_visit"] = last_visit_cookie
 
     request.session["visits"] = visits
+
+
+def delete_product(request):
+    """remove a listed product then
+    redirect to user account with correct
+    context.
+    """
+    instance = Product.objects.get(slug=request.session['product_slug'])
+    logger.info("Deleting product: %s", instance)
+    instance.delete()
+
+    user = request.user
+    if user:
+        if user.is_active:
+            profile = UserProfile.objects.get(user=request.user)
+            avatar = profile.picture
+    else:
+        avatar = None
+    
+    seller = UserProfile.objects.get(user=user)
+    products = Product.objects.filter(seller=seller)
+
+    context_dict = {
+        "picture": avatar,
+        "profile": profile,
+        "products": products,
+    }
+
+    return render(request, 'app/account.html', context=context_dict)
+
     # ----------- Error handler views ----------- #
 
 

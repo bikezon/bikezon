@@ -9,6 +9,9 @@ NAME_MAX_LENGTH = 128
 
 
 class Category(models.Model):
+    """main category for the product, e.g bike, component, etc
+    names have to be unique
+    """
     name = models.CharField(max_length=NAME_MAX_LENGTH, unique=True)
     description = models.TextField()
     slug = models.SlugField(unique=True)
@@ -25,6 +28,10 @@ class Category(models.Model):
 
 
 class SubCategory(models.Model):
+    """subcats are lower level categories, e.g mountain
+    bikes, road bikes, handle etc.
+    names have to be unique
+    """
     name = models.CharField(max_length=NAME_MAX_LENGTH, unique=True)
     description = models.TextField()
     slug = models.SlugField(unique=True)
@@ -69,6 +76,12 @@ class Product(models.Model):
 
 
 class ProductList(models.Model):
+    """product list is how wish lists are
+    implemented. Wish list has to be created
+    automatically on user registration for that user.
+    If baskets are implemented, then these also have
+    to be created for user automatically on registration.
+    """
     name = models.CharField(max_length=NAME_MAX_LENGTH)
     user = models.ForeignKey("UserProfile", on_delete=models.CASCADE)
     product = models.ManyToManyField("Product")
@@ -84,6 +97,8 @@ class ProductList(models.Model):
 
 
 class Rating(models.Model):
+    """Rating can be assigned to products and profiles
+    """
     user = models.ForeignKey("UserProfile", on_delete=models.CASCADE)
     product = models.ForeignKey("Product", on_delete=models.CASCADE)
     rating = models.DecimalField(
@@ -100,11 +115,15 @@ class Rating(models.Model):
 
 
 class UserProfile(models.Model):
+    """custom UserProfile model that uses django User auth.
+    Picture has to have a default. Follows is who this user
+    is following.
+    """
     # User class implements email, username and password
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     picture = models.ImageField(
         upload_to='media/profile_images', default='default.png', blank=True)
-    phone = PhoneField(unique=True, blank=False)
+    phone = PhoneField(unique=True, blank=True)
     address = models.CharField(max_length=200)
     stars = models.DecimalField(
         max_digits=3,

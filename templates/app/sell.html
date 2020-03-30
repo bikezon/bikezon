@@ -8,15 +8,48 @@ Bikezon Sell Item
 {% endblock %}
 
 {% block body_block %}
-<link rel="stylesheet" href="{% static 'css/sell.css' %}" />
-
-<form method="post" action="{% url 'app:sell' %}" enctype="multipart/form-data">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<form method="post" action="{% url 'app:sell' %}" enctype="multipart/form-data" style="margin-top: 25px; border: none;">
     {% csrf_token %}
-    {{ form|crispy }}
-    {% buttons %}
-    <button type="submit" class="btn btn-primary" id="id_sell">
-        Sell
-    </button>
-    {% endbuttons %}
-</form>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="id_name" aria-describedby="nameHelp" placeholder="Enter Product Name" name="name">
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea class="form-control" id="id_description" rows="3" name="description"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="subcategory">Subcategory:</label>
+        <select class="form-control" id="id_subcategory" name="subcategory">
+          <option for="id_subcategory_1" id="id_subcategory_1" value="B">Breaks</option>
+          <option for="id_subcategory_2" id="id_subcategory_2" value="C">Chains</option>
+          <option for="id_subcategory_3" id="id_subcategory_3" value="H">Handles</option>
+          <option for="id_subcategory_4" id="id_subcategory_4" value="H">Hybrids</option>
+          <option for="id_subcategory_5" id="id_subcategory_5" value="M">MTB</option>
+          <option for="id_subcategory_6" id="id_subcategory_6" value="P">Pedal</option>
+          <option for="id_subcategory_7" id="id_subcategory_7" value="R">Road bike</option>
+          <option for="id_subcategory_8" id="id_subcategory_8" value="S">Seats</option>
+          <option for="id_subcategory_9" id="id_subcategory_9" value="T">Tyres</option>
+        </select>
+      </div>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">£</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Amount (pounds)" name="price" id="id_price">
+      </div>
+
+      <div class="input-group">
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="id_picture_input" name="picture" aria-describedby="inputGroupFileAddon01">
+          <label class="custom-file-label" for="inputGroupFile01">Image</label>
+        </div>
+      </div>
+
+    <button type="submit" class="btn btn-primary" id="id_sell" style="margin-top: 10px;">Sell</button>
+  </form>
 {% endblock %}
