@@ -118,6 +118,9 @@ margin:20px;
 border:2px;
 font-family:"B612";
 }
+.noprod{
+	text-align:center;
+}
 
 /* .products {
 font-weight:bold;
