@@ -19,31 +19,52 @@ Bikezon Account
 <img src="{% static 'images/no_profile_picture.png' %}" class="prof-pic"/>
 {% endif %}
 <a href="{% url 'app:edit_profile' %}"><button >Edit my profile</button></a>
-<p>{{ profile.address }}</p>
-<p>{{ profile.phone }}</p>
 </div>
-<!-- Edit profile button -->
-
-<h2>Your listed items:</h2>
 
 {% if products %}
-<div class="row">
-  {% for product in products %}
-  <div class="column">
-    <div class="card">
-      <a href="/product/{{ product.slug }}/">
-        <img src="{{ product.picture.url }}" />
-        </a>
-        <a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.name }}</a>
-        </br>
-        <a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">£ {{ product.price }}</a>
-      </figure>
+<hr>
+<div class="container bootstrap snippet">
+    <div class="col-sm-10">
+    <div class="row">
+        <div class="col-sm-3">
+            <ul class="list-group">
+                <li class="list-group-item text-muted">Profile</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Username</strong></span> {{ user.username }}</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Address</strong></span> {{ profile.address }}</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Phone</strong></span> {{ profile.phone }}</li>
+            </ul>
+        </div>
+        <div class="col-sm-9">
+            <div class="tab-content">
+                <div class="tab-pane active" id="home">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Product name</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody id="items">
+                                  {% for product in products %}
+                                  <tr>
+                                    <td><a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.name }}</a></td>
+                                    <td>{{ product.description }}</td>
+                                    <td>{{ product.price }}</td>
+                                  </tr>
+                                  {% endfor %}
+                            </tbody>
+                        </table>
+                        <hr>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-    {% endfor %}
 </div>
 {% else %}
 <strong>No products listed.</strong>
 {% endif %}
-
 {% endblock %}
