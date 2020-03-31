@@ -6,7 +6,7 @@ Bikezon Login
 {% endblock %}
 
 {% block body_block %}
-<script src="{% static 'js/app-js/login_button.js' %}"></script> 
+<script src="{% static 'js/app-js/login_button.js' %}"></script>
 {% for message in messages %}
 <div class="alert alert-error">
     {{ message }}
@@ -36,8 +36,9 @@ Bikezon Login
         <button type="submit" id="log-in-button" >Complete Captcha</button>
     </div>
     <div class="container" style="background-color:#f1f1f1">
-        <form action="{% url 'app:index' %}">
-            <button type="submit" class="back-button">Back</button>
+        <form>
+            <!-- <button type="submit" class="back-button">Back</button> -->
+            <a class="back-button" href="{% url 'app:index' %}">Back</a>
         </form>
         <span class="password">Forgot <a href="/password/password_reset">password?</a></span>
     </div>
