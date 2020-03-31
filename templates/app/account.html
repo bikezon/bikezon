@@ -18,7 +18,7 @@ Bikezon Account
 {% else %}
 <img src="{% static 'images/no_profile_picture.png' %}" class="prof-pic"/>
 {% endif %}
-<a href="{% url 'app:edit_profile' %}"><button >Edit my profile</button></a>
+<a class="bigtext" href="{% url 'app:edit_profile' %}"><button >Edit my profile</button></a>
 </div>
 
 {% if products %}
@@ -49,7 +49,7 @@ Bikezon Account
                             <tbody id="items">
                                   {% for product in products %}
                                   <tr>
-                                    <td><a href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.name }}</a></td>
+                                    <td><a class="bigtext" href="/product/{{ product.slug }}/" id="id_{{ product.slug }}">{{ product.name }}</a></td>
                                     <td>{{ product.description }}</td>
                                     <td>{{ product.price }}</td>
                                   </tr>

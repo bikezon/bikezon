@@ -55,7 +55,6 @@ img {
   width: 70px;
   height: 70px;
   vertical-align: middle;
-
 }
 
 body {
@@ -97,17 +96,28 @@ form {
 /* style the container */
 .container {
   padding: 8px 16px 0 16px;
-  /* position: relative; */
-  /* border-radius: 5px; */
-  /* background-color: #f2f2f2; */
-  /* padding: 20px 0 30px 0; */
-  /* padding: 16px; */
+  position: relative;
+  border-radius: 5px;
+  padding: 20px 0 30px 0;
+  padding: 16px;
 }
 
 .back-button {
   width: auto;
   padding: 10px 18px;
   background-color: #f44336;
+  text-decoration: none;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+}
+
+a.back-button:hover {
+    text-decoration: none;
+    color: white;
+    opacity: 0.8;
 }
 
 span.password {
@@ -126,27 +136,6 @@ span.password {
   }
 }
 
-
-/* ################### Inputs ################### */
-
-
-/* style inputs and link buttons */
-/* * {box-sizing: border-box} */
-
-/* input, */
-/* .btn { */
-  /* width: 100%; */
-  /* padding: 12px; */
-  /* border: none; */
-  /* border-radius: 4px; */
-  /* margin: 5px 0; */
-  /* opacity: 0.85; */
-  /* display: inline-block; */
-  /* font-size: 17px; */
-  /* line-height: 20px; */
-  /* text-decoration: none; /* remove underline from anchors */
-/* } */
-
 input[type=text], input[type=password] {
   width: 100%;
   padding: 12px 20px;
@@ -155,43 +144,6 @@ input[type=text], input[type=password] {
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
-
-/* input:hover, */
-/* .btn:hover { */
-  /* opacity: 1; */
-/* } */
-
-/* text inside the vertical line */
-/* .inner { */
-  /* position: absolute; */
-  /* top: 50%; */
-  /* transform: translate(-50%, -50%); */
-  /* background-color: #f1f1f1; */
-  /* border: 1px solid #ccc; */
-  /* border-radius: 50%; */
-  /* padding: 8px 10px; */
-/* } */
-
-/* vertical line */
-/* .vl { */
-  /* position: absolute; */
-  /* left: 50%; */
-  /* transform: translate(-50%); */
-  /* border: 2px solid #ddd; */
-  /* height: 175px; */
-/* } */
-
-/* style the submit button */
-
-/* input[type=submit] { */
-  /* background-color: orange; */
-  /* color: white; */
-  /* cursor: pointer; */
-  /* padding: 14px 20px; */
-  /* margin: 8px 0; */
-  /* border: none; */
-  /* width: 100%; */
-/* } */
 
 button {
   background-color:orange;
@@ -221,13 +173,6 @@ div.nav-button:hover {
   opacity: 0.8;
 }
 
-/* input[type=submit]:hover { */
-  /* background-color: orange; */
-/* } */
-
-
-/* Test button animation*/
-
 .edit-button {
   padding: 15px 25px;
   font-size: 24px;
@@ -248,7 +193,6 @@ div.nav-button:hover {
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
-
 
 /* Footer */
 .footer {
@@ -278,9 +222,11 @@ div.nav-button:hover {
   margin-top: 20px;
   display: flex;
 }
+
 .fixed{
   width: 300px;
 }
+
 .flex-item{
   flex-grow: 1;
 }
@@ -299,7 +245,6 @@ div.nav-button:hover {
   /* background-color: #2980B9; */
 }
 
-
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
   display: none;
@@ -317,6 +262,7 @@ div.nav-button:hover {
   text-decoration: none;
   display: block;
 }
+
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {background-color: #ddd}
 
