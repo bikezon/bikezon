@@ -1,6 +1,12 @@
-# Bikezon
+# Bikezon [![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://bikezon.pythonanywhere.com/)
 
-[![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://bikezon.pythonanywhere.com/)
+- [Info about API keys and email server](#note-on-api-keys-for-email-and-recaptcha)
+- [Set up](#getting-started)
+- [Prerequisties](#installing-dependencies-and-initialising-the-project)
+- [Deployment with docker](#using-the-provided-dockerfile)
+- [Hosting](#hosting-and-access-to-website)
+- [Running tests](#running-tests)
+- [Acknowledgements](#built-with)
 
 <https://bikezon.pythonanywhere.com/>
 
