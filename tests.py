@@ -44,10 +44,6 @@ class TestSignup(unittest.TestCase):
                              'email': 'test.user@testemail.com',
                              'password': '1234'}
 
-        # test the cancel button
-        self.driver.get("http://127.0.0.1:8000/register/")
-        self.driver.find_element_by_id('id_cancel').click()
-
         # test that it redirects back to home page
         if "http://127.0.0.1:8000/" == self.driver.current_url:
             test_logger.info("Correct redirect after registration cancel")
@@ -75,6 +71,7 @@ class TestSignup(unittest.TestCase):
 
         self.driver.find_element_by_id('id_phone_0').send_keys("981773")
         self.driver.find_element_by_id('id_phone_1').send_keys("44")
+        self.driver.find_element_by_id('id_address').send_keys("this is a test address")
         self.driver.find_element_by_id('id_submit').click()
 
         # check correct redirection
@@ -89,7 +86,7 @@ class TestSignup(unittest.TestCase):
                 username=test_user_details['username'])
             test_user_profile = UserProfile.objects.get(user=test_user)
             test_logger.info("User registered correctly")
-        except ObjectDoesNotExist:
+        except ObjectDoesNotExist as e:
             test_logger.warning("User registered incorrectly")
             self.tearDown()
             print(e)
@@ -186,7 +183,8 @@ class TestBaseRedirects(unittest.TestCase):
         self.driver.find_element_by_id('log-in-button').click()
 
         # go to test user's account to check redirect
-        self.driver.find_element_by_id('id_account').click()
+        self.driver.find_element_by_id('id_drop_down').click()
+        self.driver.find_element_by_id('id_my_account').click()
         if "http://127.0.0.1:8000/account/" == self.driver.current_url:
             test_logger.info("Correct redirect to account from base")
         else:
@@ -227,10 +225,10 @@ class TestFollowAndList(unittest.TestCase):
         self.driver.find_element_by_id('log-in-button').click()
         # go to index page
         self.driver.get("http://127.0.0.1:8000/")
-        # go to bike3 product
-        self.driver.find_element_by_id('id_bike3').click()
+        # go to handlebars1 product
+        self.driver.find_element_by_id('id_handlebars1').click()
         # check if redirected to correct page
-        if "http://127.0.0.1:8000/product/bike3/" == self.driver.current_url:
+        if "http://127.0.0.1:8000/product/handlebars1/" == self.driver.current_url:
             test_logger.info("Correct redirect to product from index")
         else:
             test_logger.warning("Wrong redirect to product from index")
@@ -250,7 +248,7 @@ class TestFollowAndList(unittest.TestCase):
             test_logger.warning("Following user test failed")
 
         # check product got added to wish list
-        product = Product.objects.get(name="bike3")
+        product = Product.objects.get(name="handlebars1")
         product_list = ProductList.objects.get(user=user_profile)
         if product in product_list.product.all():
             test_logger.info("Adding to wishlist works correctly")
@@ -258,7 +256,7 @@ class TestFollowAndList(unittest.TestCase):
             test_logger.warning("Adding to wishlist failed")
 
         # go back to product page
-        self.driver.get("http://127.0.0.1:8000/product/bike3/")
+        self.driver.get("http://127.0.0.1:8000/product/handlebars1/")
         # remove from list and unfollow user
         self.driver.find_element_by_id('id_wishlist').click()
         self.driver.find_element_by_id('id_follow').click()
@@ -299,27 +297,22 @@ class TestSellItem(unittest.TestCase):
         self.driver.find_element_by_id('id_password').send_keys('1234')
         self.driver.find_element_by_id('log-in-button').click()
 
-         # go to account
-        self.driver.get("http://127.0.0.1:8000/account/")
+        # back to homepage
+        self.driver.get("http://127.0.0.1:8000/")
 
-        # click on sell item
+        # sell item
+        self.driver.find_element_by_id('id_drop_down').click()
         self.driver.find_element_by_id('id_sell').click()
 
         # fill in form
         self.driver.find_element_by_id('id_name').send_keys('test_item')
         self.driver.find_element_by_id('id_description').send_keys(
             'This is a test item added by selenium.')
-        self.driver.find_element_by_id('id_subcategory_8').click()
+        self.driver.find_element_by_id('id_subcategory').click()
+        self.driver.find_element_by_id('id_subcategory_2').click()
         self.driver.find_element_by_id('id_price').send_keys('20')
-
-        # try to register with picture
-        try:
-            self.driver.find_element_by_id(
-                "id_picture").send_keys("test_img.png")
-        except common.exceptions.InvalidArgumentException as e:
-            pass
-        
-        self.driver.find_element_by_id('id_sell').click()
+        element = self.driver.find_elements_by_css_selector('.btn')
+        self.driver.execute_script("arguments[0].click();", element)
 
         test_item = None
         try:
@@ -382,12 +375,5 @@ if __name__ == '__main__':
     test_logger.info("Started following tests.")
     follow_tester = TestFollowAndList()
     follow_tester.run()
-    print("Ok.")
-    test_logger.info("All passed.")
-    # run user following tests
-    print("Testing selling...")
-    test_logger.info("Started selling tests.")
-    sell_tester = TestSellItem()
-    sell_tester.run()
     print("Ok.")
     test_logger.info("All passed.")

@@ -39,12 +39,12 @@
                 <a href="{% url 'app:logout' %}" class="nav-button"
                     id="id_logout">Sign out</a>
                 <div class="nav-button">
-                    <button onclick="myFunction()" class="dropbtn">My Account</button>
+                    <button onclick="myFunction()" class="dropbtn" id="id_drop_down">My Account</button>
                     <div id="myDropdown" class="dropdown-content">
-                        <a href="{% url 'app:account' %}">My Account</a>
-                        <a href="{% url 'app:list' %}">My Wishlist</a>
-                        <a href="{% url 'app:feed' %}">Go to my feed</a>
-                        <a href="{% url 'app:sell' %}">Sell an item</a>
+                        <a href="{% url 'app:account' %}" id="id_my_account">My Account</a>
+                        <a href="{% url 'app:list' %}" id="id_wish_list">My Wishlist</a>
+                        <a href="{% url 'app:feed' %}" id="id_feed">Go to my feed</a>
+                        <a href="{% url 'app:sell' %}" id="id_sell">Sell an item</a>
                     </div>
                 </div>
                 {% else %}
