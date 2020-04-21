@@ -1,5 +1,5 @@
 asgiref==3.2.7
-autopep8==1.5
+autopep8==1.5.2
 Babel==2.8.0
 beautifulsoup4==4.8.2
 certifi==2019.11.28
