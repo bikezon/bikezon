@@ -13,7 +13,7 @@ django-recaptcha==2.0.6
 phonenumbers==8.12.1
 Pillow==7.0.0
 pycodestyle==2.5.0
-pytz==2019.3
+pytz==2020.1
 selenium==3.141.0
 soupsieve==2.0
 sqlparse==0.3.1
