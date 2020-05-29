@@ -15,7 +15,7 @@ Pillow==7.1.2
 pycodestyle==2.5.0
 pytz==2020.1
 selenium==3.141.0
-soupsieve==2.0
+soupsieve==2.0.1
 sqlparse==0.3.1
 urllib3==1.25.9
 wincertstore==0.2
