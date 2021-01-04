@@ -11,7 +11,7 @@ django-phone-field==1.8.0
 django-phonenumber-field==4.0.0
 django-recaptcha==2.0.6
 phonenumbers==8.12.5
-Pillow==7.1.2
+Pillow==8.1.0
 pycodestyle==2.6.0
 pytz==2020.1
 selenium==3.141.0
