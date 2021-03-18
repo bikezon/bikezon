@@ -1,7 +1,7 @@
 asgiref==3.2.7
 autopep8==1.5.3
 Babel==2.8.0
-certifi==2020.4.5.1
+certifi==2020.12.5
 beautifulsoup4==4.9.1
 coverage==5.1
 django-bootstrap4==2.0.1
