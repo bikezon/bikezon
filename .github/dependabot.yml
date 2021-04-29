@@ -1,0 +1,54 @@
+version: 2
+updates:
+- package-ecosystem: pip
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: asgiref
+    versions:
+    - 3.3.1
+    - 3.3.2
+  - dependency-name: django-phonenumber-field
+    versions:
+    - 5.0.0
+  - dependency-name: phonenumbers
+    versions:
+    - 8.12.17
+    - 8.12.18
+    - 8.12.19
+    - 8.12.20
+  - dependency-name: django-bootstrap4
+    versions:
+    - 2.3.1
+  - dependency-name: django-crispy-forms
+    versions:
+    - 1.10.0
+    - 1.11.0
+    - 1.11.1
+  - dependency-name: pillow
+    versions:
+    - 8.1.0
+    - 8.1.1
+  - dependency-name: django
+    versions:
+    - 3.1.5
+    - 3.1.6
+  - dependency-name: coverage
+    versions:
+    - "5.4"
+  - dependency-name: urllib3
+    versions:
+    - 1.26.3
+- package-ecosystem: docker
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: python
+    versions:
+    - 3.9.1
+    - 3.9.2
+    - 3.9.3
